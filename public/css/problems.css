@@ -1,0 +1,61 @@
+.problem-tittle {
+  color: #2EC866;
+  font-family: 'Oxygen', sans-serif;
+  font-weight:bold;
+  letter-spacing: 1.5px;
+  font-size: 2em;
+  padding-bottom: 0px;
+  text-transform: capitalize;
+}
+
+.problem-sub-tittle {
+  color: #979faf;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 15px;
+  font-weight:bold;
+  padding-top: 25px;
+  padding-right: 5px;
+  padding-bottom: 15px;
+  text-transform: capitalize;
+  display: inline;
+}
+
+#subTittleDiv {
+  padding-right: 0px;
+}
+
+.problem-sub-tittle-text {
+  color: black;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 15px;
+  font-weight:bold;
+  padding-top: 25px;
+  padding-bottom: 15px;
+  padding-right: 10px;
+  text-transform: capitalize;
+  display: inline;
+}
+
+.solve-button {
+  position: relative;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight:lighter;
+  bottom: 30px;
+  background: #2ec866;
+	box-shadow: 0 3px 0 0 #2ec866;
+}
+
+.probems-categories {
+    color: black;
+    font-size: 15px;
+    font-weight:bold;
+    /*font-family: 'Source Sans Pro', sans-serif;*/
+    /*letter-spacing: 0.5px;*/
+}
+
+.nav>li>a:focus, .nav>li>a:hover{
+  background: none;
+}
+a.active, a:active, a:focus, a:hover {
+  color: orange;
+}
