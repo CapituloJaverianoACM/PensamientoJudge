@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/about', function(req, res, next) {
   //res.render('prob', { title: 'Express' });
-  res.sendFile(path + 'problems.html');
+  res.sendfile(__dirname + '/public/problems.html');
 });
 
 module.exports = router;
