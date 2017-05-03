@@ -6,17 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var config = require('./config/config');
-var User = require('./models/user')
-var jwt = require('jwt-simple');
+
+var config = require('./config');
+
 var app = express();
-
-/// cambios de johan
-app.use(morgan('dev'));
-app.use(passport.initialize());
-
-//////////////
-
 
 
 mongoose.connect(config.mongoUrl);
@@ -28,27 +21,19 @@ db.once('open', function() {
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var problems = require('./routes/problemsRoute');
-
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
+app.engine('html',require('ejs').renderFile);
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(__dirname + '/public'));
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/problems', problems);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
