@@ -1,48 +1,59 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
+var Problem = require('../models/problems');
 
 var problemRouter = express.Router();
 problemRouter.use(bodyParser.json());
 
 problemRouter.route('/')
-.all(function(req, res, next) {
-  res.writeHead(200, {
-    'Content-Type': 'text/plain'
-  });
-  next();
-})
 
 .get(function(req, res, next) {
-  res.end("Get all problems");
+  Problem.find({}, function (err, problem){
+    if (err) throw err;
+    console.log('Get Request'); // TODO - delete debug log
+    res.json(problem);
+  });
 })
 
 .post(function(req, res, next) {
-  res.end("We will add " + req.body.name);
+  Problem.create(req.body, function (err, problem) {
+    console.log(req.body);
+    if (err) throw err;
+    console.log('Problem created!');
+    var id = problem._id;
+    res.writeHead(200, { // 200 OK, added problem without errors.
+      'Content-Type': 'text/plain'
+    });
+    res.end('Added the problem with id: ' + id);
+  });
 })
 
 .delete(function(req, res, next) {
-  res.end("Delete all problems")
+  Problem.remove({}, function(err, resp) {
+    if (err) throw err;
+    res.json(resp);
+  });
 });
 
 problemRouter.route('/:problemName')
-.all(function(req, res, next) {
-  res.writeHead(200, {
-    'Content-Type': 'text/plain'
-  });
-  next();
-})
 
 .get(function(req, res, next) {
-  res.end("Send problem with name " + req.params.problemName );
+  Problem.findOne({'name' : req.params.problemName}, function(err, problem) {
+    if(err) throw err;
+    res.json(problem);
+  })
 })
 
 .put(function(req, res, next) {
+  // TODO - Make query to edit a problem
   res.end("Update problem with name " + req.params.problemName);
 })
 
 .delete(function(req, res, next) {
+  // TODO - Quety to delete.
   res.end("Delete problem with name " + req.params.problemName );
-})
+});
 
 module.exports = problemRouter;

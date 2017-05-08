@@ -7,11 +7,6 @@ var problemSchema = new Schema({
     required: true,
     unique: true
   },
-  success_rate: {
-    type: Number,
-    default: 0.0,
-    required: false
-  },
   max_score: {
     type: Number,
     default: 0.0,
@@ -19,14 +14,9 @@ var problemSchema = new Schema({
   },
   difficulty: {
     type: String,
-  required: false
-  },
-  time_limit: {
-    type: Number,
-    default: 0.0,
     required: false
   },
-  rate: {
+  time_limit: {
     type: Number,
     default: 0.0,
     required: false
@@ -40,7 +30,7 @@ var problemSchema = new Schema({
     required: false
   },
   required_knowledge: {
-    type: Number,
+    type: String,
     required: false
   }
 });
@@ -48,3 +38,26 @@ var problemSchema = new Schema({
 var Problem = mongoose.model('Problem', problemSchema);
 
 module.exports = Problem;
+
+/*
+Sample Postman
+{
+	"name": "3n+1",
+	"max_socire": 10,
+	"difficulty": "Hard",
+	"time_limit": 1.00,
+	"theme": "Recursion",
+	"corte": 1,
+	"required_knowledge": "Basic"
+}
+
+{
+	"name": "Cacho",
+	"max_socire": 21,
+	"difficulty": "Medium",
+	"time_limit": 1.00,
+	"theme": "Loops",
+	"corte": 1,
+	"required_knowledge": "For loop"
+}
+*/
