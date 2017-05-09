@@ -1,6 +1,37 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var descriptionSchema = new Schema({
+  statement: {
+    type: String,
+    required: false
+  },
+  sample_input: {
+    type: String,
+    required: false
+  },
+  sample_output: {
+    type: String,
+    required: false
+  },
+  explanation: {
+    type: String,
+    required: false
+  },
+  notes: {
+    type: String,
+    required: false
+  },
+  route_test_input: {
+    type: String,
+    required: false
+  },
+  route_test_output: {
+    type: String,
+    required: false
+  },
+});
+
 var problemSchema = new Schema({
   name: {
     type: String,
@@ -32,7 +63,8 @@ var problemSchema = new Schema({
   required_knowledge: {
     type: String,
     required: false
-  }
+  },
+  description: descriptionSchema
 });
 
 var Problem = mongoose.model('Problem', problemSchema);

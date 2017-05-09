@@ -43,17 +43,26 @@ problemRouter.route('/:problemName')
   Problem.findOne({'name' : req.params.problemName}, function(err, problem) {
     if(err) throw err;
     res.json(problem);
-  })
+  });
 })
 
 .put(function(req, res, next) {
-  // TODO - Make query to edit a problem
-  res.end("Update problem with name " + req.params.problemName);
+  Problem.findOneAndUpdate({'name' : req.params.problemName}, {
+    $set: req.body
+  }, {
+    new: true
+  }, function(err, problem) {
+    if(err) throw err;
+    res.json(problem);
+  });
 })
 
 .delete(function(req, res, next) {
   // TODO - Quety to delete.
-  res.end("Delete problem with name " + req.params.problemName );
+  Problem.findOneAndRemove({'name' : req.params.problemName}, function (err, resp) {
+    if (err) throw err;
+    res.json(resp);
+  });
 });
 
 module.exports = problemRouter;
