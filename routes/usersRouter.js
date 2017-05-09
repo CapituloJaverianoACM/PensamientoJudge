@@ -3,6 +3,8 @@ var router = express.Router();
 var passport = require('passport');
 var User = require('../models/user');
 var Verify = require('./verifyRouter');
+var validator = require('validator');
+var async = require("async");
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -23,7 +25,42 @@ router.post('/signup',function(req,res){
     });
 });
 
-router.post('/login',function(req,res,next){
+function findByEmail(email)
+{
+  var query = User.find({'email':email});
+  query.exec(function(err,user){
+    if(err)
+    {
+      return false;
+    }
+    if(user)
+    {
+      console.log(user);
+      return user;
+    }
+  });
+}
+
+function changeEmail()
+{
+  return function(req,res,next)
+  {
+    User.findOne({ 'email' : req.body.username }, function(err, user) {
+      if (err) { return next(err); }
+
+
+
+      if (user) {
+        req.body.username = user.username;
+      }
+
+      // Hand over control to passport
+      next();
+    });
+  }
+}
+
+router.post('/login',changeEmail(),function(req,res,next){
   passport.authenticate('local',function(err,user,info){
     if(err){
       return next(err);
