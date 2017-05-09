@@ -96,9 +96,8 @@ router.post('/login',changeEmail(),function(req,res,next){
 });
 
 router.get('/logout',function(req,res){
-  console.log(req);
   req.logOut();
-  res.status(200),json({
+  res.status(200).json({
     status: 'Bye!'
   });
 });
