@@ -6,12 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var cors = require('cors');
 
 var config = require('./config');
 
 var app = express();
 
-
+mongoose.Promise = global.Promise;
 mongoose.connect(config.mongoUrl);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -19,21 +21,33 @@ db.once('open', function() {
   console.log("Connected correctly to server");
 });
 
+// Require Routes
 var index = require('./routes/index');
-var users = require('./routes/users');
+var users = require('./routes/usersRouter');
+var problemRouter = require('./routes/problemRouter');
 
 // view engine setup
 app.set('view engine', 'ejs');
 app.engine('html',require('ejs').renderFile);
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// passport config
+var User = require('./models/user');
+app.use(passport.initialize());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// Use Routes
 app.use('/', index);
-app.use('/users', users);
+app.use('/usersAPI', users);
+app.use('/problemAPI', problemRouter); // TODO - Always add API at the end to not confuse with Angular's routes.
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -50,7 +64,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({
+      message: err.message,
+      error: err
+    });
 });
 
 module.exports = app;
