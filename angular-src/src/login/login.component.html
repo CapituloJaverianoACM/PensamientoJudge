@@ -1,0 +1,18 @@
+<div class="container col-md-4 col-md-offset-4">
+
+  <h1> Log in </h1>
+  <form #loginForm = "ngForm">
+    <div class="form-group">
+      <label for="username">Usename or email</label>
+      <input #i1 type="text" class="form-control" id="username" required  name = "username">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input #i2 type="password" class="form-control" id="password" required>
+
+    </div>
+    <button type="submit" class="btn btn-success" (click) = "login(i1.value,i2.value)">submit</button>
+    <p>{{un}} {{pas}}</p>
+  </form>
+
+</div>
