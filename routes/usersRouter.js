@@ -17,10 +17,16 @@ router.post('/signup',function(req,res){
     req.body.password, function(err,user)  {
       if(err)
       {
-        return res.status(500).json({err:err});
+        return res.status(210).json({
+          err:err,
+          success: false
+        });
       }
       passport.authenticate('local')(req,res,function(){
-        return res.status(200).json({status:'Registration succesful!'});
+        return res.status(200).json({
+          success: true,
+          status:'Registration succesful!'
+        });
       });
     });
 });
@@ -66,7 +72,9 @@ router.post('/login',changeEmail(),function(req,res,next){
       return next(err);
     }
     if(!user){
-      return res.status(401).json({
+      // return res.status(401).json({
+      return res.status(201).json({
+        success: false,
         err: info
       });
     }
@@ -80,15 +88,17 @@ router.post('/login',changeEmail(),function(req,res,next){
       if(user.admin === true){
         res.status(200).json({
           status: 'Login succesful as Admin!',
-          succes: true,
-          token: token
+          success: true,
+          token: token,
+          user: user
         });
       }
       else{
         res.status(200).json({
           status: 'Login succesful!',
-          succes: true,
-          token: token
+          success: true,
+          token: token,
+          user: user
         });
       }
     });
@@ -99,6 +109,19 @@ router.get('/logout',function(req,res){
   req.logOut();
   res.status(200).json({
     status: 'Bye!'
+  });
+});
+router.get('/profile',Verify.verifyOrdinaryUser,function(req,res,next){
+  // console.log(req.decoded._doc.username);
+  username = req.decoded._doc.username;
+  User.findOne({'username':username},function(err,user){
+    if (err) { return next(err); }
+
+    if(user) {
+      res.json({
+        user:user
+      });
+    }
   });
 });
 
