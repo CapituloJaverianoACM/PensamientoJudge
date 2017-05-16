@@ -5,6 +5,8 @@ var shell = require('shelljs');
 var Verify = require('./verifyRouter');
 var Submission = require('../models/submission');
 var CounterSubmission = require('../models/counterSubmission');
+var Problem = require('../models/problems');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 /// path submission source_code
 var pathSource = './submissions-src/';
@@ -44,19 +46,34 @@ function getNextSequenceValue(sequenceName){
  }
 }
 
+function getProblem() {
+  return function( req, res , next ){
+
+    Problem.findOne({'_id' : new ObjectId(req.body.problemId)}, function(err, problem) {
+      if(err) throw err;
+      // console.log(problem+' jkljkl');
+      req.body.problem = problem;
+      next();
+    });
+  }
+}
+
 function judge( ){
   return function( req , res , next ){
     var submission = req.body;
     var pathSourceComplete = pathSource + submission._id + '.cpp';
     var pathExeComplete = pathExe + submission._id;
     var file = shell.exec('echo ' + submission.source_code + ' > ' + pathSourceComplete );
-    var time = 1;
-    if( file.code == 0  )
+    var time = submission.problem.time_limit;
+    if( file.code == 0  && time )
     {
-      var pathTestInput = './testCases/testInput/';
-      var pathTestOutut = './testCases/testOutput/';
+      // console.log(submission.problem);
+      req.body.source_code = pathSourceComplete;
+      var pathTestInput = submission.problem.description.route_test_input;
+      var pathTestOutut = submission.problem.description.route_test_output;
       var input = shell.exec('if [ ! \"$(ls -A '+pathTestInput+')\" ];then exit 101; fi');
       var output = shell.exec('if [ ! \"$(ls -A '+pathTestOutut+')\" ];then exit 102; fi');
+      // console.log(pathTestInput + ' ' + pathTestOutut + ' ' + time);
       if( input.code == 101 )
       {
           console.log('The input folder is empty.');
@@ -115,6 +132,7 @@ function judge( ){
               req.body.veredict = 'Accepted';
             }
             // console.log(run);
+            shell.exec('rm '+pathExeComplete);
         }
         else
         {
@@ -127,7 +145,7 @@ function judge( ){
   }
 }
 
-router.post('/submit' ,getNextSequenceValue('submissionid'), judge( ) , function(req,res,next){
+router.post('/submit' ,getNextSequenceValue('submissionid'), getProblem(),judge( ) , function(req,res,next){
   // console.log(req.body);
   Submission.create(req.body,function(err,submission){
     if(err) return next( err);
