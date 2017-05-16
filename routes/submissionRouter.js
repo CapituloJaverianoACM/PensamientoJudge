@@ -63,7 +63,8 @@ function judge( ){
     var submission = req.body;
     var pathSourceComplete = pathSource + submission._id + '.cpp';
     var pathExeComplete = pathExe + submission._id;
-    var file = shell.exec('echo ' + submission.source_code + ' > ' + pathSourceComplete );
+    // console.log(submission.source_code);
+    var file = shell.exec('echo \"' + submission.source_code + '\" > ' + pathSourceComplete );
     var time = submission.problem.time_limit;
     if( file.code == 0  && time )
     {
@@ -150,6 +151,7 @@ router.post('/submit' ,getNextSequenceValue('submissionid'), getProblem(),judge(
   Submission.create(req.body,function(err,submission){
     if(err) return next( err);
     res.json({
+      success : true,
       submission: submission
     });
   });

@@ -20,12 +20,20 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
+import { ProblemComponent } from './components/problem/problem.component';
+import { TabComponent } from './components/tab/tab.component';
+import { TabsComponent } from './components/tabs/tabs.component';
+import { DescriptionComponent } from './components/description/description.component';
+import { SubmissionsComponent } from './components/submissions/submissions.component';
+import { EndPointService } from './services/end-point.service';
+import { ProblemService } from './services/problem.service';
 
 const appRoutes: Routes =[
     {path : '' , component : HomeComponent },
     {path : 'login' , component : LoginComponent },
     {path : 'signup' , component : SignupComponent },
-    {path : 'profile' , component : ProfileComponent , canActivate: [AuthGuard] }
+    {path : 'profile' , component : ProfileComponent , canActivate: [AuthGuard]},
+    {path : 'problem/:name', component : ProblemComponent }
 ];
 
 @NgModule({
@@ -35,7 +43,12 @@ const appRoutes: Routes =[
     HomeComponent,
     NavbarComponent,
     SignupComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProblemComponent,
+    TabComponent,
+    TabsComponent,
+    DescriptionComponent,
+    SubmissionsComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +60,9 @@ const appRoutes: Routes =[
   providers: [
     ValidateService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    EndPointService,
+    ProblemService
   ],
   bootstrap: [AppComponent]
 

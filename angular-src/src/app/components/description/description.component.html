@@ -1,0 +1,14 @@
+<div *ngIf="problem">
+
+  <h1>Problem {{nameProblem}}</h1>
+  <p>{{problem.description.statement}}</p>
+  <h2>Sample input</h2>
+  <p>{{problem.description.sample_input}}</p>
+  <h2>Sample output</h2>
+  <p>{{problem.description.sample_output}}</p>
+  <form #submissionForm = "ngForm" (submit) = "onSubmissionSubmit()">
+    <label for="Code">Insert the code</label>
+    <input type="text" name="code" [(ngModel)]="code" value="input here the code">
+    <button type="submit" class="btn btn-success" >submit</button>
+  </form>
+</div>
