@@ -1,8 +1,10 @@
-import { Component, OnInit , Input } from '@angular/core';
+import { Component, OnInit , Input , ViewChild , ElementRef } from '@angular/core';
 import { ProblemService } from '../../services/problem.service';
 import { AuthService } from '../../services/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
+
+declare var CodeMirror: any;
 
 @Component({
   selector: 'app-description',
@@ -10,16 +12,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./description.component.css']
 })
 export class DescriptionComponent implements OnInit {
+  @ViewChild('EditorCode') el:ElementRef;
+  @ViewChild('hi') eel:ElementRef;
   @Input() nameProblem;
   problem : any;
-  code : string;
   user: any;
+  // dir : string;
+  editor : any;
   constructor(
     private problemService : ProblemService,
     private authService : AuthService,
     private flashMesssagesService : FlashMessagesService,
     private router : Router
-  ) {  }
+  ) {
+    // this.dir = '../../../assets/CodeMirror/';
+  }
+  ngAfterViewInit() {
+    // console.log(document.getElementById('codeeditor'));
+     this.editor = CodeMirror(document.getElementById("codeeditor"));
+    // console.log(document.getElementById('codeeditor'));
+    // console.log(this.editor+'fdsa');
+  }
 
   ngOnInit() {
     this.problemService.getProblem(this.nameProblem).subscribe(query =>{
@@ -43,12 +56,34 @@ export class DescriptionComponent implements OnInit {
     });
   }
 
+  onClick(event){
+    this.onSubmissionSubmit();
+  }
+
+  convertString( code ){
+    var res : string ;
+    res = "";
+    for( var c in code )
+    {
+      if( code[c] == '\"' )
+        res += "\\\"";
+      else if( code[ c ] == '\\' )
+        res += "\\\\";
+      else
+        res += ""+code[c];
+    }
+    return res;
+  }
+
   onSubmissionSubmit(){
     const submission = {
-      source_code : this.code,
+      source_code : this.convertString(this.editor.getValue()),
       userId : this.user._id,
       problemId : this.problem._id
     };
+    // console.log(submission.source_code);
+    // console.log(this.editor+' fin');
+    // console.log(this.editor.getValue());
     if( !submission.userId ){
       this.flashMesssagesService.show("Please log in",{
         cssClass : 'alert-danger',

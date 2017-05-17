@@ -1,3 +1,6 @@
-<p>
-  submissions works!
-</p>
+<h1>{{nameProblem}}</h1>
+<ul>
+  <li *ngFor="let submission of submissions">
+    {{ submission._id }}
+  </li>
+</ul>

@@ -26,7 +26,14 @@ router.post('/init',function(req,res,next){
 
 function getNextSequenceValue(sequenceName){
   return function(req,res,next){
-
+    if( req.decoded._doc._id != req.body.userId ){
+      console.log("The id is diferent");
+      var err ;
+      err.json({
+        message : "The id is diferent"
+      });
+      throw err;
+    }
    CounterSubmission.findOneAndUpdate(
     {"_id": "submissionid" },
     {$inc:{"sequence_value":1}},
@@ -57,6 +64,17 @@ function getProblem() {
     });
   }
 }
+function getProblemName() {
+  return function( req, res , next ){
+
+    Problem.findOne({'name' : req.params.problemName}, function(err, problem) {
+      if(err) throw err;
+      // console.log(problem+' jkljkl');
+      req.body.problem = problem;
+      next();
+    });
+  }
+}
 
 function judge( ){
   return function( req , res , next ){
@@ -64,7 +82,9 @@ function judge( ){
     var pathSourceComplete = pathSource + submission._id + '.cpp';
     var pathExeComplete = pathExe + submission._id;
     // console.log(submission.source_code);
-    var file = shell.exec('echo \"' + submission.source_code + '\" > ' + pathSourceComplete );
+    // var file = shell.exec('echo \"' + submission.source_code + '\" > ' + pathSourceComplete );
+    // if you use printf the string is ok , if use echo the final file is wrong
+    var file = shell.exec('printf "%s" \"' + submission.source_code + '\" > ' + pathSourceComplete );
     var time = submission.problem.time_limit;
     if( file.code == 0  && time )
     {
@@ -146,7 +166,7 @@ function judge( ){
   }
 }
 
-router.post('/submit' ,getNextSequenceValue('submissionid'), getProblem(),judge( ) , function(req,res,next){
+router.post('/submit' ,Verify.verifyOrdinaryUser,getNextSequenceValue('submissionid'), getProblem(),judge( ) , function(req,res,next){
   // console.log(req.body);
   Submission.create(req.body,function(err,submission){
     if(err) return next( err);
@@ -157,4 +177,19 @@ router.post('/submit' ,getNextSequenceValue('submissionid'), getProblem(),judge(
   });
 });
 
+
+router.get('/',function(req,res,next) {
+  Submission.find({},function(err,submissions){
+    if(err) throw err;
+    res.json(submissions);
+  });
+});
+
+router.get('/:problemName',Verify.verifyOrdinaryUser,getProblemName(),function(req,res,next){
+  Submission.find({"userId":req.decoded._doc._id },
+    function(err,submissions){
+      if(err)next(err);
+      res.json(submissions);
+    });
+});
 module.exports = router;

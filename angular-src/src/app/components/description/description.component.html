@@ -6,9 +6,13 @@
   <p>{{problem.description.sample_input}}</p>
   <h2>Sample output</h2>
   <p>{{problem.description.sample_output}}</p>
-  <form #submissionForm = "ngForm" (submit) = "onSubmissionSubmit()">
-    <label for="Code">Insert the code</label>
-    <input type="text" name="code" [(ngModel)]="code" value="input here the code">
-    <button type="submit" class="btn btn-success" >submit</button>
-  </form>
 </div>
+  <!-- CodeMirror -->
+  <p >------------------------------------</p>
+  <div  id="codeeditor" #EditorCode ></div>
+  <!-- <script >
+    var myCodeMirror = CodeMirror(document.getElementById("codeeditor"));
+  </script> -->
+  <button type="button" class="btn btn-success" (click)="onClick($event)">sut</button>
+  <p>------------------------------------</p>
+  <!-- CodeMirror -->
