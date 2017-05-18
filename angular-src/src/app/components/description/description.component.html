@@ -8,11 +8,17 @@
   <p>{{problem.description.sample_output}}</p>
 </div>
   <!-- CodeMirror -->
-  <p >------------------------------------</p>
+
+  <div>
+
   <div  id="codeeditor" #EditorCode ></div>
+  <select [(ngModel)] = "selection" (change)="selectionChange()">
+        <option [value]="theme" *ngFor="let theme of themes" >{{theme}}</option>
+  </select>
+
   <!-- <script >
     var myCodeMirror = CodeMirror(document.getElementById("codeeditor"));
   </script> -->
-  <button type="button" class="btn btn-success" (click)="onClick($event)">sut</button>
-  <p>------------------------------------</p>
+</div>
+  <button type="button" class="btn btn-success" (click)="onClick($event)">Submit Code</button>
   <!-- CodeMirror -->

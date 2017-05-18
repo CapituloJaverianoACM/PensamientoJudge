@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule , Routes } from '@angular/router'
 
 import { FlashMessagesModule } from 'angular2-flash-messages'
-
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 // Imports for loading & configuring the in-memory web api
 
 
@@ -33,7 +33,7 @@ const appRoutes: Routes =[
     {path : 'login' , component : LoginComponent },
     {path : 'signup' , component : SignupComponent },
     {path : 'profile' , component : ProfileComponent , canActivate: [AuthGuard]},
-    {path : 'problem/:name', component : ProblemComponent }
+    {path : 'problem/:name', component : ProblemComponent , canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -55,7 +55,8 @@ const appRoutes: Routes =[
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    FlashMessagesModule
+    FlashMessagesModule,
+    Ng2SmartTableModule
   ],
   providers: [
     ValidateService,

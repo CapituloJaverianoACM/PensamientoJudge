@@ -19,6 +19,56 @@ export class DescriptionComponent implements OnInit {
   user: any;
   // dir : string;
   editor : any;
+  themes = ["default",
+  "3024-day",
+  "3024-night",
+  "abcdef",
+  "ambiance",
+  "base16-dark",
+  "base16-light",
+  "bespin",
+  "blackboard",
+  "cobalt",
+  "colorforth",
+  "dracula",
+  "duotone-dark",
+  "duotone-light",
+  "eclipse",
+  "elegant",
+  "erlang-dark",
+  "hopscotch",
+  "icecoder",
+  "isotope",
+  "lesser-dark",
+  "liquibyte",
+  "material",
+  "mbo",
+  "mdn-like",
+  "midnight",
+  "monokai",
+  "neat",
+  "neo",
+  "night",
+  "panda-syntax",
+  "paraiso-dark",
+  "paraiso-light",
+  "pastel-on-dark",
+  "railscasts",
+  "rubyblue",
+  "seti",
+  "solarized dark",
+  "solarized light",
+  "the-matrix",
+  "tomorrow-night-bright",
+  "tomorrow-night-eighties",
+  "ttcn",
+  "twilight",
+  "vibrant-ink",
+  "xq-dark",
+  "xq-light",
+  "yeti",
+  "zenburn"];
+  selection  = this.themes[0];
   constructor(
     private problemService : ProblemService,
     private authService : AuthService,
@@ -29,7 +79,27 @@ export class DescriptionComponent implements OnInit {
   }
   ngAfterViewInit() {
     // console.log(document.getElementById('codeeditor'));
-     this.editor = CodeMirror(document.getElementById("codeeditor"));
+    var value = "// The bindings defined specifically in the Sublime Text mode\nvar bindings = {\n";
+    var map = CodeMirror.keyMap.sublime;
+    for (var key in map) {
+      var val = map[key];
+      if (key != "fallthrough" && val != "..." && (!/find/.test(val) || /findUnder/.test(val)))
+        value += "  \"" + key + "\": \"" + val + "\",\n";
+    }
+    value += "}\n\n// The implementation of joinLines\n";
+    value += CodeMirror.commands.joinLines.toString().replace(/^function\s*\(/, "function joinLines(").replace(/\n  /g, "\n") + "\n";
+
+     this.editor = CodeMirror(document.getElementById("codeeditor"),{
+       value : '#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n	return 0;\n}',
+      // value : value,
+       lineNumbers: true,
+       matchBrackets: true,
+       autoCloseBrackets: true,
+       showCursorWhenSelecting: true,
+       mode: "text/x-c++src",
+       keyMap: "sublime"
+      //  extraKeys: {"Ctrl-Space": "autocomplete"}
+     });
     // console.log(document.getElementById('codeeditor'));
     // console.log(this.editor+'fdsa');
   }
@@ -113,5 +183,9 @@ export class DescriptionComponent implements OnInit {
 
       }
     });
+  }
+  selectionChange(){
+    this.editor.setOption("theme", this.selection);
+    location.hash = "#" + this.selection;
   }
 }
