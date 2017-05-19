@@ -1,33 +1,38 @@
-<div class="container col-md-4 col-md-offset-4">
+<section>
+  <div class="container">
 
-  <h1> Sign up </h1>
-  <form #loginForm = "ngForm" (submit) = "onSignUpSubmit()">
-    <div class="form-group">
-      <label for="first_name">First Name</label>
-      <input  type="text" [(ngModel)] = "first_name" name = "first_name" class="form-control" id="first_name" required >
-    </div>
-    <div class="form-group">
-      <label for="last_name">Last Name</label>
-      <input  type="text" [(ngModel)] = "last_name" name = "last_name" class="form-control" id="last_name" required >
-    </div>
-    <div class="form-group">
-      <label for="username">Usename</label>
-      <input  type="text" [(ngModel)] = "username" name = "username" class="form-control" id="username" required >
-    </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input  type="text" [(ngModel)] = "email" name = "email" class="form-control" id="email" required >
-    </div>
-    <div class="form-group">
-      <label for="career">Career</label>
-      <input  type="text" [(ngModel)] = "career" name = "career" class="form-control" id="career" required >
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input  type="password" [(ngModel)] = "password" name = "password" class="form-control" id="password" required>
+    <div class="container col-md-4 col-md-offset-4">
+
+      <h1> Sign up </h1>
+      <form #loginForm = "ngForm" (submit) = "onSignUpSubmit()">
+        <div class="form-group">
+          <label for="first_name">First Name</label>
+          <input  type="text" [(ngModel)] = "first_name" name = "first_name" class="form-control" id="first_name" required >
+        </div>
+        <div class="form-group">
+          <label for="last_name">Last Name</label>
+          <input  type="text" [(ngModel)] = "last_name" name = "last_name" class="form-control" id="last_name" required >
+        </div>
+        <div class="form-group">
+          <label for="username">Usename</label>
+          <input  type="text" [(ngModel)] = "username" name = "username" class="form-control" id="username" required >
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input  type="text" [(ngModel)] = "email" name = "email" class="form-control" id="email" required >
+        </div>
+        <div class="form-group">
+          <label for="career">Career</label>
+          <input  type="text" [(ngModel)] = "career" name = "career" class="form-control" id="career" required >
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input  type="password" [(ngModel)] = "password" name = "password" class="form-control" id="password" required>
+
+        </div>
+        <button type="submit" class="btn btn-success" >submit</button>
+      </form>
 
     </div>
-    <button type="submit" class="btn btn-success" >submit</button>
-  </form>
-
-</div>
+  </div>
+</section>

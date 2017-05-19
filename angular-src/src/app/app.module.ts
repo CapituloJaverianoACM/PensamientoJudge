@@ -27,6 +27,7 @@ import { DescriptionComponent } from './components/description/description.compo
 import { SubmissionsComponent } from './components/submissions/submissions.component';
 import { EndPointService } from './services/end-point.service';
 import { ProblemService } from './services/problem.service';
+import { FooterComponent } from './components/footer/footer.component';
 
 const appRoutes: Routes =[
     {path : '' , component : HomeComponent },
@@ -48,7 +49,8 @@ const appRoutes: Routes =[
     TabComponent,
     TabsComponent,
     DescriptionComponent,
-    SubmissionsComponent
+    SubmissionsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
