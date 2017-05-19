@@ -25,6 +25,7 @@ db.once('open', function() {
 var index = require('./routes/index');
 var users = require('./routes/usersRouter');
 var problemRouter = require('./routes/problemRouter');
+var submission = require('./routes/submissionRouter');
 
 // view engine setup
 app.set('view engine', 'ejs');
@@ -47,7 +48,9 @@ passport.deserializeUser(User.deserializeUser());
 // Use Routes
 app.use('/', index);
 app.use('/usersAPI', users);
+app.use('/submissionAPI',submission);
 app.use('/problemAPI', problemRouter); // TODO - Always add API at the end to not confuse with Angular's routes.
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
