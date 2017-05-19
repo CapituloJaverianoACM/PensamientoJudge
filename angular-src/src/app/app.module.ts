@@ -28,6 +28,7 @@ import { SubmissionsComponent } from './components/submissions/submissions.compo
 import { EndPointService } from './services/end-point.service';
 import { ProblemService } from './services/problem.service';
 import { SubmissionPageComponent } from './components/submission-page/submission-page.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 const appRoutes: Routes =[
     {path : '' , component : HomeComponent },
@@ -51,7 +52,8 @@ const appRoutes: Routes =[
     TabsComponent,
     DescriptionComponent,
     SubmissionsComponent,
-    SubmissionPageComponent
+    SubmissionPageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
