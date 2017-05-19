@@ -179,10 +179,61 @@ router.post('/submit' ,Verify.verifyOrdinaryUser,getNextSequenceValue('submissio
 
 
 router.get('/',function(req,res,next) {
-  Submission.find({},function(err,submissions){
+  // Submission.find({},function(err,submissions){
+  //   if(err) throw err;
+  //   res.json(submissions);
+  // });
+  Submission.aggregate([
+    {
+      $lookup:{
+        from:"problems",
+        localField:"problemId",
+        foreignField:"_id",
+        as:"problem"
+      }
+    },
+    {
+      $lookup:{
+        from:"users",
+        localField:"userId",
+        foreignField:"_id",
+        as:"user"
+      }
+    }
+  ],function(err,submissions){
     if(err) throw err;
     res.json(submissions);
   });
+});
+
+router.get('/user/:userName',function(req,res,next){
+  Submission.aggregate([
+    {
+      $lookup:{
+        from:"problems",
+        localField:"problemId",
+        foreignField:"_id",
+        as:"problem"
+      }
+    },
+    {
+      $lookup:{
+        from:"users",
+        localField:"userId",
+        foreignField:"_id",
+        as:"user"
+      }
+    },
+    {
+      $match :{
+        'user.username' : req.params.userName
+      }
+    }
+  ],function(err,submissions){
+    if(err) throw err;
+    res.json(submissions);
+  });
+
 });
 
 router.get('/:problemName',Verify.verifyOrdinaryUser,getProblemName(),function(req,res,next){

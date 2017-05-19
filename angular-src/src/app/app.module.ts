@@ -27,13 +27,15 @@ import { DescriptionComponent } from './components/description/description.compo
 import { SubmissionsComponent } from './components/submissions/submissions.component';
 import { EndPointService } from './services/end-point.service';
 import { ProblemService } from './services/problem.service';
+import { SubmissionPageComponent } from './components/submission-page/submission-page.component';
 
 const appRoutes: Routes =[
     {path : '' , component : HomeComponent },
     {path : 'login' , component : LoginComponent },
     {path : 'signup' , component : SignupComponent },
     {path : 'profile' , component : ProfileComponent , canActivate: [AuthGuard]},
-    {path : 'problem/:name', component : ProblemComponent , canActivate: [AuthGuard] }
+    {path : 'problem/:name', component : ProblemComponent , canActivate: [AuthGuard] },
+    {path : 'submissions', component : SubmissionPageComponent , canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -48,7 +50,8 @@ const appRoutes: Routes =[
     TabComponent,
     TabsComponent,
     DescriptionComponent,
-    SubmissionsComponent
+    SubmissionsComponent,
+    SubmissionPageComponent
   ],
   imports: [
     BrowserModule,

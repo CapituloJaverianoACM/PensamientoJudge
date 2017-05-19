@@ -39,6 +39,17 @@ export class ProblemService {
     let ep = this.endPoint.prepEndPoint('submissionAPI/'+problemName );
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
+  }
+  getAllSubmissionsUser(){
+    this.authService.loadToken();
+    this.authService.loadUser();
+    // console.log(this.authService.user);
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
+    let ep = this.endPoint.prepEndPoint('submissionAPI/user/'+this.authService.user.username );
+    return this.http.get(ep,{headers:headers})
+      .map( res => res.json() );
 
   }
 }
