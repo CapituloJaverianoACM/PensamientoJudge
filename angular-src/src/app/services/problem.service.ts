@@ -14,6 +14,14 @@ export class ProblemService {
     private authService : AuthService
   ) { }
 
+  getAllProblems(){
+    let headers = new Headers();
+    headers.append('Contet-Type','application/json');
+    let ep = this.endPoint.prepEndPoint('problemAPI/');
+    return this.http.get(ep,{headers:headers})
+      .map( res => res.json() );
+  }
+
   getProblem( name ){
     let headers = new Headers();
     headers.append('Contet-Type','application/json');
