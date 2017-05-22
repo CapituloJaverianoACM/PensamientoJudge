@@ -1,0 +1,46 @@
+<section id="portfolio">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-2">
+            <h4>Parciales</h4>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link probems-categories active" href="#">Todos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link probems-categories" href="#">Primer Corte</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link probems-categories" href="#">Segundo Corte</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link probems-categories" href="#">Tercer Corte</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-10">
+            <h4>Set de Problemas</h4>
+            <!-- Start Problem Paner-->
+            <div *ngFor="let problem of problems" class="panel panel-default">
+              <div class="panel-body problem-tittle"> {{problem.name}} </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <p class="problem-sub-tittle">Success Rate:</p>
+                    <p class="problem-sub-tittle-text">Non</p>
+                    <p class="problem-sub-tittle">Max Score:</p>
+                    <p class="problem-sub-tittle-text">{{problem.max_score}}</p>
+                    <p class="problem-sub-tittle">Difficulty:</p>
+                    <p class="problem-sub-tittle-text">{{problem.difficulty}}</p>
+                  </div>
+                  <div class="col-md-6">
+                    <button (click)="solveProblemOnClick(problem.name)" type="button" class="btn btn-success btn-lg pull-right solve-button">Solve Challenge</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Problem Paner-->
+          </div>
+        </div>
+    </div>
+</section>

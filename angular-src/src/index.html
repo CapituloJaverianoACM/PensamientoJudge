@@ -2,16 +2,91 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
   <title>AngularSrc</title>
   <base href="/">
   <!-- mirar -->
-  <link rel="stylesheet"
-      href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+  <!-- CodeMirror -->
+  <script src="assets/CodeMirror/lib/codemirror.js"></script>
+  <link rel="stylesheet" href="assets/CodeMirror/lib/codemirror.css">
+  <script src="assets/CodeMirror/mode/javascript/javascript.js"></script>
+  <script src="assets/CodeMirror/mode/clike/clike.js"></script>
+  <script src="assets/CodeMirror/addon/hint/show-hint.js"></script>
+  <script src="assets/CodeMirror/addon/hint/anyword-hint.js"></script>
+  <script src="assets/CodeMirror/keymap/sublime.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">  <link rel="stylesheet" href="assets/CodeMirror/addon/hint/show-hint.css">
+  <!-- themes -->
+  <link rel="stylesheet" href="assets/CodeMirror/theme/3024-day.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/3024-night.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/abcdef.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/ambiance.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/base16-dark.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/bespin.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/base16-light.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/blackboard.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/cobalt.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/colorforth.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/dracula.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/duotone-dark.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/duotone-light.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/eclipse.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/elegant.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/erlang-dark.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/hopscotch.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/icecoder.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/isotope.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/lesser-dark.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/liquibyte.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/material.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/mbo.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/mdn-like.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/midnight.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/monokai.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/neat.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/neo.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/night.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/panda-syntax.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/paraiso-dark.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/paraiso-light.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/pastel-on-dark.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/railscasts.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/rubyblue.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/seti.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/solarized.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/the-matrix.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/tomorrow-night-bright.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/tomorrow-night-eighties.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/ttcn.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/twilight.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/vibrant-ink.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/xq-dark.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/xq-light.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/yeti.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/zenburn.css">
+    <!-- themes -->
+  <!-- CodeMirror -->
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Custom Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Poppins|Source+Sans+Pro" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+  <!-- test -->
   <app-root>Loading...</app-root>
 </body>
 </html>

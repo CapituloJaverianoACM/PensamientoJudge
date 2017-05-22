@@ -92,4 +92,23 @@ Sample Postman
 	"corte": 1,
 	"required_knowledge": "For loop"
 }
+{
+	"name": "3n+1",
+	"max_socore": 21,
+	"difficulty": "Easy",
+	"time_limit": 1.00,
+	"theme": "Easy",
+	"corte": 1,
+	"required_knowledge": "For loop",
+  "description" : {
+    "statement" : "3n+1",
+    "sample_input" : "1",
+    "sample_output": "2",
+    "explanation" : "3n+1",
+    "notes":"nothing",
+    "route_test_input" : "./testCases/testInput/3n+1",
+    "route_test_output" : "./testCases/testOutput/3n+1";
+
+  }
+}
 */

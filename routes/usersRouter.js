@@ -8,7 +8,10 @@ var async = require("async");
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  User.find({},function(err,users){
+    if(err) throw err;
+    res.json(users);
+  });
 });
 
 router.post('/signup',function(req,res){

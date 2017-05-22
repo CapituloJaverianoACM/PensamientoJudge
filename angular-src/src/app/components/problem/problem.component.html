@@ -1,0 +1,10 @@
+<div class="container">  
+  <app-tabs (selected)="onUpdate($event.selectedTab)">
+    <app-tab tabTitle = "Description">
+      <app-description nameProblem={{name}}></app-description>
+    </app-tab>
+    <app-tab tabTitle = "Submissions">
+      <app-submissions nameProblem={{name}} update={{update}}></app-submissions>
+    </app-tab>
+  </app-tabs>
+</div>

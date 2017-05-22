@@ -1,0 +1,9 @@
+<!-- <p>
+  tabs works!
+</p> -->
+<ul class="nav nav-pills nav-justified">
+  <li *ngFor="let tab of tabs">
+    <a  (click)="selectTab(tab)">{{tab.tabTitle}}</a>
+  </li>
+</ul>
+<ng-content></ng-content>
