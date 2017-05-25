@@ -12,4 +12,29 @@
   <li *ngFor="let submission of submissions">
 
   </li> -->
-<ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
+<!-- <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table> -->
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Date</th>
+      <th>Veredict</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr *ngFor='let item of pageArr'>
+      <th>{{item.id}}</th>
+      <th>{{item.cl}}</th>
+      <th class="{{item.cl}}">{{item.veredict}}</th>
+    </tr>
+
+    <!-- <tr>
+      <th>1</th>
+      <th></th>
+      <th>2</th>
+    </tr> -->
+  </tbody>
+</table>
+<pagination [boundaryLinks]="true" [totalItems]="totalItems" [itemsPerPage]="itemPerPage" [(ngModel)]="currentPage" class="pagination-sm"
+            previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>

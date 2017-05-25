@@ -113,6 +113,7 @@ function judge( ){
             var TIMELIMITERROR = 124;
             var RUNTIMEERROR = 248;
             var WRONGANSWER = 64;
+            var ACCEPTED = 0;
             var command = 'for i in '+pathTestInput+'*.in; do '+
               'out=${i%.in}.out;'+
               // 'echo $out;'+
@@ -148,7 +149,7 @@ function judge( ){
               console.log("Wrong Answer");
               req.body.veredict = 'Wrong Answer';
             }
-            else {
+            else if( run.code == ACCEPTED){
               console.log('Accepted');
               req.body.veredict = 'Accepted';
             }

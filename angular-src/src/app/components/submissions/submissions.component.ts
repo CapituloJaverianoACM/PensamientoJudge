@@ -13,58 +13,77 @@ export class SubmissionsComponent implements OnInit {
   @Input() update;
   user : any;
   submissions : any;
-  settings = {
-    columns: {
-      id : {
-        title: 'Id',
-        editable: false,
-        filter : false
-      },
-      username: {
-        title: 'User Name',
-        editable: false,
-        filter : false
-      },
-      problemName:{
-        title: 'Problem Name',
-        editable: false,
-        filter : false
-      },
-      veredict: {
-        title: 'Veredict',
-        editable: false,
-        filter : false
-      }
-    },
-    actions : false,
-    filter : false,
-    hideSubHeader : true
-  };
-  data : LocalDataSource ;
-
+  // settings = {
+  //   columns: {
+  //     id : {
+  //       title: 'Id',
+  //       editable: false,
+  //       filter : false
+  //     },
+  //     username: {
+  //       title: 'User Name',
+  //       editable: false,
+  //       filter : false
+  //     },
+  //     problemName:{
+  //       title: 'Problem Name',
+  //       editable: false,
+  //       filter : false
+  //     },
+  //     veredict: {
+  //       title: 'Veredict',
+  //       editable: false,
+  //       filter : false
+  //     }
+  //   },
+  //   actions : false,
+  //   filter : false,
+  //   hideSubHeader : true
+  // };
+  // data : LocalDataSource ;
+  arr : any;
+  pageArr : any;
+  itemPerPage = 10;
+  totalItems : any;
   constructor(
     private problemService : ProblemService,
     private authService : AuthService
   ) { }
 
   ngOnInit() {
-    this.data = new LocalDataSource();
+    // this.data = new LocalDataSource();
     this.problemService.getSubmissionsUser(this.nameProblem).subscribe( query =>{
       this.submissions = query;
       this.authService.getProfile().subscribe(profile =>{
         this.user = profile.user;
-        var len = this.submissions.length;
-        var arr = [];
+        var len = this.totalItems = this.submissions.length;
+         this.arr = [];
+         var cl;
         for( var i = 0 ; i < len ; ++i  ){
-          arr.push( {
+          if( this.submissions[ i ].veredict == 'Accepted' )
+            cl = 'accepted';
+          else if( this.submissions[ i ].veredict == 'Wrong Answer' )
+            cl = 'wrong';
+          else if( this.submissions[ i ].veredict == 'Time limit' )
+            cl = 'time';
+          else if( this.submissions[ i ].veredict == 'Run Time Error' )
+            cl = 'runtime';
+          else
+            cl = 'queue';
+          this.arr.push( {
             id : this.submissions[ i ]._id,
-            username: this.user.username,
             problemName: this.nameProblem,
-            veredict : this.submissions[ i ].veredict
+            veredict : this.submissions[ i ].veredict,
+            cl : cl
           } );
         }
-        this.data.load(arr);
+        // this.data.load(this.arr);
         // console.log(this.data);
+        this.pageArr = [];
+        for( var i = 0 ; i < this.itemPerPage && i < len ; ++i )
+        {
+          this.pageArr.push( this.arr[ i ] );
+        }
       }, err => {
         console.log(err);
 
@@ -80,17 +99,33 @@ export class SubmissionsComponent implements OnInit {
   onUpdate(){
     this.problemService.getSubmissionsUser(this.nameProblem).subscribe( query =>{
       this.submissions = query;
-        var len = this.submissions.length;
-        var arr = [];
+        var len = this.totalItems = this.submissions.length;
+         this.arr = [];
+        var cl ;
         for( var i = 0 ; i < len ; ++i  ){
-          arr.push( {
+          if( this.submissions[ i ].veredict == 'Accepted' )
+            cl = 'accepted';
+          else if( this.submissions[ i ].veredict == 'Wrong Answer' )
+            cl = 'wrong';
+          else if( this.submissions[ i ].veredict == 'Time limit' )
+            cl = 'time';
+          else if( this.submissions[ i ].veredict == 'Run Time Error' )
+            cl = 'runtime';
+          else
+            cl = 'queue';
+          this.arr.push( {
             id : this.submissions[ i ]._id,
-            username: this.user.username,
             problemName: this.nameProblem,
-            veredict : this.submissions[ i ].veredict
+            veredict : this.submissions[ i ].veredict,
+            cl : cl
           } );
         }
-        this.data.load(arr);
+        this.pageArr = [];
+        for( var i = 0 ; i < this.itemPerPage && i < len ; ++i )
+        {
+          this.pageArr.push( this.arr[ i ] );
+        }
+        // this.data.load(this.arr);
     }, err =>{
       console.log(err);
       return false;
@@ -103,6 +138,16 @@ export class SubmissionsComponent implements OnInit {
       // console.log("update");
       this.onUpdate();
       this.update = false;
+    }
+  }
+  public pageChanged(event: any): void {
+    // console.log('Page changed to: ' + event.page);
+    // console.log('Number items per page: ' + event.itemsPerPage);
+    this.pageArr = [];
+    for( var i = event.itemsPerPage * (event.page-1) ,  j = 0 ; i < this.totalItems && j < event.itemsPerPage ; ++i , ++j ){
+      // console.log(this.arr[ i ] );
+      // console.log( i );
+      this.pageArr.push( this.arr[ i ] );
     }
   }
 }

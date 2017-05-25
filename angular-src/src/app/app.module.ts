@@ -6,6 +6,8 @@ import { RouterModule , Routes } from '@angular/router'
 
 import { FlashMessagesModule } from 'angular2-flash-messages'
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { PaginationModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
 // Imports for loading & configuring the in-memory web api
 
 
@@ -64,7 +66,9 @@ const appRoutes: Routes =[
     HttpModule,
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    PaginationModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [
     ValidateService,
