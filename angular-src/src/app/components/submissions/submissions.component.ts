@@ -2,6 +2,7 @@ import { Component, OnInit , Input } from '@angular/core';
 import { ProblemService } from '../../services/problem.service';
 import { AuthService } from '../../services/auth.service';
 import { LocalDataSource } from 'ng2-smart-table';
+declare var CodeMirror: any;
 
 @Component({
   selector: 'app-submissions',
@@ -149,5 +150,27 @@ export class SubmissionsComponent implements OnInit {
       // console.log( i );
       this.pageArr.push( this.arr[ i ] );
     }
+  }
+  onClickCode( item : any)
+  {
+
+    this.problemService.getCode( item.id ).subscribe( code =>{
+      // console.log(code);
+      console.log(1);
+      console.log(document.getElementById("modalEditor"));
+      console.log(2);
+      console.log(document.getElementById("jajajajj"));
+      console.log(3);
+      CodeMirror(document.getElementById("modalEditor"),{
+        lineNumbers: true,
+        value : code,
+        mode: "text/x-c++src"
+      });
+      document.getElementById("titleModal").innerHTML = item.id;
+    }, err =>{
+      console.log(err);
+      return false;
+    }
+    );
   }
 }

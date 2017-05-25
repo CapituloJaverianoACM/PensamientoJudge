@@ -7,6 +7,8 @@ var Submission = require('../models/submission');
 var CounterSubmission = require('../models/counterSubmission');
 var Problem = require('../models/problems');
 var ObjectId = require('mongoose').Types.ObjectId;
+var fs = require('fs');
+
 
 /// path submission source_code
 var pathSource = './submissions-src/';
@@ -243,5 +245,21 @@ router.get('/:problemName',Verify.verifyOrdinaryUser,getProblemName(),function(r
       if(err)next(err);
       res.json(submissions);
     });
+});
+router.get('/code/:id',Verify.verifyOrdinaryUser,function(req,res,next){
+  Submission.find({"_id":req.params.id},
+    function(err,submissions){
+      if(err) next(err);
+      // res.json(submissions);
+      // console.log(submissions);
+      fs.readFile(submissions[0].source_code, 'utf8', function (err,data) {
+        if (err) {
+          return console.log(err);
+        }
+        res.json(data);
+      });
+
+    }
+  );
 });
 module.exports = router;
