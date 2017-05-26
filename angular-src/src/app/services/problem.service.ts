@@ -30,7 +30,7 @@ export class ProblemService {
       .map( res => res.json() );
   }
   submitSubmission( submission ){
-    console.log(submission);
+    // console.log(submission);
     this.authService.loadToken();
     let headers = new Headers();
     headers.append('Content-Type','application/json');
@@ -44,11 +44,11 @@ export class ProblemService {
     let headers = new Headers();
     headers.append('Content-Type','application/json');
     headers.append('x-access-token',this.authService.authToken);
-    let ep = this.endPoint.prepEndPoint('submissionAPI/'+problemName );
+    let ep = this.endPoint.prepEndPoint('submissionAPI/userProblem/'+problemName );
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
   }
-  getAllSubmissionsUser(){
+  getAllSubmissionsMyUser(){
     this.authService.loadToken();
     this.authService.loadUser();
     // console.log(this.authService.user);
@@ -57,8 +57,35 @@ export class ProblemService {
     headers.append('x-access-token',this.authService.authToken);
     let ep = this.endPoint.prepEndPoint('submissionAPI/user/'+this.authService.user.username );
     return this.http.get(ep,{headers:headers})
+    .map( res => res.json() );
+  }
+  getAllSubmissionsUser(username){
+    this.authService.loadToken();
+    // console.log(this.authService.user);
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    let ep = this.endPoint.prepEndPoint('submissionAPI/user/'+username );
+    return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
 
+  }
+  getAllSubmissionsProblem(problemName){
+    this.authService.loadToken();
+    // console.log(this.authService.user);
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    let ep = this.endPoint.prepEndPoint('submissionAPI/problem/'+problemName );
+    return this.http.get(ep,{headers:headers})
+      .map( res => res.json() );
+  }
+  getAllSubmissions(){
+    this.authService.loadToken();
+    // console.log(this.authService.user);
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    let ep = this.endPoint.prepEndPoint('submissionAPI/');
+    return this.http.get(ep,{headers:headers})
+      .map( res => res.json() );
   }
   getCode( id ){
     this.authService.loadToken();

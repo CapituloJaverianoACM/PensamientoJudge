@@ -90,7 +90,7 @@ export class DescriptionComponent implements OnInit {
     value += CodeMirror.commands.joinLines.toString().replace(/^function\s*\(/, "function joinLines(").replace(/\n  /g, "\n") + "\n";
 
      this.editor = CodeMirror(document.getElementById("codeeditor"),{
-       value : '#include <iostrefdsfdsam>\n\nusing namespace std;\n\nint main()\n{\n	return 0;\n}',
+       value : '#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n	return 0;\n}',
       // value : value,
        lineNumbers: true,
        matchBrackets: true,
@@ -146,6 +146,10 @@ export class DescriptionComponent implements OnInit {
   }
 
   onSubmissionSubmit(){
+    if( !this.authService.loggedIn() ){
+      this.router.navigate(['/']);
+      return false;
+    }
     const submission = {
       source_code : this.convertString(this.editor.getValue()),
       userId : this.user._id,

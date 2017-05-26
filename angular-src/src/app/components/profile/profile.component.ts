@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user : Object;
+  user : any;
   constructor(
     private authService : AuthService,
     private router:Router
@@ -25,5 +25,9 @@ export class ProfileComponent implements OnInit {
   onClickLogOut(){
     this.authService.logout();
     this.router.navigate(['/']);
+  }
+  onClickSubmissions(){
+    this.router.navigate(['/submissions/user/'+this.user.username]);
+
   }
 }

@@ -116,27 +116,36 @@ function judge( ){
             var RUNTIMEERROR = 248;
             var WRONGANSWER = 64;
             var ACCEPTED = 0;
-            var command = 'for i in '+pathTestInput+'*.in; do '+
-              'out=${i%.in}.out;'+
-              // 'echo $out;'+
-              'case=${i:'+pathTestInput.length+'};'+
-              'case=${case%.in};'+
-              // 'echo $case;'+
-              'echo run case $case;'+
-              'timeout '+time+'s '+pathExeComplete +' < $i > $out || { '+
-              'code="$?" && '+
-              // 'echo "$code" && '+
-              'rm "$out" && '+
-              'if [ \"$code\" == 124 ];then '+
+            var command = '#!/bin/bash\n  '+
+              'for i in '+pathTestInput+'*.in;  do  '+
+              'out=\\${i%.in}.out;'+
+              // 'echo \\$out;'+
+              'case=\\${i:'+pathTestInput.length+'};'+
+              'case=\\${case%.in};'+
+              // 'echo \\$case;'+
+              'echo run case \\$case;'+
+              'timeout '+time+'s '+pathExeComplete +' < \\$i > \\$out || { '+
+              'code=\\"\\$?\\" && '+
+              // 'echo \\"\\$code\\" && '+
+              'rm \\"\\$out\\" && '+
+              'if [ \\\"\\$code\\\" == 124 ];then '+
               'exit 124;'+
               'else exit 248;'+
               'fi ; }; '+
-              'diff $out '+pathTestOutut+'$case.out || { '+
-              'rm "$out" && '+
+              'diff \\$out '+pathTestOutut+'\\$case.out || { '+
+              'rm \\"\\$out\\" && '+
               'exit 64;};'+
-              'rm "$out";'+
+              'rm \\"\\$out\\";'+
               'done';
-            var run = shell.exec(command);
+            // console.log(command);
+            var file = 'printf "%s" "'+command+'" > run.sh';
+            // console.log(file);
+            shell.exec(file);
+            shell.exec('chmod +x ./run.sh');
+            var run = shell.exec("./run.sh");
+            // console.log(run);
+            // var run = shell.exec(command);
+
             // console.log(command);
             // var run = shell.exec('timeout '+time+'s '+pathExeComplete );
             if( run.code == TIMELIMITERROR ){
@@ -157,6 +166,7 @@ function judge( ){
             }
             // console.log(run);
             shell.exec('rm '+pathExeComplete);
+            shell.exec('rm ./run.sh');
         }
         else
         {
@@ -238,13 +248,70 @@ router.get('/user/:userName',function(req,res,next){
   });
 
 });
+router.get('/problem/:problemName',function(req,res,next){
+  Submission.aggregate([
+    {
+      $lookup:{
+        from:"problems",
+        localField:"problemId",
+        foreignField:"_id",
+        as:"problem"
+      }
+    },
+    {
+      $lookup:{
+        from:"users",
+        localField:"userId",
+        foreignField:"_id",
+        as:"user"
+      }
+    },
+    {
+      $match :{
+        'problem.name' : req.params.problemName
+      }
+    }
+  ],function(err,submissions){
+    if(err) throw err;
+    res.json(submissions);
+  });
 
-router.get('/:problemName',Verify.verifyOrdinaryUser,getProblemName(),function(req,res,next){
-  Submission.find({"userId":req.decoded._doc._id },
-    function(err,submissions){
-      if(err)next(err);
-      res.json(submissions);
-    });
+});
+
+router.get('/userProblem/:problemName',Verify.verifyOrdinaryUser,function(req,res,next){
+  // Submission.find({"userId":req.decoded._doc._id },
+  //   function(err,submissions){
+  //     if(err)next(err);
+  //     submissions.user = req.decoded._doc;
+  //     res.json(submissions);
+  //   });
+  Submission.aggregate([
+    {
+      $lookup:{
+        from:"problems",
+        localField:"problemId",
+        foreignField:"_id",
+        as:"problem"
+      }
+    },
+    {
+      $lookup:{
+        from:"users",
+        localField:"userId",
+        foreignField:"_id",
+        as:"user"
+      }
+    },
+    {
+      $match :{
+        'problem.name' : req.params.problemName,
+        'user.username' : req.decoded._doc.username
+      }
+    }
+  ],function(err,submissions){
+    if(err) throw err;
+    res.json(submissions);
+  });
 });
 router.get('/code/:id',Verify.verifyOrdinaryUser,function(req,res,next){
   Submission.find({"_id":req.params.id},

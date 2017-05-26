@@ -18,6 +18,8 @@
     <tr>
       <th>Id</th>
       <th>Date</th>
+      <th [hidden]="type==0||type==3">Problem</th>
+      <th [hidden]="type==0||type==2">User</th>
       <th>Veredict</th>
     </tr>
   </thead>
@@ -25,11 +27,13 @@
 
     <tr *ngFor='let item of pageArr'>
       <th >
-        <a (click)="onClickCode(item)" (click)="lgModal.show()">
+        <a class="txtlink2" (click)="onClickCode(item)" (click)="lgModal.show()">
         {{item.id}}
         </a>
       </th>
       <th>{{item.cl}}</th>
+      <th [hidden]="type==0||type==3">{{item.problemName}}</th>
+      <th [hidden]="type==0||type==2">{{item.username}}</th>
       <th class="{{item.cl}}">{{item.veredict}}</th>
     </tr>
 
