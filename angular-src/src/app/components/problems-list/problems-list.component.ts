@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class ProblemsListComponent implements OnInit {
 
   problems : any;
+  selected_filter: Number;
 
   constructor(
     private problemService: ProblemService,
@@ -22,14 +23,26 @@ export class ProblemsListComponent implements OnInit {
     this.problemService.getAllProblems().subscribe(
       (query) => {
         this.problems = query;
-        console.log(this.problems[0])
       }
     );
+    this.selected_filter = 0;
   }
 
-  solveProblemOnClick(problemName) {
-
-    this.router.navigate(['/problems/'+problemName]);
+  filterProblemsCorteOnClick(corte){
+    this.selected_filter = corte;
+    if(corte == 0) {
+      this.problemService.getAllProblems().subscribe(
+        (query) => {
+          this.problems = query;
+        }
+      );
+    } else {
+      this.problemService.getProblemByCorte(corte).subscribe(
+        (query) => {
+          this.problems = query;
+        }
+      );
+    }
   }
 
 }

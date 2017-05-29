@@ -65,4 +65,13 @@ problemRouter.route('/:problemName')
   });
 });
 
+problemRouter.route('/corte/:corte')
+.get(function(req, res, next) {
+  Problem.find({'corte' : req.params.corte}, function(err, problem) {
+    if(err) throw err;
+    res.json(problem);
+  });
+});
+
+
 module.exports = problemRouter;

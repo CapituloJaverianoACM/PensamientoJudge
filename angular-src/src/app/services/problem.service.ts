@@ -21,11 +21,17 @@ export class ProblemService {
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
   }
-
   getProblem( name ){
     let headers = new Headers();
     headers.append('Contet-Type','application/json');
     let ep = this.endPoint.prepEndPoint('problemAPI/'+name);
+    return this.http.get(ep,{headers:headers})
+      .map( res => res.json() );
+  }
+  getProblemByCorte( corte ) {
+    let headers = new Headers();
+    headers.append('Contet-Type','application/json');
+    let ep = this.endPoint.prepEndPoint('problemAPI/corte/'+corte);
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
   }
@@ -47,6 +53,5 @@ export class ProblemService {
     let ep = this.endPoint.prepEndPoint('submissionAPI/'+problemName );
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
-
   }
 }

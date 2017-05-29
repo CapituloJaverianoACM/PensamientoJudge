@@ -70,6 +70,7 @@ header {
   text-align: center;
   background: #18BC9C;
   color: white;
+  padding-bottom: 120px;
 }
 header .container {
   padding-top: 100px;

@@ -1,0 +1,21 @@
+<div *ngIf="problem">
+
+<div class="panel panel-default">
+  <div class="panel-body problem-tittle"> {{problem.name}} </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        <p class="problem-sub-tittle">Success Rate:</p>
+        <p class="problem-sub-tittle-text">0%</p>
+        <p class="problem-sub-tittle">Max Score:</p>
+        <p class="problem-sub-tittle-text">{{problem.max_score}}</p>
+        <p class="problem-sub-tittle">Difficulty:</p>
+        <p class="problem-sub-tittle-text">{{problem.difficulty}}</p>
+      </div>
+      <div class="col-md-6">
+        <button (click)="solveProblemOnClick(problem.name)" type="button" class="btn btn-success btn-lg pull-right solve-button">Solve Challenge</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

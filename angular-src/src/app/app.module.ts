@@ -29,6 +29,7 @@ import { EndPointService } from './services/end-point.service';
 import { ProblemService } from './services/problem.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProblemsListComponent } from './components/problems-list/problems-list.component';
+import { ProblemPanelComponent } from './components/problem-panel/problem-panel.component';
 
 const appRoutes: Routes =[
     {path : '' , component : HomeComponent },
@@ -54,6 +55,7 @@ const appRoutes: Routes =[
     SubmissionsComponent,
     FooterComponent,
     ProblemsListComponent,
+    ProblemPanelComponent,
   ],
   imports: [
     BrowserModule,
