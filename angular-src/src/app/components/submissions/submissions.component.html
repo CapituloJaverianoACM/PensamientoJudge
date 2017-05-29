@@ -12,4 +12,55 @@
   <li *ngFor="let submission of submissions">
 
   </li> -->
-<ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
+<!-- <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table> -->
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Date</th>
+      <th [hidden]="type==0||type==3">Problem</th>
+      <th [hidden]="type==0||type==2">User</th>
+      <th>Veredict</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr *ngFor='let item of pageArr'>
+      <th >
+        <a class="txtlink2" (click)="onClickCode(item)" (click)="lgModal.show()">
+        {{item.id}}
+        </a>
+      </th>
+      <th>{{item.cl}}</th>
+      <th [hidden]="type==0||type==3">{{item.problemName}}</th>
+      <th [hidden]="type==0||type==2">{{item.username}}</th>
+      <th class="{{item.cl}}">{{item.veredict}}</th>
+    </tr>
+
+    <!-- <tr>
+      <th>1</th>
+      <th></th>
+      <th>2</th>
+    </tr> -->
+  </tbody>
+</table>
+<pagination [boundaryLinks]="true" [totalItems]="totalItems" [itemsPerPage]="itemPerPage" [(ngModel)]="currentPage" class="pagination-sm"
+            previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>
+
+
+<div class="modal fade" bsModal #lgModal="bs-modal"
+tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-ls">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left" id="titleModal"></h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="lgModal.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div  id="modalEditor"></div>
+      </div>
+    </div>
+  </div>
+</div>
