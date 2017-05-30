@@ -63,4 +63,9 @@ export class AuthService {
   isLoggedIn() {
       return !!localStorage.getItem('id_token');
     }
+  isUser( _username ){
+    if( !this.user )
+      return false;
+    return this.user.username == _username;
+  }
 }

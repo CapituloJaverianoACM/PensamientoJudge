@@ -43,7 +43,16 @@ const appRoutes: Routes =[
     {path : 'submissions', component : SubmissionsComponent , data : {type:1} },
     {path : 'submissions/user/:username', component : SubmissionsComponent ,  data : {type:2} },
     {path : 'submissions/problem/:problemName', component : SubmissionsComponent ,  data : {type:3} },
-    {path : 'problems/:name', component : ProblemComponent , canActivate: [AuthGuard] },
+    {path : 'problems/:name', component : ProblemComponent , canActivate: [AuthGuard] ,
+      children : [
+        {
+          path : '' , component : DescriptionComponent
+        },
+        {
+          path : 'submissions' , component : SubmissionsComponent , data : { type:0}
+        }
+      ]
+    },
     {path : 'problems', component : ProblemsListComponent , canActivate: [AuthGuard] }
 ];
 

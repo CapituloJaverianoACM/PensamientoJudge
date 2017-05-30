@@ -1,5 +1,5 @@
 import { Component, OnInit , Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute , Router } from '@angular/router';
 import { ProblemService } from '../../services/problem.service';
 import { AuthService } from '../../services/auth.service';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -11,7 +11,6 @@ declare var CodeMirror: any;
   styleUrls: ['./submissions.component.css'],
 })
 export class SubmissionsComponent implements OnInit {
-  @Input() nameProblem;
   // @Input() username;
   @Input() update;
   submissions : any;
@@ -23,36 +22,40 @@ export class SubmissionsComponent implements OnInit {
   param : any;
   currentPage : number = 0;
   editorModal : any;
+  maxSize: number = 5;
   constructor(
     private problemService : ProblemService,
     private authService : AuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router : Router
   ) { }
 
   ngOnInit() {
-    if( this.nameProblem )
-      this.type = 0;
-    else
-    {
-      this.route.data.subscribe( type => {
-        this.type = type
+    this.route.data.subscribe( info => {
+        this.type = info;
         this.type = this.type.type;
       } );
 
-    }
+
     this.onUpdate();
     // this.data = new LocalDataSource();
     // console.log(this.submissions);
     // this.submissions = Object.keys(json ).map(function(_) { return json[_]; });
   }
   opt0(){
-    this.problemService.getSubmissionsUser(this.nameProblem).subscribe(
-      submissions => {
-        this.config(submissions);
-      }, err =>
-      {
-        console.log(err);
-        return false;
+
+
+    this.route.parent.params.subscribe(  params => {
+        // console.log(params);
+        this.problemService.getSubmissionsUser(params['name']).subscribe(
+          submissions => {
+            this.config(submissions);
+          }, err =>
+          {
+            console.log(err);
+            return false;
+          }
+        );
       }
     );
   }
@@ -111,15 +114,15 @@ export class SubmissionsComponent implements OnInit {
       this.opt3();
     this.currentPage = 0;
   }
-  ngDoCheck(){
-    // console.log(this.update);
-    if( this.update )
-    {
-      // console.log("update");
-      this.onUpdate();
-      this.update = false;
-    }
-  }
+  // ngDoCheck(){
+  //   // console.log(this.update);
+  //   if( this.update )
+  //   {
+  //     // console.log("update");
+  //     this.onUpdate();
+  //     this.update = false;
+  //   }
+  // }
   public pageChanged(event: any): void {
     // console.log('Page changed to: ' + event.page);
     // console.log('Number items per page: ' + event.itemsPerPage);
@@ -132,14 +135,17 @@ export class SubmissionsComponent implements OnInit {
   }
   onClickCode( item : any)
   {
-
+    document.getElementById("modalEditor").innerHTML = "";
+    if( !this.showCode(item) )
+      return false;
+    // console.log(item);
     this.problemService.getCode( item.id ).subscribe( code =>{
       // console.log(code);
-      document.getElementById("modalEditor").innerHTML = "";
       CodeMirror(document.getElementById("modalEditor"),{
         value : code,
         lineNumbers: true,
-        mode: "text/x-c++src"
+        mode: "text/x-c++src",
+        readOnly : true
       });
       document.getElementById("titleModal").innerHTML = item.id;
     }, err =>{
@@ -180,5 +186,11 @@ export class SubmissionsComponent implements OnInit {
       {
         this.pageArr.push( this.arr[ i ] );
       }
+  }
+  showCode( item : any )
+  {
+    this.authService.loadUser();
+    // console.log(this.authService.isUser( item.username ) );
+    return this.authService.isUser( item.username ) ;
   }
 }

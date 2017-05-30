@@ -2,7 +2,7 @@ import { Component, OnInit , Input , ViewChild , ElementRef } from '@angular/cor
 import { ProblemService } from '../../services/problem.service';
 import { AuthService } from '../../services/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import {MathjaxDirective} from '../../directives/mathjax.directive';
 
 declare var CodeMirror: any;
@@ -15,9 +15,10 @@ declare var CodeMirror: any;
 export class DescriptionComponent implements OnInit {
   @ViewChild('EditorCode') el:ElementRef;
   @ViewChild('hi') eel:ElementRef;
-  @Input() nameProblem;
+  nameProblem : string;
   problem : any;
   user: any;
+  samples : any;
   // dir : string;
   editor : any;
   fractionString: string = 'Inside Angular one half = $\\frac 12$';
@@ -75,6 +76,7 @@ export class DescriptionComponent implements OnInit {
     private problemService : ProblemService,
     private authService : AuthService,
     private flashMesssagesService : FlashMessagesService,
+    private route : ActivatedRoute,
     private router : Router
   ) {
     // this.dir = '../../../assets/CodeMirror/';
@@ -103,15 +105,29 @@ export class DescriptionComponent implements OnInit {
        tabSize: 2
       //  extraKeys: {"Ctrl-Space": "autocomplete"}
      });
+     CodeMirror(document.getElementById("inputEditor"));
     // console.log(document.getElementById('codeeditor'));
     // console.log(this.editor+'fdsa');
   }
 
   ngOnInit() {
+    // this.nameProblem = this.route.snapshot.url[ 1] ;
+    this.route.params.subscribe( params => {
+      this.nameProblem = params['name'];
+    });
     this.problemService.getProblem(this.nameProblem).subscribe(query =>{
       this.problem = query;
-      this.problem.description.sample_input = this.problem.description.sample_input.split(',');
-      this.problem.description.sample_output = this.problem.description.sample_output.split(',');
+      // console.log(this.problem);
+      // this.problem.description.sample_input = this.problem.description.sample_input.split(',');
+      // this.problem.description.sample_output = this.problem.description.sample_output.split(',');
+      // console.log(this.problem.description);
+      this.samples = [];
+      for( var i = 0 ; i < this.problem.description.sample_input.length ; ++i ){
+        this.samples.push({
+          input: this.problem.description.sample_input[ i ],
+          output: this.problem.description.sample_output[ i ]
+        })
+      }
     }, err =>{
       console.log(err);
       return false;
