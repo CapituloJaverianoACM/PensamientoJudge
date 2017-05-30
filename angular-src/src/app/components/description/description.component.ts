@@ -18,6 +18,7 @@ export class DescriptionComponent implements OnInit {
   nameProblem : string;
   problem : any;
   user: any;
+  samples : any;
   // dir : string;
   editor : any;
   fractionString: string = 'Inside Angular one half = $\\frac 12$';
@@ -104,6 +105,7 @@ export class DescriptionComponent implements OnInit {
        tabSize: 2
       //  extraKeys: {"Ctrl-Space": "autocomplete"}
      });
+     CodeMirror(document.getElementById("inputEditor"));
     // console.log(document.getElementById('codeeditor'));
     // console.log(this.editor+'fdsa');
   }
@@ -115,8 +117,17 @@ export class DescriptionComponent implements OnInit {
     });
     this.problemService.getProblem(this.nameProblem).subscribe(query =>{
       this.problem = query;
-      this.problem.description.sample_input = this.problem.description.sample_input.split(',');
-      this.problem.description.sample_output = this.problem.description.sample_output.split(',');
+      // console.log(this.problem);
+      // this.problem.description.sample_input = this.problem.description.sample_input.split(',');
+      // this.problem.description.sample_output = this.problem.description.sample_output.split(',');
+      // console.log(this.problem.description);
+      this.samples = [];
+      for( var i = 0 ; i < this.problem.description.sample_input.length ; ++i ){
+        this.samples.push({
+          input: this.problem.description.sample_input[ i ],
+          output: this.problem.description.sample_output[ i ]
+        })
+      }
     }, err =>{
       console.log(err);
       return false;

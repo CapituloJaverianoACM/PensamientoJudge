@@ -6,28 +6,39 @@
   <p [MathJax]="problem.description.input_format">{{problem.description.input_format}}</p>
   <div class="section-title">Outpu Formatt</div>
   <p [MathJax]="problem.description.output_format">{{problem.description.output_format}}</p>
-  <div class="section-title">Sample Input</div>
-  <div *ngFor="let sample of problem.description.sample_input">
-    <p class="sample">{{sample}}</p>
-  </div>
-  <div class="section-title">Sample Output</div>
-  <div *ngFor="let sample of problem.description.sample_output">
-    <p class="sample">{{sample}}</p>
+  <div class="section-title">Samples</div>
+  <div *ngFor="let sample of samples">
+    <ul class="list-group">
+
+      <li class="list-group-item">
+        <h6>Input</h6>
+        <!-- <ol class="breadcrumb"> -->
+          <pre>{{sample.input}}</pre>
+        <!-- </ol> -->
+        <h6>Output</h6>
+        <!-- <ol class="breadcrumb"> -->
+          <pre>{{sample.output}}</pre>
+        <!-- </ol> -->
+      </li>
+    </ul>
   </div>
 </div>
 
   <!-- CodeMirror -->
-
-  <div>
-
-  <div  id="codeeditor" #EditorCode ></div>
-  <select [(ngModel)] = "selection" (change)="selectionChange()">
-        <option [value]="theme" *ngFor="let theme of themes" >{{theme}}</option>
-  </select>
+  <br>
+  <div >
+    <ol class="breadcrumb">
+      <li><h4>{{nameProblem}}</h4></li>
+      <br>
+    <div  id="codeeditor" #EditorCode ></div>
+    </ol>
+    <select [(ngModel)] = "selection" (change)="selectionChange()">
+          <option [value]="theme" *ngFor="let theme of themes" >{{theme}}</option>
+    </select>
 
   <!-- <script >
     var myCodeMirror = CodeMirror(document.getElementById("codeeditor"));
   </script> -->
-</div>
+  </div>
   <button type="button" class="btn btn-success" (click)="onClick($event)">Submit Code</button>
   <!-- CodeMirror -->

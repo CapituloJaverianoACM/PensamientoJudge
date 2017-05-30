@@ -22,6 +22,7 @@ export class SubmissionsComponent implements OnInit {
   param : any;
   currentPage : number = 0;
   editorModal : any;
+  maxSize: number = 5;
   constructor(
     private problemService : ProblemService,
     private authService : AuthService,
@@ -143,7 +144,8 @@ export class SubmissionsComponent implements OnInit {
       CodeMirror(document.getElementById("modalEditor"),{
         value : code,
         lineNumbers: true,
-        mode: "text/x-c++src"
+        mode: "text/x-c++src",
+        readOnly : true
       });
       document.getElementById("titleModal").innerHTML = item.id;
     }, err =>{

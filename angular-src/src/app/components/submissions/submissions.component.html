@@ -13,64 +13,73 @@
 
   </li> -->
 <!-- <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table> -->
-<table class="table">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Date</th>
-      <th [hidden]="type==0||type==3">Problem</th>
-      <th [hidden]="type==0||type==2">User</th>
-      <th>Veredict</th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="container">
 
-    <tr *ngFor='let item of pageArr'>
-      <th >
-        <a *ngIf="showCode(item)" (click)="onClickCode(item)" (click)="lgModal.show()" >
-        {{item.id}}
-        </a>
-        <div *ngIf="!showCode(item)">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Date</th>
+        <th [hidden]="type==0||type==3">Problem</th>
+        <th [hidden]="type==0||type==2">User</th>
+        <th>Veredict</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor='let item of pageArr'>
+        <th >
+          <a *ngIf="showCode(item)" (click)="onClickCode(item)" (click)="lgModal.show()" >
           {{item.id}}
+          </a>
+          <div *ngIf="!showCode(item)">
+            {{item.id}}
+          </div>
+        </th>
+        <th>{{item.cl}}</th>
+        <th [hidden]="type==0||type==3">
+          <a [routerLink]="['/problems',item.problemName]">
+            {{item.problemName}}
+          </a>
+        </th>
+        <th [hidden]="type==0||type==2">
+          <a [routerLink]="['/profile',item.username]">
+            {{item.username}}
+          </a>
+        </th>
+        <th class="{{item.cl}}">{{item.veredict}}</th>
+      </tr>
+
+      <!-- <tr>
+        <th>1</th>
+        <th></th>
+        <th>2</th>
+      </tr> -->
+    </tbody>
+  </table>
+  <pagination [boundaryLinks]="true" [totalItems]="totalItems" [itemsPerPage]="itemPerPage" [maxSize]="maxSize" [(ngModel)]="currentPage" class="pagination-sm"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>
+              <!-- <div class="col-md-6">
+                <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-sm"
+                            [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)"></pagination>
+              </div> -->
+
+  <div class="modal fade" bsModal #lgModal="bs-modal"
+  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-ls">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left" id="titleModal"></h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="lgModal.hide()">
+              <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-      </th>
-      <th>{{item.cl}}</th>
-      <th [hidden]="type==0||type==3">
-        <a [routerLink]="['/problems',item.problemName]">
-          {{item.problemName}}
-        </a>
-      </th>
-      <th [hidden]="type==0||type==2">
-        <a [routerLink]="['/profile',item.username]">
-          {{item.username}}
-        </a>
-      </th>
-      <th class="{{item.cl}}">{{item.veredict}}</th>
-    </tr>
+        <div class="modal-body">
+            <ol class="breadcrumb">
+              <div  id="modalEditor"></div>
+            </ol>
+        </div>
 
-    <!-- <tr>
-      <th>1</th>
-      <th></th>
-      <th>2</th>
-    </tr> -->
-  </tbody>
-</table>
-<pagination [boundaryLinks]="true" [totalItems]="totalItems" [itemsPerPage]="itemPerPage" [(ngModel)]="currentPage" class="pagination-sm"
-            previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>
-
-
-<div class="modal fade" bsModal #lgModal="bs-modal"
-tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-ls">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left" id="titleModal"></h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="lgModal.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div  id="modalEditor"></div>
       </div>
     </div>
   </div>

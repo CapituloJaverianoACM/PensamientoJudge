@@ -17,3 +17,4 @@ a{
   color : #337ab7;
   cursor: pointer;
 }
+.CodeMirror {border-style: groove;}
