@@ -1,0 +1,31 @@
+h3 {
+  font-family: 'Source Sans Pro', sans-serif;
+  text-transform: capitalize;
+}
+
+p {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.4rem;
+  margin: 0.5em;
+}
+
+.upload-button {
+  padding-top: 10px;
+}
+
+.page-header {
+  font-weight: bold;
+  font-size: 50px;
+}
+
+.sub-tittle {
+  padding-top: 10px;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-transform: capitalize;
+  font-weight: 900;
+  font-size: 17px;
+}
+
+.edit-button {
+  padding-top: 20px;
+}

@@ -68,6 +68,7 @@ var problemSchema = new Schema({
     type: Number,
     required: false
   },
+  // TODO - Delete this column
   required_knowledge: {
     type: String,
     required: false

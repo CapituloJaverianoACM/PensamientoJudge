@@ -1,3 +1,38 @@
-<p>
-  admin-problem-edit works! {{name}}
-</p>
+<div class="container">
+  <div *ngIf="problem">
+    <h3>Edit: {{problem.name}}</h3>
+
+    <h4 class="sub-tittle">Problem Name</h4>
+    <input type="text" [(ngModel)] = "problem.name" value="{{problem.name}}" class="form-control" id="name">
+    <div class="row">
+
+      <div class="col-sm-2">
+        <h4 class="sub-tittle">Max Score</h4>
+        <input type="number" [(ngModel)] = "problem.max_score" value="{{problem.max_score}}" class="form-control" id="max-score">
+      </div>
+
+      <div class="col-sm-2">
+        <h4 class="sub-tittle">Difficulty</h4>
+        <input type="text" [(ngModel)] = "problem.difficulty" value="{{problem.difficulty}}" class="form-control" id="difficulty">
+      </div>
+
+      <div class="col-sm-4">
+        <h4 class="sub-tittle">Time Limit</h4>
+        <input type="number" [(ngModel)] = "problem.time_limit" value="{{problem.time_limit}}" class="form-control" id="TL">
+      </div>
+
+      <div class="col-sm-2">
+        <h4 class="sub-tittle">Theme</h4>
+        <input type="text" [(ngModel)] = "problem.theme" value="{{problem.theme}}" class="form-control" id="name">
+      </div>
+
+      <div class="col-sm-2">
+        <h4 class="sub-tittle">Corte</h4>
+        <input type="number" [(ngModel)] = "problem.corte" value="{{problem.corte}}" class="form-control" id="name">
+      </div>
+    </div>
+
+    <h4 class="sub-tittle">Problem Description</h4>
+    <textarea class="form-control" [(ngModel)] = "problem.statement" value="{{problem.statement}}" rows="5" id="description"></textarea>
+  </div>
+</div>

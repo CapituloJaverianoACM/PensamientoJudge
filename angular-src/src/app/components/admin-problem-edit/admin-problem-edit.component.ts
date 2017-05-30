@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ProblemService } from '../../services/problem.service'
 
 
 @Component({
@@ -9,15 +10,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AdminProblemEditComponent implements OnInit {
 
-  name: string;
+  nameProblem: string;
   problem: any;
-  
-  constructor(private route: ActivatedRoute) {}
+
+  constructor(
+    private route: ActivatedRoute,
+    private problemService: ProblemService
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-       this.name = params['problemName']; // (+) converts string 'id' to a number
-       // In a real app: dispatch action to load the details here.
+      this.nameProblem = params['problemName']; // (+) converts string 'id' to a number
+      this.problemService.getProblem(this.nameProblem).subscribe(
+        (query) => {
+          this.problem = query;
+          console.log(query);
+        }
+      );
+      // In a real app: dispatch action to load the details here.
     });
   }
 
