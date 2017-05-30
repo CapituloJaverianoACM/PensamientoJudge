@@ -29,6 +29,7 @@ import { DescriptionComponent } from './components/description/description.compo
 import { SubmissionsComponent } from './components/submissions/submissions.component';
 import { EndPointService } from './services/end-point.service';
 import { ProblemService } from './services/problem.service';
+import { UsersService } from './services/users.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProblemsListComponent } from './components/problems-list/problems-list.component';
 import { ProblemPanelComponent } from './components/problem-panel/problem-panel.component';
@@ -79,7 +80,8 @@ const appRoutes: Routes =[
     AuthService,
     AuthGuard,
     EndPointService,
-    ProblemService
+    ProblemService,
+    UsersService
   ],
   bootstrap: [AppComponent]
 

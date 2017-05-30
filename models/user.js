@@ -23,10 +23,10 @@ var User  = new Schema ({
     required: true,
     unique: true
   },
-  // TODO- columna para imagenes
-  // picture:{
-  //   type:
-  // },
+  img: {
+    data: Buffer,
+    contentType: String
+  },
   is_admin:{
     type: Boolean,
     default: false

@@ -1,19 +1,42 @@
-<!-- <section> -->
+<div class="container">
 
-  <div class="container">
+  <div *ngIf="user">
+    <div class="row">
+      <div class="col-sm-4">
+        <h3>{{user.first_name}} {{user.last_name}}</h3>
+        <a href="http://placehold.it"><img src="http://placehold.it/350x350"></a>
+        <div class="upload-button text-center">
+          <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-open"></span> Upload Image</button>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <h3 class="page-header"> Personal Information </h3>
 
-    <div *ngIf="user">
-      <h2 class="page-header">{{user.first_name}} {{user.last_name}}</h2>
-      <ul class="list-group">
-        <li class="list-group-item">Username: {{user.username}}</li>
-        <li class="list-group-item">Email: {{user.email}}</li>
-      </ul>
-    </div>
-    <div >
-      <button type="button" name="mySubmissions" (click)="onClickSubmissions()">MySubmissions</button>
-    </div>
-    <div >
-      <button type="button" name="logout" (click)="onClickLogOut()">Log Out</button>
+        <h4 class="sub-tittle">Name</h4>
+        <p *ngIf="!isEditEnable" >{{user.first_name}}</p>
+        <input *ngIf="isEditEnable" type="text" [(ngModel)] = "user.first_name" value="{{user.first_name}}" class="form-control" id="first-name">
+
+        <h4 class="sub-tittle">Last Name</h4>
+        <p *ngIf="!isEditEnable" >{{user.last_name}}</p>
+        <input *ngIf="isEditEnable" type="text" [(ngModel)] = "user.last_name" value="{{user.last_name}}" class="form-control" id="last-name">
+
+        <h4 class="sub-tittle">Carrer</h4>
+        <p *ngIf="!isEditEnable" >{{user.career}}</p>
+        <input *ngIf="isEditEnable" type="text" [(ngModel)] = "user.career" value="{{user.career}}" class="form-control" id="career">
+
+        <h4 class="sub-tittle">Email</h4>
+        <p>{{user.email}}</p>
+
+        <div *ngIf="!isEditEnable" class="edit-button">
+          <button (click)="editProfileOnClick()" type="button" class="btn btn-warning">Edit Profile <span class="glyphicon glyphicon-edit"></span></button>
+        </div>
+
+        <div *ngIf="isEditEnable" class="edit-button">
+          <button (click)="doneEditOnClick()" type="button" class="btn btn-success">Done</button>
+        </div>
+
+      </div>
     </div>
   </div>
-<!-- </section> -->
+
+</div>

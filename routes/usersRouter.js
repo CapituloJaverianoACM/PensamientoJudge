@@ -34,40 +34,58 @@ router.post('/signup',function(req,res){
     });
 });
 
-function findByEmail(email)
-{
+function findByEmail(email) {
   var query = User.find({'email':email});
   query.exec(function(err,user){
-    if(err)
-    {
+    if(err) {
       return false;
     }
-    if(user)
-    {
+    if(user) {
       console.log(user);
       return user;
     }
   });
 }
 
-function changeEmail()
-{
-  return function(req,res,next)
-  {
+function changeEmail() {
+  return function(req,res,next) {
     User.findOne({ 'email' : req.body.username }, function(err, user) {
       if (err) { return next(err); }
-
-
-
       if (user) {
         req.body.username = user.username;
       }
-
-      // Hand over control to passport
       next();
     });
   }
 }
+
+router.route('/byEmail/:userEmail')
+
+.get(function(req, res, next) {
+  User.findOne({'email' : req.params.userEmail}, function(err, user) {
+    if(err) throw err;
+    res.json(user);
+  });
+})
+
+.put(function(req, res, next) {
+  console.log(req.body);
+  User.findOneAndUpdate({'email' : req.params.userEmail}, {
+    $set: req.body
+  }, {
+    new: true
+  }, function(err, user) {
+    if(err) throw err;
+    res.json(user);
+  });
+})
+
+.delete(function(req, res, next) {
+  Problem.findOneAndRemove({'email' : req.params.userEmail}, function (err, resp) {
+    if (err) throw err;
+    res.json(resp);
+  });
+});
 
 router.post('/login',changeEmail(),function(req,res,next){
   passport.authenticate('local',function(err,user,info){
