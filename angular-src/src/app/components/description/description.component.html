@@ -1,12 +1,21 @@
 <div *ngIf="problem">
 
-  <h1>Problem {{nameProblem}}</h1>
-  <p>{{problem.description.statement}}</p>
-  <h2>Sample input</h2>
-  <p>{{problem.description.sample_input}}</p>
-  <h2>Sample output</h2>
-  <p>{{problem.description.sample_output}}</p>
+  <h1 class="problem-tittle">Problem: {{nameProblem}}</h1>
+  <p [MathJax]="problem.description.statement">{{problem.description.statement}}</p>
+  <div class="section-title">Input Format</div>
+  <p [MathJax]="problem.description.input_format">{{problem.description.input_format}}</p>
+  <div class="section-title">Outpu Formatt</div>
+  <p [MathJax]="problem.description.output_format">{{problem.description.output_format}}</p>
+  <div class="section-title">Sample Input</div>
+  <div *ngFor="let sample of problem.description.sample_input">
+    <p class="sample">{{sample}}</p>
+  </div>
+  <div class="section-title">Sample Output</div>
+  <div *ngFor="let sample of problem.description.sample_output">
+    <p class="sample">{{sample}}</p>
+  </div>
 </div>
+
   <!-- CodeMirror -->
 
   <div>

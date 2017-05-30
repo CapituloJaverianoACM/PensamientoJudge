@@ -8,10 +8,12 @@ import {EndPointService} from './end-point.service';
 export class AuthService {
   authToken : any;
   user : any;
+  private loggedInStatus = false;
+
   constructor(
     private http : Http,
     private endPoint : EndPointService
-  ) { }
+  ) { this.loggedInStatus = !!localStorage.getItem('id_token');}
 
   signUpUser( user ){
     let headers = new Headers();
@@ -58,4 +60,7 @@ export class AuthService {
     localStorage.clear();
   }
 
+  isLoggedIn() {
+      return !!localStorage.getItem('id_token');
+    }
 }

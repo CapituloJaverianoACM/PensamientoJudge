@@ -3,6 +3,7 @@ import { ProblemService } from '../../services/problem.service';
 import { AuthService } from '../../services/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
+import {MathjaxDirective} from '../../directives/mathjax.directive';
 
 declare var CodeMirror: any;
 
@@ -19,6 +20,7 @@ export class DescriptionComponent implements OnInit {
   user: any;
   // dir : string;
   editor : any;
+  fractionString: string = 'Inside Angular one half = $\\frac 12$';
   themes = ["default",
   "3024-day",
   "3024-night",
@@ -90,14 +92,15 @@ export class DescriptionComponent implements OnInit {
     value += CodeMirror.commands.joinLines.toString().replace(/^function\s*\(/, "function joinLines(").replace(/\n  /g, "\n") + "\n";
 
      this.editor = CodeMirror(document.getElementById("codeeditor"),{
-       value : '#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n	return 0;\n}',
+       value : '#include <iostream>\n\nusing namespace std;\n\nint main() {\n\treturn 0;\n}',
       // value : value,
        lineNumbers: true,
        matchBrackets: true,
        autoCloseBrackets: true,
        showCursorWhenSelecting: true,
        mode: "text/x-c++src",
-       keyMap: "sublime"
+       keyMap: "sublime",
+       tabSize: 2
       //  extraKeys: {"Ctrl-Space": "autocomplete"}
      });
     // console.log(document.getElementById('codeeditor'));
@@ -107,8 +110,8 @@ export class DescriptionComponent implements OnInit {
   ngOnInit() {
     this.problemService.getProblem(this.nameProblem).subscribe(query =>{
       this.problem = query;
-      // console.log(this.problem);
-      // console.log(query);
+      this.problem.description.sample_input = this.problem.description.sample_input.split(',');
+      this.problem.description.sample_output = this.problem.description.sample_output.split(',');
     }, err =>{
       console.log(err);
       return false;

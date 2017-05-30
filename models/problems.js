@@ -6,12 +6,20 @@ var descriptionSchema = new Schema({
     type: String,
     required: false
   },
-  sample_input: {
+  input_format: {
     type: String,
     required: false
   },
-  sample_output: {
+  output_format: {
     type: String,
+    required: false
+  },
+  sample_input: {
+    type: [String],
+    required: false
+  },
+  sample_output: {
+    type: [String],
     required: false
   },
   explanation: {

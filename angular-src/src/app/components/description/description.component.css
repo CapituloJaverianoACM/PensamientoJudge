@@ -1,0 +1,23 @@
+p {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: normal;
+  margin: 0.5em;
+  line-height: 1.5em;
+  font-size: 1.4rem;
+}
+
+.sample {
+  font-family: 'Source Code Pro', monospace;
+  line-height: .9em;
+}
+
+h1 {
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.section-title {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 115%;
+    font-weight: bold;
+}
