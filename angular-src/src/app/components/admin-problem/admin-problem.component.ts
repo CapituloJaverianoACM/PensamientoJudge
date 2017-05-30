@@ -11,9 +11,15 @@ import { ProblemService } from '../../services/problem.service';
   styleUrls: ['./admin-problem.component.css']
 })
 export class AdminProblemComponent implements OnInit {
-  constructor() {}
+  problemArr : any;
+  constructor(
+    private problemService : ProblemService
+  ) {}
 
   ngOnInit() {
+    this.problemService.getAllProblems().subscribe( data =>{
+      this.problemArr = data;
+    } );
   }
 
 }
