@@ -5,6 +5,8 @@ var User = require('../models/user');
 var Verify = require('./verifyRouter');
 var validator = require('validator');
 var async = require("async");
+var multer  = require('multer');
+var upload = multer({ dest: 'profile-pictures/' });
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -15,7 +17,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/signup',function(req,res){
-  // User.register(new User({ username : req.body.username }),
   User.register(new User(req.body),
     req.body.password, function(err,user)  {
       if(err)
@@ -59,6 +60,16 @@ function changeEmail() {
   }
 }
 
+// router.post('/', function(req, res) {
+//   console.log("IN 1");
+//   upload(req,res, function(err) {
+//     console.log("IN 2");
+//     if(err) throw err;
+//     console.log("IN 3");
+//     console.log(req);
+//   });
+// });
+
 router.route('/byEmail/:userEmail')
 
 .get(function(req, res, next) {
@@ -66,6 +77,13 @@ router.route('/byEmail/:userEmail')
     if(err) throw err;
     res.json(user);
   });
+})
+// Upload Image.
+.post(upload.single('file'),function (req, res, next) {
+  console.log(req.file);
+  res.status(200).json({
+      status: 'Ok',
+    });
 })
 
 .put(function(req, res, next) {

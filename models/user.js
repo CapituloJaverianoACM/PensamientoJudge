@@ -24,8 +24,8 @@ var User  = new Schema ({
     unique: true
   },
   img: {
-    data: Buffer,
-    contentType: String
+    type: String,
+    required: false,
   },
   is_admin:{
     type: Boolean,
