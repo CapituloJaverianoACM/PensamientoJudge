@@ -1,0 +1,30 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Email</th>
+      <th>Name</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr *ngFor='let user of userArr'>
+      <th>{{user.username}}</th>
+      <th>{{user.email}}</th>
+      <th>{{user.first_name}} {{user.last_name}}</th>
+      <th>
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {{user.is_admin}}
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+          </ul>
+        </div>
+      </th>
+    </tr>
+  </tbody>
+</table>

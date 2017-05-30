@@ -38,6 +38,7 @@ import { MathjaxDirective } from './directives/mathjax.directive';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminProblemComponent } from './components/admin-problem/admin-problem.component';
 import { AdminProblemEditComponent } from './components/admin-problem-edit/admin-problem-edit.component';
+import { AdminUserComponent } from './components/admin-user/admin-user.component';
 
 const appRoutes: Routes =[
     {path : '' , component : HomeComponent },
@@ -51,7 +52,10 @@ const appRoutes: Routes =[
         },
         {
           path : 'problems/:problemName', component: AdminProblemEditComponent
-        }
+        },
+        {
+          path : 'users', component: AdminUserComponent
+        },
       ]
     },
     {path : 'submissions', component : SubmissionsComponent , data : {type:1} },
@@ -90,6 +94,7 @@ const appRoutes: Routes =[
     AdminComponent,
     AdminProblemComponent,
     AdminProblemEditComponent,
+    AdminUserComponent,
   ],
   imports: [
     BrowserModule,
