@@ -11,6 +11,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
+              <li *ngIf="authService.isLoggedInAsAdmin()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                  <a [routerLink]="['/admin']">Admin</a>
+              </li>
                 <li *ngIf="authService.isLoggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                     <a [routerLink]="['/profile']">Profile</a>
                 </li>

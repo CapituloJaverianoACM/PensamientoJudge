@@ -23,6 +23,7 @@ export class SubmissionsComponent implements OnInit {
   currentPage : number = 0;
   editorModal : any;
   maxSize: number = 5;
+
   constructor(
     private problemService : ProblemService,
     private authService : AuthService,
@@ -135,18 +136,22 @@ export class SubmissionsComponent implements OnInit {
   }
   onClickCode( item : any)
   {
-    document.getElementById("modalEditor").innerHTML = "";
     if( !this.showCode(item) )
       return false;
-    // console.log(item);
+    // console.log(document.getElementById("modalEditor"));
+    // console.log(this.editorModal);
     this.problemService.getCode( item.id ).subscribe( code =>{
       // console.log(code);
-      CodeMirror(document.getElementById("modalEditor"),{
-        value : code,
-        lineNumbers: true,
-        mode: "text/x-c++src",
-        readOnly : true
-      });
+      // document.getElementById("modalEditor").innerHTML = "";
+      if( !this.editorModal )
+        this.editorModal  = CodeMirror(document.getElementById("modalEditor"),{
+          value : code,
+          lineNumbers: true,
+          mode: "text/x-c++src",
+          readOnly : true
+        });
+      else
+        this.editorModal.doc.setValue(code);
       document.getElementById("titleModal").innerHTML = item.id;
     }, err =>{
       console.log(err);

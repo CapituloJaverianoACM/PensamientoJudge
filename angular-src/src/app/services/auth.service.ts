@@ -61,8 +61,14 @@ export class AuthService {
   }
 
   isLoggedIn() {
-      return !!localStorage.getItem('id_token');
-    }
+    return !!localStorage.getItem('id_token');
+  }
+
+  isLoggedInAsAdmin() {
+    this.loadUser();
+    return this.user && this.user.is_admin;
+  }
+
   isUser( _username ){
     if( !this.user )
       return false;

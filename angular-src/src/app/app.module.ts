@@ -22,6 +22,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 import { ProblemComponent } from './components/problem/problem.component';
 import { TabComponent } from './components/tab/tab.component';
 import { TabsComponent } from './components/tabs/tabs.component';
@@ -34,12 +35,25 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ProblemsListComponent } from './components/problems-list/problems-list.component';
 import { ProblemPanelComponent } from './components/problem-panel/problem-panel.component';
 import { MathjaxDirective } from './directives/mathjax.directive';
+import { AdminComponent } from './components/admin/admin.component';
+import { AdminProblemComponent } from './components/admin-problem/admin-problem.component';
+import { AdminProblemEditComponent } from './components/admin-problem-edit/admin-problem-edit.component';
 
 const appRoutes: Routes =[
     {path : '' , component : HomeComponent },
     {path : 'login' , component : LoginComponent },
     {path : 'signup' , component : SignupComponent },
     {path : 'profile' , component : ProfileComponent , canActivate: [AuthGuard]},
+    {path : 'admin' , component : AdminComponent , canActivate: [AuthGuard, AdminGuard] ,
+      children : [
+        {
+          path : 'problems', component: AdminProblemComponent
+        },
+        {
+          path : 'problems/:problemName', component: AdminProblemEditComponent
+        }
+      ]
+    },
     {path : 'submissions', component : SubmissionsComponent , data : {type:1} },
     {path : 'submissions/user/:username', component : SubmissionsComponent ,  data : {type:2} },
     {path : 'submissions/problem/:problemName', component : SubmissionsComponent ,  data : {type:3} },
@@ -73,6 +87,9 @@ const appRoutes: Routes =[
     ProblemsListComponent,
     ProblemPanelComponent,
     MathjaxDirective,
+    AdminComponent,
+    AdminProblemComponent,
+    AdminProblemEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,6 +105,7 @@ const appRoutes: Routes =[
     ValidateService,
     AuthService,
     AuthGuard,
+    AdminGuard,
     EndPointService,
     ProblemService,
     UsersService

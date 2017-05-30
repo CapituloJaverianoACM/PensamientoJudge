@@ -3,16 +3,15 @@ import { Router, CanActivate } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
-export class AuthGuard implements CanActivate{
+export class AdminGuard implements CanActivate{
     constructor(
       private authService:AuthService,
       private router:Router
     ){ }
     canActivate(){
-      if(this.authService.loggedIn())
+      if(this.authService.isLoggedInAsAdmin())
         return true;
       else{
-        this.authService.logout();
         this.router.navigate(['/']);
         return false;
       }
