@@ -27,13 +27,24 @@
 
     <tr *ngFor='let item of pageArr'>
       <th >
-        <a class="txtlink2" (click)="onClickCode(item)" (click)="lgModal.show()">
+        <a *ngIf="showCode(item)" (click)="onClickCode(item)" (click)="lgModal.show()" >
         {{item.id}}
         </a>
+        <div *ngIf="!showCode(item)">
+          {{item.id}}
+        </div>
       </th>
       <th>{{item.cl}}</th>
-      <th [hidden]="type==0||type==3">{{item.problemName}}</th>
-      <th [hidden]="type==0||type==2">{{item.username}}</th>
+      <th [hidden]="type==0||type==3">
+        <a [routerLink]="['/problems',item.problemName]">
+          {{item.problemName}}
+        </a>
+      </th>
+      <th [hidden]="type==0||type==2">
+        <a [routerLink]="['/profile',item.username]">
+          {{item.username}}
+        </a>
+      </th>
       <th class="{{item.cl}}">{{item.veredict}}</th>
     </tr>
 

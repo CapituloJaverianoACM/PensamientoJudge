@@ -2,7 +2,7 @@ import { Component, OnInit , Input , ViewChild , ElementRef } from '@angular/cor
 import { ProblemService } from '../../services/problem.service';
 import { AuthService } from '../../services/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import {MathjaxDirective} from '../../directives/mathjax.directive';
 
 declare var CodeMirror: any;
@@ -15,7 +15,7 @@ declare var CodeMirror: any;
 export class DescriptionComponent implements OnInit {
   @ViewChild('EditorCode') el:ElementRef;
   @ViewChild('hi') eel:ElementRef;
-  @Input() nameProblem;
+  nameProblem : string;
   problem : any;
   user: any;
   // dir : string;
@@ -75,6 +75,7 @@ export class DescriptionComponent implements OnInit {
     private problemService : ProblemService,
     private authService : AuthService,
     private flashMesssagesService : FlashMessagesService,
+    private route : ActivatedRoute,
     private router : Router
   ) {
     // this.dir = '../../../assets/CodeMirror/';
@@ -108,6 +109,10 @@ export class DescriptionComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.nameProblem = this.route.snapshot.url[ 1] ;
+    this.route.params.subscribe( params => {
+      this.nameProblem = params['name'];
+    });
     this.problemService.getProblem(this.nameProblem).subscribe(query =>{
       this.problem = query;
       this.problem.description.sample_input = this.problem.description.sample_input.split(',');
