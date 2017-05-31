@@ -1,38 +1,117 @@
 <div class="container">
   <div *ngIf="problem">
-    <h3>Edit: {{problem.name}}</h3>
-
-    <h4 class="sub-tittle">Problem Name</h4>
-    <input type="text" [(ngModel)] = "problem.name" value="{{problem.name}}" class="form-control" id="name">
     <div class="row">
+      <div class="col-sm-6">
+        <h3>Edit: {{problem.name}}</h3>
 
-      <div class="col-sm-2">
-        <h4 class="sub-tittle">Max Score</h4>
-        <input type="number" [(ngModel)] = "problem.max_score" value="{{problem.max_score}}" class="form-control" id="max-score">
+        <h4 class="sub-tittle">Problem Name</h4>
+        <input type="text" [(ngModel)] = "problem.name" value="{{problem.name}}" class="form-control" id="name">
+        <div class="row">
+
+          <div class="col-sm-3">
+            <h4 class="sub-tittle">Max Score</h4>
+            <input type="number" [(ngModel)] = "problem.max_score" value="{{problem.max_score}}" class="form-control" id="max-score">
+          </div>
+
+          <div class="col-sm-2">
+            <h4 class="sub-tittle">Difficulty</h4>
+            <input type="text" [(ngModel)] = "problem.difficulty" value="{{problem.difficulty}}" class="form-control" id="difficulty">
+          </div>
+
+          <div class="col-sm-3">
+            <h4 class="sub-tittle">Time Limit (Sec)</h4>
+            <input type="number" [(ngModel)] = "problem.time_limit" value="{{problem.time_limit}}" class="form-control" id="TL">
+          </div>
+
+          <div class="col-sm-2">
+            <h4 class="sub-tittle">Theme</h4>
+            <input type="text" [(ngModel)] = "problem.theme" value="{{problem.theme}}" class="form-control" id="name">
+          </div>
+
+          <div class="col-sm-2">
+            <h4 class="sub-tittle">Corte</h4>
+            <input type="number" [(ngModel)] = "problem.corte" value="{{problem.corte}}" class="form-control" id="name">
+          </div>
+        </div>
+
+        <h4 class="sub-tittle">Problem Description</h4>
+        <textarea
+        class="form-control"
+        rows="5"
+        [(ngModel)]="problem.description.statement"
+        value="{{problem.description.statement}}"
+        ></textarea>
+        <h4 class="sub-tittle">Note: </h4>
+        <p> For new lines type <![CDATA[<br>]]>. </p>
+
+        <h4 class="sub-tittle">Input Format</h4>
+        <textarea
+        class="form-control"
+        rows="5"
+        [(ngModel)]="problem.description.input_format"
+        value="{{problem.description.input_format}}"
+        ></textarea>
+
+        <h4 class="sub-tittle">Output Format</h4>
+        <textarea
+        class="form-control"
+        rows="5"
+        [(ngModel)]="problem.description.output_format"
+        value="{{problem.description.output_format}}"
+        ></textarea>
+        <div *ngFor="let sample of problem.description.samples">
+
+          <h4 class="sub-tittle">Sample Input <a (click)="removeSampleOnClick(sample)"><span class="glyphicon glyphicon-remove pull-right close"></span></a>  </h4>
+          <textarea
+          class="form-control"
+          rows="3"
+          [(ngModel)]="sample[0]"
+          value="{{sample[0]}}"
+          ></textarea>
+
+          <h4 class="sub-tittle">Sample Output</h4>
+          <textarea
+          class="form-control"
+          rows="3"
+          [(ngModel)]="sample[1]"
+          value="{{sample[1]}}"
+          ></textarea>
+        </div>
+        <div class="text-center confirm-buttons">
+          <button (click)="addSampleOnClick()" type="button" class="btn btn-warning">Add Sample <span class="glyphicon glyphicon-plus"></span> </button>
+        </div>
+
+
       </div>
 
-      <div class="col-sm-2">
-        <h4 class="sub-tittle">Difficulty</h4>
-        <input type="text" [(ngModel)] = "problem.difficulty" value="{{problem.difficulty}}" class="form-control" id="difficulty">
-      </div>
+      <div class="col-sm-6">
+        <h4 class="sub-tittle">Statement Prevew</h4>
+        <p [MathJax]="problem.description.statement">
+          {{problem.description.statement}}
+        </p>
+        <div class="section-title">Input Format</div>
+        <p [MathJax]="problem.description.input_format">{{problem.description.input_format}}</p>
+        <div class="section-title">Outpu Formatt</div>
+        <p [MathJax]="problem.description.output_format">{{problem.description.output_format}}</p>
+        <div class="section-title">Samples</div>
+        <ul class="list-group">
+        <div class="samples-display" *ngFor="let sample of problem.description.samples">
 
-      <div class="col-sm-4">
-        <h4 class="sub-tittle">Time Limit</h4>
-        <input type="number" [(ngModel)] = "problem.time_limit" value="{{problem.time_limit}}" class="form-control" id="TL">
-      </div>
-
-      <div class="col-sm-2">
-        <h4 class="sub-tittle">Theme</h4>
-        <input type="text" [(ngModel)] = "problem.theme" value="{{problem.theme}}" class="form-control" id="name">
-      </div>
-
-      <div class="col-sm-2">
-        <h4 class="sub-tittle">Corte</h4>
-        <input type="number" [(ngModel)] = "problem.corte" value="{{problem.corte}}" class="form-control" id="name">
+            <li class="list-group-item">
+              <h6>Input</h6>
+                <pre>{{sample[0]}}</pre>
+              <h6>Output</h6>
+                <pre>{{sample[1]}}</pre>
+            </li>
+          </div>
+          </ul>
       </div>
     </div>
+    <div class="text-center confirm-buttons">
+      <button type="button" class="btn btn-danger btn-lg">Cancel</button>
+      <button (click)="saveChangesOnClick()" type="button" class="btn btn-success btn-lg">Done</button>
+    </div>
 
-    <h4 class="sub-tittle">Problem Description</h4>
-    <textarea class="form-control" [(ngModel)] = "problem.statement" value="{{problem.statement}}" rows="5" id="description"></textarea>
+
   </div>
 </div>

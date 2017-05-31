@@ -42,7 +42,6 @@ function findByEmail(email) {
       return false;
     }
     if(user) {
-      console.log(user);
       return user;
     }
   });
@@ -60,16 +59,6 @@ function changeEmail() {
   }
 }
 
-// router.post('/', function(req, res) {
-//   console.log("IN 1");
-//   upload(req,res, function(err) {
-//     console.log("IN 2");
-//     if(err) throw err;
-//     console.log("IN 3");
-//     console.log(req);
-//   });
-// });
-
 router.route('/byEmail/:userEmail')
 
 .get(function(req, res, next) {
@@ -80,14 +69,12 @@ router.route('/byEmail/:userEmail')
 })
 // Upload Image.
 .post(upload.single('file'),function (req, res, next) {
-  console.log(req.file);
   res.status(200).json({
       status: 'Ok',
     });
 })
 
 .put(function(req, res, next) {
-  console.log(req.body);
   User.findOneAndUpdate({'email' : req.params.userEmail}, {
     $set: req.body
   }, {
@@ -151,7 +138,6 @@ router.get('/logout',function(req,res){
   });
 });
 router.get('/profile',Verify.verifyOrdinaryUser,function(req,res,next){
-  // console.log(req.decoded._doc.username);
   username = req.decoded._doc.username;
   User.findOne({'username':username},function(err,user){
     if (err) { return next(err); }

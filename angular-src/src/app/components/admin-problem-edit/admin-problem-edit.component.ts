@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProblemService } from '../../services/problem.service'
+import {MathjaxDirective} from '../../directives/mathjax.directive';
 
 
 @Component({
@@ -12,6 +13,7 @@ export class AdminProblemEditComponent implements OnInit {
 
   nameProblem: string;
   problem: any;
+  samples : any;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,11 +26,28 @@ export class AdminProblemEditComponent implements OnInit {
       this.problemService.getProblem(this.nameProblem).subscribe(
         (query) => {
           this.problem = query;
-          console.log(query);
         }
       );
-      // In a real app: dispatch action to load the details here.
     });
+  }
+
+  addSampleOnClick() {
+    var newCase = ["",""];
+    this.problem.description.samples.push(newCase);
+  }
+
+  removeSampleOnClick(sample) {
+    var toDeleteIndex = this.problem.description.samples.indexOf(sample);
+    this.problem.description.samples.splice(toDeleteIndex, 1);
+  }
+
+  saveChangesOnClick() {
+    this.problemService.updateProblem(this.problem).subscribe(data =>{});
+    this.problemService.getProblem(this.nameProblem).subscribe(
+      (query) => {
+        this.problem = query;
+      }
+    );
   }
 
 }

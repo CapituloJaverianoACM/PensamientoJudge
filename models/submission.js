@@ -28,8 +28,8 @@ var SubmissionSchema = new Schema({
     default: 0.0
   },
   time_stamp: {
-    type: Number,
-    default: 0.0
+    type : Date,
+    default: Date.now 
   },
   userId: {
     type : Schema.ObjectId ,
@@ -40,7 +40,8 @@ var SubmissionSchema = new Schema({
     type : Schema.ObjectId ,
     ref : 'Problem',
     required: true
-  }
+  },
+
 
 });
 

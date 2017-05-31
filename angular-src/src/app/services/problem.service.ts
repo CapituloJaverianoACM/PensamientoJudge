@@ -100,6 +100,15 @@ export class ProblemService {
     let ep = this.endPoint.prepEndPoint('submissionAPI/code/'+id);
     return this.http.get(ep,{headers:headers})
     .map( res => res.json() );
+  }
 
+  updateProblem(problem) {
+    this.authService.loadToken();
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
+    let ep = this.endPoint.prepEndPoint('problemAPI/'+problem.name);
+    return this.http.put(ep, JSON.stringify(problem),{headers: headers})
+      .map(res => res.json());
   }
 }

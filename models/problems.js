@@ -14,19 +14,19 @@ var descriptionSchema = new Schema({
     type: String,
     required: false
   },
-  sample_input: {
-    type: [String],
-    required: false
-  },
-  sample_output: {
-    type: [String],
+  // sample_input: {
+  //   type: [String],
+  //   required: false
+  // },
+  // sample_output: {
+  //   type: [String],
+  //   required: false
+  // },
+  samples:{
+    type: [[String]],
     required: false
   },
   explanation: {
-    type: String,
-    required: false
-  },
-  notes: {
     type: String,
     required: false
   },

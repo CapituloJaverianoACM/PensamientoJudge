@@ -9,21 +9,17 @@
   <div class="section-title">Outpu Formatt</div>
   <p [MathJax]="problem.description.output_format">{{problem.description.output_format}}</p>
   <div class="section-title">Samples</div>
-  <div *ngFor="let sample of samples">
-    <ul class="list-group">
+  <ul class="list-group">
+  <div *ngFor="let sample of problem.description.samples">
 
       <li class="list-group-item">
         <h6>Input</h6>
-        <!-- <ol class="breadcrumb"> -->
-          <pre>{{sample.input}}</pre>
-        <!-- </ol> -->
+          <pre>{{sample[0]}}</pre>
         <h6>Output</h6>
-        <!-- <ol class="breadcrumb"> -->
-          <pre>{{sample.output}}</pre>
-        <!-- </ol> -->
+          <pre>{{sample[1]}}</pre>
       </li>
+    </div>
     </ul>
-  </div>
 </div>
 
   <!-- CodeMirror -->
