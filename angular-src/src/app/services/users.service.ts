@@ -54,15 +54,11 @@ export class UsersService {
       let headers = new Headers();
       headers.append('Content-Type','application/json');
       headers.append('x-access-token',this.authService.authToken);
-      let ep = this.endPoint.prepEndPoint('usersAPI/byEmail/' + user.email);
-      var ret ;
-       this.http.delete(ep,{headers:headers})
-      .map( res => res.json() ).subscribe( data => {
-        let ep = this.endPoint.prepEndPoint('submissionAPI/idUser/' + user._id);
-         ret = this.http.delete(ep,{headers:headers})
-          .map( res => res.json() );
-
-      });
-      return ret;
+      let ep = this.endPoint.prepEndPoint('submissionAPI/idUser/' + user._id);
+      this.http.delete(ep,{headers:headers})
+        .map( res => res.json() );
+       ep = this.endPoint.prepEndPoint('usersAPI/byEmail/' + user.email);
+       return this.http.delete(ep,{headers:headers})
+      .map( res => res.json() );
     }
 }
