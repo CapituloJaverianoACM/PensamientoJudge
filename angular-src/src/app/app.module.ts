@@ -8,6 +8,8 @@ import { FlashMessagesModule } from 'angular2-flash-messages'
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { PaginationModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap';
+import { PopoverModule } from 'ngx-popover';
 // Imports for loading & configuring the in-memory web api
 
 
@@ -104,7 +106,9 @@ const appRoutes: Routes =[
     FlashMessagesModule,
     Ng2SmartTableModule,
     PaginationModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    PopoverModule
   ],
   providers: [
     ValidateService,

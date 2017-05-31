@@ -21,5 +21,12 @@ export class AdminProblemComponent implements OnInit {
       this.problemArr = data;
     } );
   }
+  deleteProblem( problem )
+  {
+    this.problemService.deleteProblem(problem).subscribe( data => {
+      // console.log(data);
+      this.problemArr.splice( this.problemArr.indexOf(problem) , 1 );
 
+    });
+  }
 }

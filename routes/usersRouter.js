@@ -98,12 +98,25 @@ router.route('/byEmail/:userEmail')
   });
 })
 
-.delete(function(req, res, next) {
-  Problem.findOneAndRemove({'email' : req.params.userEmail}, function (err, resp) {
+.delete(Verify.verifyAdminUser,function(req, res, next) {
+  User.findOneAndRemove({'email' : req.params.userEmail}, function (err, resp) {
     if (err) throw err;
     res.json(resp);
   });
 });
+router.route('/role/:username')
+
+.put(Verify.verifyAdminUser,function(req, res, next) {
+  User.findOneAndUpdate({'username' : req.params.username},
+  {
+    is_admin : req.body.is_admin
+  }, function( err , user ){
+    if( err ) throw err;
+    res.json(user);
+  });
+})
+
+
 
 router.post('/login',changeEmail(),function(req,res,next){
   passport.authenticate('local',function(err,user,info){

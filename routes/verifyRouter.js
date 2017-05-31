@@ -34,7 +34,7 @@ exports.verifyOrdinaryUser = function(req,res,next){
 };
 
 exports.verifyAdminUser = function( req, res , next){
-  
+
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if( token ){
@@ -45,7 +45,7 @@ exports.verifyAdminUser = function( req, res , next){
         return next( err );
       }
       else{
-        if(decoded._doc.admin){
+        if(decoded._doc.is_admin){
           req.decoded = decoded;
           next();
 

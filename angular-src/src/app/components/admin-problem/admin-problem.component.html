@@ -22,7 +22,15 @@
       <th>{{item.difficulty}}</th>
       <th>{{item.corte}}</th>
       <th>
-        <a class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+        <div>
+          <popover-content #myPopoverProblem title="Confirm delete Problem"  [closeOnClickOutside]="true">
+            <button class="btn btn-success text-center" (click)="myPopoverProblem.hide()" (click)="deleteProblem(item)"><span class="glyphicon glyphicon-ok"></span></button>
+            <button class="btn btn-danger text-center"  (click)="myPopoverProblem.hide()"><span class="glyphicon glyphicon-remove"></span></button>
+          </popover-content>
+
+          <button class="btn btn-danger" [popover]="myPopoverProblem">
+          <span class="glyphicon glyphicon-remove">Delete</span></button>
+        </div>
       </th>
     </tr>
   </tbody>
