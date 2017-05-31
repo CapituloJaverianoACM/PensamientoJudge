@@ -5,6 +5,7 @@
       <th>Email</th>
       <th>Name</th>
       <th>Role</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -14,15 +15,26 @@
       <th>{{user.email}}</th>
       <th>{{user.first_name}} {{user.last_name}}</th>
       <th>
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            {{user.is_admin}}
-            <span class="caret"></span>
+        <div class="btn-group" dropdown>
+          <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+            <div *ngIf="user.is_admin">True <span class="caret"></span></div>
+            <div *ngIf="!user.is_admin">False <span class="caret"></span></div>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem"><a class="dropdown-item" (click) = "changeRole(true,user)">True</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click) = "changeRole(false,user)">False</a></li>
           </ul>
+        </div>
+      </th>
+      <th>
+        <div>
+          <popover-content #myPopover title="Confirm delete user"  [closeOnClickOutside]="true">
+            <button class="btn btn-success text-center" (click)="myPopover.hide()" (click)="deleteUser(user)"><span class="glyphicon glyphicon-ok"></span></button>
+            <button class="btn btn-danger text-center"  (click)="myPopover.hide()"><span class="glyphicon glyphicon-remove"></span></button>
+          </popover-content>
+
+          <button class="btn btn-danger" [popover]="myPopover">Delete
+          <span class="glyphicon glyphicon-remove"></span></button>
         </div>
       </th>
     </tr>

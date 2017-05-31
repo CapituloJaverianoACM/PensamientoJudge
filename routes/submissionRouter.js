@@ -248,7 +248,17 @@ router.get('/user/:userName',function(req,res,next){
   });
 
 });
-router.get('/problem/:problemName',function(req,res,next){
+router.route('/idUser/:userId')
+.delete(Verify.verifyAdminUser,function(req,res,next){
+  Submissions.remove({'userId':req.params.userId},unction (err, resp) {
+    if (err) throw err;
+    res.json(resp);
+  });
+});
+
+router.route('/problem/:problemName')
+
+.get(function(req,res,next){
   Submission.aggregate([
     {
       $lookup:{
@@ -277,6 +287,14 @@ router.get('/problem/:problemName',function(req,res,next){
   });
 
 });
+router.route('/idProblem/:problemId')
+.delete(Verify.verifyAdminUser,function(req,res,next){
+  Submissions.remove({'problemId':req.params.problemId},unction (err, resp) {
+    if (err) throw err;
+    res.json(resp);
+  });
+});
+
 
 router.get('/userProblem/:problemName',Verify.verifyOrdinaryUser,function(req,res,next){
   // Submission.find({"userId":req.decoded._doc._id },
@@ -329,4 +347,5 @@ router.get('/code/:id',Verify.verifyOrdinaryUser,function(req,res,next){
     }
   );
 });
+
 module.exports = router;

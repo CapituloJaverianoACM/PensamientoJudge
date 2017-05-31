@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var Verify = require('./verifyRouter');
 
 var Problem = require('../models/problems');
 
@@ -30,7 +31,7 @@ problemRouter.route('/')
   });
 })
 
-.delete(function(req, res, next) {
+.delete(Verify.verifyAdminUser,function(req, res, next) {
   Problem.remove({}, function(err, resp) {
     if (err) throw err;
     res.json(resp);
@@ -57,7 +58,7 @@ problemRouter.route('/:problemName')
   });
 })
 
-.delete(function(req, res, next) {
+.delete(Verify.verifyAdminUser,function(req, res, next) {
   // TODO - Quety to delete.
   Problem.findOneAndRemove({'name' : req.params.problemName}, function (err, resp) {
     if (err) throw err;

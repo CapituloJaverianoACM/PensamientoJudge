@@ -38,4 +38,31 @@ export class UsersService {
       .map( res => res.json() );
   }
 
+  setUserRole( newUser  ){
+    this.authService.loadToken();
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
+    let ep = this.endPoint.prepEndPoint('usersAPI/role/' + newUser.username);
+    return this.http.put(ep, JSON.stringify(newUser),{headers:headers})
+    .map( res => res.json() );
+
+  }
+
+    deleteUser( user ){
+      this.authService.loadToken();
+      let headers = new Headers();
+      headers.append('Content-Type','application/json');
+      headers.append('x-access-token',this.authService.authToken);
+      let ep = this.endPoint.prepEndPoint('usersAPI/byEmail/' + user.email);
+      var ret ;
+       this.http.delete(ep,{headers:headers})
+      .map( res => res.json() ).subscribe( data => {
+        let ep = this.endPoint.prepEndPoint('submissionAPI/idUser/' + user._id);
+         ret = this.http.delete(ep,{headers:headers})
+          .map( res => res.json() );
+
+      });
+      return ret;
+    }
 }
