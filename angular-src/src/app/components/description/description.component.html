@@ -10,7 +10,7 @@
   <p [MathJax]="problem.description.output_format">{{problem.description.output_format}}</p>
   <div class="section-title">Samples</div>
   <ul class="list-group">
-  <div *ngFor="let sample of problem.description.samples">
+  <div class="samples-display" *ngFor="let sample of problem.description.samples">
 
       <li class="list-group-item">
         <h6>Input</h6>

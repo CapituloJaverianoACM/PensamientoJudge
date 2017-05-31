@@ -49,15 +49,11 @@ const appRoutes: Routes =[
     {path : 'profile' , component : ProfileComponent , canActivate: [AuthGuard]},
     {path : 'admin' , component : AdminComponent , canActivate: [AuthGuard, AdminGuard] ,
       children : [
-        {
-          path : 'problems', component: AdminProblemComponent
-        },
-        {
-          path : 'problems/:problemName', component: AdminProblemEditComponent
-        },
-        {
-          path : 'users', component: AdminUserComponent
-        },
+        { path : '', component: AdminProblemComponent},
+        { path : 'problems', component: AdminProblemComponent},
+        { path : 'problems/:problemName', component: AdminProblemEditComponent},
+        { path : 'users', component: AdminUserComponent},
+
       ]
     },
     {path : 'submissions', component : SubmissionsComponent , data : {type:1} },

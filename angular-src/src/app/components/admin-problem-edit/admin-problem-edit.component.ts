@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProblemService } from '../../services/problem.service'
 import {MathjaxDirective} from '../../directives/mathjax.directive';
 
@@ -14,10 +14,12 @@ export class AdminProblemEditComponent implements OnInit {
   nameProblem: string;
   problem: any;
   samples : any;
+  emptyString: string;
 
   constructor(
     private route: ActivatedRoute,
-    private problemService: ProblemService
+    private problemService: ProblemService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -26,6 +28,8 @@ export class AdminProblemEditComponent implements OnInit {
       this.problemService.getProblem(this.nameProblem).subscribe(
         (query) => {
           this.problem = query;
+          this.problem.description = this.problem.description || {};
+          if(this.problem.description.samples === undefined) this.problem.description.samples = [];
         }
       );
     });
@@ -42,12 +46,17 @@ export class AdminProblemEditComponent implements OnInit {
   }
 
   saveChangesOnClick() {
-    this.problemService.updateProblem(this.problem).subscribe(data =>{});
-    this.problemService.getProblem(this.nameProblem).subscribe(
-      (query) => {
-        this.problem = query;
-      }
-    );
+    this.problemService.updateProblem(this.problem).subscribe(data =>{
+      this.backToProblems();
+    });
+  }
+
+  cancelOnClick(){
+    this.backToProblems();
+  }
+
+  backToProblems(){
+    this.router.navigate(['/admin','problems']);
   }
 
 }

@@ -112,7 +112,6 @@ export class ProblemService {
       .map(res => res.json());
   }
   deleteProblem( problem ){
-
     this.authService.loadToken();
       let headers = new Headers();
       headers.append('Contet-Type','application/json');
@@ -129,4 +128,17 @@ export class ProblemService {
         );
       return ret;
   }
+
+  createProblem(problem) {
+    this.authService.loadToken();
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
+    let ep = this.endPoint.prepEndPoint('problemAPI/');
+    console.log("Ok Til Helo");
+    // console.log(JSON.stringify(problem));
+    return this.http.post(ep, problem,{headers: headers})
+      .map(res => res.json());
+  }
+
 }

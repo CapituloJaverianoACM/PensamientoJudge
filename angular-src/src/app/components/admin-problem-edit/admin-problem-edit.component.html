@@ -34,6 +34,7 @@
           </div>
         </div>
 
+        
         <h4 class="sub-tittle">Problem Description</h4>
         <textarea
         class="form-control"
@@ -108,7 +109,7 @@
       </div>
     </div>
     <div class="text-center confirm-buttons">
-      <button type="button" class="btn btn-danger btn-lg">Cancel</button>
+      <button (click)="cancelOnClick()" type="button" class="btn btn-danger btn-lg">Cancel</button>
       <button (click)="saveChangesOnClick()" type="button" class="btn btn-success btn-lg">Done</button>
     </div>
 

@@ -4,14 +4,17 @@ var Schema = mongoose.Schema;
 var descriptionSchema = new Schema({
   statement: {
     type: String,
+    default: "",
     required: false
   },
   input_format: {
     type: String,
+    default: "",
     required: false
   },
   output_format: {
     type: String,
+    default: "",
     required: false
   },
   // sample_input: {
@@ -24,18 +27,22 @@ var descriptionSchema = new Schema({
   // },
   samples:{
     type: [[String]],
-    required: false
+    required: false,
+    default:[[]]
   },
   explanation: {
     type: String,
+    default: "",
     required: false
   },
   route_test_input: {
     type: String,
+    default: "",
     required: false
   },
   route_test_output: {
     type: String,
+    default: "",
     required: false
   },
 });
@@ -48,24 +55,29 @@ var problemSchema = new Schema({
   },
   max_score: {
     type: Number,
+    default: "",
     default: 0.0,
     required: false
   },
   difficulty: {
     type: String,
+    default: "",
     required: false
   },
   time_limit: {
     type: Number,
+    default: "",
     default: 0.0,
     required: false
   },
   theme: {
     type: String,
+    default: "",
     required: false
   },
   corte: {
     type: Number,
+    default: "",
     required: false
   },
   // TODO - Delete this column

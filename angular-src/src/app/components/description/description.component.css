@@ -21,3 +21,7 @@ h1 {
     font-size: 115%;
     font-weight: bold;
 }
+
+.samples-display {
+  padding-top: 10px;
+}

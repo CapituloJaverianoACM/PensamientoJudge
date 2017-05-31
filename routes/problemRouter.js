@@ -24,10 +24,14 @@ problemRouter.route('/')
     if (err) throw err;
     console.log('Problem created!');
     var id = problem._id;
-    res.writeHead(200, { // 200 OK, added problem without errors.
-      'Content-Type': 'text/plain'
+    // res.writeHead(200, { // 200 OK, added problem without errors.
+    //   'Content-Type':'application/json'
+    // });
+    // res.end('Added the problem with id: ' + id);
+    return res.status(200).json({
+      success : true,
+      status: 'Added the problem with id: ' + id
     });
-    res.end('Added the problem with id: ' + id);
   });
 })
 

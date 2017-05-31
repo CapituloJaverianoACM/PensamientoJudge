@@ -12,8 +12,10 @@ import { ProblemService } from '../../services/problem.service';
 })
 export class AdminProblemComponent implements OnInit {
   problemArr : any;
+  nameNewProblem : string;
   constructor(
-    private problemService : ProblemService
+    private problemService : ProblemService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -27,6 +29,17 @@ export class AdminProblemComponent implements OnInit {
       // console.log(data);
       this.problemArr.splice( this.problemArr.indexOf(problem) , 1 );
 
+    });
+  }
+  addProblemOnClick(){
+    var newProblem = {name: this.nameNewProblem};
+    this.problemService.createProblem(newProblem).subscribe(data => {
+
+      console.log("Dummy 1");
+      console.log(data);
+      this.router.navigate(['/admin','problems',this.nameNewProblem]);
+      console.log("Dummy");
+      console.log(newProblem);
     });
   }
 }
