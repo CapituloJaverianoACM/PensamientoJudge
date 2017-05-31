@@ -250,7 +250,7 @@ router.get('/user/:userName',function(req,res,next){
 });
 router.route('/idUser/:userId')
 .delete(Verify.verifyAdminUser,function(req,res,next){
-  Submissions.remove({'userId':req.params.userId},function (err, resp) {
+  Submission.remove({'userId':req.params.userId},function (err, resp) {
     if (err) throw err;
     res.json(resp);
   });
@@ -289,7 +289,7 @@ router.route('/problem/:problemName')
 });
 router.route('/idProblem/:problemId')
 .delete(Verify.verifyAdminUser,function(req,res,next){
-  Submissions.remove({'problemId':req.params.problemId},function (err, resp) {
+  Submission.remove({'problemId':req.params.problemId},function (err, resp) {
     if (err) throw err;
     res.json(resp);
   });

@@ -117,6 +117,9 @@ export class DescriptionComponent implements OnInit {
     });
     this.problemService.getProblem(this.nameProblem).subscribe(query =>{
       this.problem = query;
+      this.problem.description = this.problem.description || {};
+      if(this.problem.description.samples === undefined) this.problem.description.samples = [];
+  
       // console.log(this.problem);
       // this.problem.description.sample_input = this.problem.description.sample_input.split(',');
       // this.problem.description.sample_output = this.problem.description.sample_output.split(',');
