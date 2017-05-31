@@ -117,16 +117,13 @@ export class ProblemService {
       let headers = new Headers();
       headers.append('Contet-Type','application/json');
       headers.append('x-access-token',this.authService.authToken);
-      let ep = this.endPoint.prepEndPoint('problemAPI/'+problem.name);
-      var ret;
-      this.http.delete(ep,{headers:headers})
-        .map( res => res.json() ).subscribe(
-          data =>{
-            let ep = this.endPoint.prepEndPoint('submissionAPI/idProblem/' + problem._id);
-            ret =  this.http.delete(ep,{headers:headers})
-              .map( res => res.json() );
-          }
-        );
-      return ret;
+      let ep = this.endPoint.prepEndPoint('submissionAPI/idProblem/' + problem._id);
+       this.http.delete(ep,{headers:headers})
+        .map( res => res.json() ).subscribe(data=>{});
+
+       ep = this.endPoint.prepEndPoint('problemAPI/'+problem.name);
+
+      return this.http.delete(ep,{headers:headers})
+        .map( res => res.json() );
   }
 }
