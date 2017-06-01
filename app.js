@@ -21,6 +21,16 @@ db.once('open', function() {
   console.log("Connected correctly to server");
 });
 
+// TODO - NOT
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.setHeader('Access-Control-Allow-Methods', 'POST');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
+
+
 // Require Routes
 var index = require('./routes/index');
 var users = require('./routes/usersRouter');

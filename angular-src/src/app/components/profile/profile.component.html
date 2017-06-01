@@ -6,9 +6,17 @@
         <h3>{{user.first_name}} {{user.last_name}}</h3>
         <a href="http://placehold.it"><img src="http://placehold.it/350x350"></a>
         <div class="upload-button text-center">
-          <button class="btn btn-primary" type="file"><span class="glyphicon glyphicon-open"></span> Upload Image</button>
-
           <input type="file" ng2FileSelect [uploader]="uploader" />
+
+          <!-- <button class="btn btn-primary" type="file"
+                  (click)="test()" >
+              <span class="glyphicon glyphicon-open"></span> Upload Image</button> -->
+          <div *ngFor="let item of uploader.queue">
+
+            <button class="btn btn-primary" type="file"
+                    (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                <span class="glyphicon glyphicon-open"></span> Upload Image</button>
+          </div>
 
 
         </div>

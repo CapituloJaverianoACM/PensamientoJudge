@@ -93,6 +93,7 @@ const appRoutes: Routes =[
     AdminProblemComponent,
     AdminProblemEditComponent,
     AdminUserComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,
