@@ -22,13 +22,15 @@ db.once('open', function() {
 });
 
 // TODO - NOT
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
-  res.setHeader('Access-Control-Allow-Methods', 'POST');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
+app.use(function(req, res, next) { //allow cross origin requests
+      res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
+      res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept ,x-access-token");
+      res.header("Access-Control-Allow-Credentials", true);
+      // console.log(res);
+      next();
+  });
+
 
 
 // Require Routes
@@ -41,7 +43,7 @@ var submission = require('./routes/submissionRouter');
 app.set('view engine', 'ejs');
 app.engine('html',require('ejs').renderFile);
 
-app.use(cors());
+// app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

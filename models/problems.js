@@ -55,7 +55,6 @@ var problemSchema = new Schema({
   },
   max_score: {
     type: Number,
-    default: "",
     default: 0.0,
     required: false
   },
@@ -66,7 +65,6 @@ var problemSchema = new Schema({
   },
   time_limit: {
     type: Number,
-    default: "",
     default: 0.0,
     required: false
   },

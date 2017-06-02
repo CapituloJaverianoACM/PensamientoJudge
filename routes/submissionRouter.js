@@ -52,7 +52,7 @@ function getNextSequenceValue(sequenceName){
         next();
       }
     );
- }
+ };
 }
 
 function getProblem() {
@@ -64,7 +64,7 @@ function getProblem() {
       req.body.problem = problem;
       next();
     });
-  }
+  };
 }
 function getProblemName() {
   return function( req, res , next ){
@@ -75,7 +75,7 @@ function getProblemName() {
       req.body.problem = problem;
       next();
     });
-  }
+  };
 }
 
 function judge( ){
@@ -88,7 +88,7 @@ function judge( ){
     // if you use printf the string is ok , if use echo the final file is wrong
     var file = shell.exec('printf "%s" \"' + submission.source_code + '\" > ' + pathSourceComplete );
     var time = submission.problem.time_limit;
-    if( file.code == 0  && time )
+    if( file.code === 0  && time )
     {
       // console.log(submission.problem);
       req.body.source_code = pathSourceComplete;
@@ -138,7 +138,7 @@ function judge( ){
               'rm \\"\\$out\\";'+
               'done';
             // console.log(command);
-            var file = 'printf "%s" "'+command+'" > run.sh';
+            file = 'printf "%s" "'+command+'" > run.sh';
             // console.log(file);
             shell.exec(file);
             shell.exec('chmod +x ./run.sh');
@@ -176,7 +176,7 @@ function judge( ){
       }
     }
     next();
-  }
+  };
 }
 
 router.post('/submit' ,Verify.verifyOrdinaryUser,getNextSequenceValue('submissionid'), getProblem(),judge( ) , function(req,res,next){

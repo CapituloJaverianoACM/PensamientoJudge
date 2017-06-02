@@ -21,13 +21,6 @@ export class ProfileComponent implements OnInit {
   public hasBaseDropZoneOver:boolean = false;
   public hasAnotherDropZoneOver:boolean = false;
 
-  public fileOverBase(e:any):void {
-  this.hasBaseDropZoneOver = e;
-  }
-
-  public fileOverAnother(e:any):void {
-  this.hasAnotherDropZoneOver = e;
-  }
 
   constructor(
     private authService : AuthService,

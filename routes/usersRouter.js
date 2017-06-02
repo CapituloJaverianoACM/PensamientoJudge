@@ -6,7 +6,23 @@ var Verify = require('./verifyRouter');
 var validator = require('validator');
 var async = require("async");
 var multer  = require('multer');
-var upload = multer({ dest: 'profile-pictures/' });
+// var upload = multer({ dest: 'profile-pictures/' });
+
+var storage = multer.diskStorage({ //multers disk storage settings
+    destination: function (req, file, cb) {
+        cb(null, './profile-pictures/');
+    },
+    filename: function (req, file, cb) {
+        var datetimestamp = Date.now();
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+    }
+});
+
+var upload = multer({ //multer settings
+                storage: storage
+            }).single('file');
+
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -56,7 +72,7 @@ function changeEmail() {
       }
       next();
     });
-  }
+  };
 }
 
 router.route('/byEmail/:userEmail')
@@ -68,11 +84,24 @@ router.route('/byEmail/:userEmail')
   });
 })
 // Upload Image.
-.post(upload.single('file'),function (req, res, next) {
-  res.status(200).json({
-      status: 'Ok',
-    });
-})
+// .post(upload.single('file'),function (req, res, next) {
+//   res.status(200).json({
+//       status: 'Ok',
+//     });
+// })
+
+.post(
+  function(req, res) {
+        upload(req,res,function(err){
+			console.log(req.file);
+            if(err){
+                 res.json({error_code:1,err_desc:err});
+                 return;
+            }
+             res.json({error_code:0,err_desc:null});
+        });
+    }
+)
 
 .put(function(req, res, next) {
   User.findOneAndUpdate({'email' : req.params.userEmail}, {
@@ -101,7 +130,7 @@ router.route('/role/:username')
     if( err ) throw err;
     res.json(user);
   });
-})
+});
 
 
 

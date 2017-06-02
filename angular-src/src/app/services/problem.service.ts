@@ -16,21 +16,21 @@ export class ProblemService {
 
   getAllProblems(){
     let headers = new Headers();
-    headers.append('Contet-Type','application/json');
+    headers.append('Content-Type','application/json');
     let ep = this.endPoint.prepEndPoint('problemAPI/');
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
   }
   getProblem( name ){
     let headers = new Headers();
-    headers.append('Contet-Type','application/json');
+    headers.append('Content-Type','application/json');
     let ep = this.endPoint.prepEndPoint('problemAPI/'+name);
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
   }
   getProblemByCorte( corte ) {
     let headers = new Headers();
-    headers.append('Contet-Type','application/json');
+    headers.append('Content-Type','application/json');
     let ep = this.endPoint.prepEndPoint('problemAPI/corte/'+corte);
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
@@ -114,7 +114,7 @@ export class ProblemService {
   deleteProblem( problem ){
     this.authService.loadToken();
       let headers = new Headers();
-      headers.append('Contet-Type','application/json');
+      headers.append('Content-Type','application/json');
       headers.append('x-access-token',this.authService.authToken);
       let ep = this.endPoint.prepEndPoint('submissionAPI/idProblem/' + problem._id);
        this.http.delete(ep,{headers:headers})

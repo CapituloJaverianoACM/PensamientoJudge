@@ -16,7 +16,7 @@ exports.verifyOrdinaryUser = function(req,res,next){
   if( token ){
     jwt.verify(token,config.secretKey,function(err,decoded){
         if(err){
-          var err = new Error('You are not authenticate!');
+          err = new Error('You are not authenticate!');
           err.status = 401;
           return next( err );
         }
@@ -40,7 +40,7 @@ exports.verifyAdminUser = function( req, res , next){
   if( token ){
     jwt.verify(token,config.secretKey,function(err,decoded){
       if(err){
-        var err = new Error('You are not authenticate!');
+         err = new Error('You are not authenticate!');
         err.status = 401;
         return next( err );
       }
@@ -51,7 +51,7 @@ exports.verifyAdminUser = function( req, res , next){
 
         }
         else{
-          var err = new Error('You are not authorized to perform this operation!');
+          err = new Error('You are not authorized to perform this operation!');
           err.satus = 403;
           return next(err);
         }

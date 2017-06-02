@@ -14,7 +14,7 @@ export class UsersService {
 
   getAllUsers() {
     let headers = new Headers();
-    headers.append('Contet-Type','application/json');
+    headers.append('Content-Type','application/json');
     let ep = this.endPoint.prepEndPoint('usersAPI/');
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
@@ -22,7 +22,7 @@ export class UsersService {
 
   getUserByEmail( email ) {
     let headers = new Headers();
-    headers.append('Contet-Type','application/json');
+    headers.append('Content-Type','application/json');
     let ep = this.endPoint.prepEndPoint('usersAPI/' + email);
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );

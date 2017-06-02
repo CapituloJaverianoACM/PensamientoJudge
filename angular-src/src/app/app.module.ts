@@ -12,7 +12,7 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import { PopoverModule } from 'ngx-popover';
 // Imports for loading & configuring the in-memory web api
 
-import { FileSelectDirective} from 'ng2-file-upload';
+import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';

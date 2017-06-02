@@ -17,23 +17,23 @@ export class AuthService {
 
   signUpUser( user ){
     let headers = new Headers();
-    headers.append('Contet-Type','appication/json');
+    headers.append('Content-Type','application/json');
     let ep = this.endPoint.prepEndPoint('usersAPI/signup');
     return this.http.post(ep,user,{headers:headers})
       .map(res => res.json() );
   }
   loginUser( user ){
     let headers = new Headers();
-    headers.append('Contet-Type','appication/json');
+    headers.append('Content-Type','application/json');
     let ep = this.endPoint.prepEndPoint('usersAPI/login');
-    return this.http.post(ep,user,{headers:headers})
+    return this.http.post(ep, user,{headers:headers})
       .map(res => res.json() ) ;
   }
   getProfile(){
     let headers = new Headers();
     this.loadToken();
     headers.append('x-access-token',this.authToken);
-    headers.append('Contet-Type','application/json');
+    headers.append('Content-Type','application/json');
     let ep = this.endPoint.prepEndPoint('usersAPI/profile');
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );

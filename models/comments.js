@@ -18,7 +18,8 @@ var problemSchema = new Schema({
   id_comment_to_reply: {
     type: ObjectId,
     required: false
-  },{
+  },
+  date : {
     timestamps: true
   }
 });
