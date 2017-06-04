@@ -88,7 +88,7 @@ function judge( ){
     // if you use printf the string is ok , if use echo the final file is wrong
     var file = shell.exec('printf "%s" \"' + submission.source_code + '\" > ' + pathSourceComplete );
     var time = submission.problem.time_limit;
-    if( file.code === 0  && time )
+    if( file.code === 0  && time   )
     {
       // console.log(submission.problem);
       req.body.source_code = pathSourceComplete;
