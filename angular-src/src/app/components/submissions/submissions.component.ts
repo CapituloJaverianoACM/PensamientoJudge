@@ -4,6 +4,7 @@ import { ProblemService } from '../../services/problem.service';
 import { AuthService } from '../../services/auth.service';
 import { LocalDataSource } from 'ng2-smart-table';
 declare var CodeMirror: any;
+declare var PR: any;
 
 @Component({
   selector: 'app-submissions',
@@ -136,6 +137,7 @@ export class SubmissionsComponent implements OnInit {
   }
   onClickCode( item : any)
   {
+    console.log(PR);
     if( !this.showCode(item) )
       return false;
     // console.log(document.getElementById("modalEditor"));
@@ -143,15 +145,17 @@ export class SubmissionsComponent implements OnInit {
     this.problemService.getCode( item.id ).subscribe( code =>{
       // console.log(code);
       // document.getElementById("modalEditor").innerHTML = "";
-      if( !this.editorModal )
-        this.editorModal  = CodeMirror(document.getElementById("modalEditor"),{
-          value : code,
-          lineNumbers: true,
-          mode: "text/x-c++src",
-          readOnly : true
-        });
-      else
-        this.editorModal.doc.setValue(code);
+      // if( !this.editorModal )
+      //   this.editorModal  = CodeMirror(document.getElementById("modalEditor"),{
+      //     value : code,
+      //     lineNumbers: true,
+      //     mode: "text/x-c++src",
+      //     readOnly : true
+      //   });
+      // else
+      //   this.editorModal.doc.setValue(code);
+      document.getElementById("modalEditor").innerHTML = code;
+      console.log(PR.prettyPrint());
       document.getElementById("titleModal").innerHTML = item.id;
     }, err =>{
       console.log(err);
