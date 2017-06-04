@@ -45,6 +45,11 @@ var descriptionSchema = new Schema({
     default: "",
     required: false
   },
+  testCases : {
+    type: [[String]],
+    required: false,
+    default: [[]]
+  }
 });
 
 var problemSchema = new Schema({
