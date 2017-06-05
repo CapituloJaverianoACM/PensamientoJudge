@@ -6,17 +6,31 @@
             <h6>{{number}}</h6>
         </div>
         <div class="col-sm-2">
-          <h6>Input</h6>
+          <div *ngIf="arrPosInput[number-1]">
+            <a (click)="dowloadOnClick(number,0)" dowload><h6>Input</h6></a>
+          </div>
+          <div *ngIf="!arrPosInput[number-1]">
+            <h6>Input</h6>
+          </div>
+
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-3" id = "{{number}}.in">
             <!-- <input type="file" ng2FileSelect [uploader]="changeFile(uploader,'POST',number)" /> -->
-            <input type="file" ng2FileSelect [uploader]="uploader" (change)="changeFile(uploader,number,0)" />
+            <!-- <label  class="btn btn-primary btn-file"> -->
+              <!-- <span class="glyphicon glyphicon-upload"></span>  -->
+              <input type="file"  ng2FileSelect [uploader]="uploader" (change)="changeFile(uploader,number,0)" />
+            <!-- </label> -->
         </div>
         <div class="col-sm-2">
-          <h6>Output</h6>
+          <div *ngIf="arrPosOutput[number-1]">
+            <a (click)="dowloadOnClick(number,1)" dowload><h6>Output</h6></a>
+          </div>
+          <div *ngIf="!arrPosOutput[number-1]">
+            <h6>Output</h6>
+          </div>
         </div>
-        <div class="col-sm-3">
-          <input type="file" ng2FileSelect [uploader]="uploader" (change)="changeFile(uploader,number,1)"/>
+        <div class="col-sm-3" id = "{{number}}.out">
+          <input type="file"  ng2FileSelect [uploader]="uploader" (change)="changeFile(uploader,number,1)"/>
         </div>
         <div class="col-sm-1">
           <span class="glyphicon glyphicon-remove pull-right close" (click)="deleleCaseOnClick(number)"></span>
