@@ -23,7 +23,7 @@ export class UsersService {
   getUserByEmail( email ) {
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    let ep = this.endPoint.prepEndPoint('usersAPI/' + email);
+    let ep = this.endPoint.prepEndPoint('usersAPI/byEmail/' + email);
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
   }
@@ -60,5 +60,20 @@ export class UsersService {
        ep = this.endPoint.prepEndPoint('usersAPI/byEmail/' + user.email);
        return this.http.delete(ep,{headers:headers})
       .map( res => res.json() );
+    }
+
+    getProfilePicture(imagePath) {
+      let headers = new Headers();
+      headers.append('Content-Type','application/json');
+      let ep = this.endPoint.prepEndPoint('usersAPI/picture/' + imagePath);
+      return ep;
+    }
+
+    isUserAvailable(username) {
+      let headers = new Headers();
+      headers.append('Content-Type','application/json');
+      let ep = this.endPoint.prepEndPoint('usersAPI/byUsername/' + username);
+      return this.http.get(ep,{headers:headers})
+        .map( res => res.json() );
     }
 }

@@ -6,6 +6,8 @@ var Verify = require('./verifyRouter');
 var validator = require('validator');
 var async = require("async");
 var multer  = require('multer');
+var path = require('path');
+var fs = require('fs');
 // var upload = multer({ dest: 'profile-pictures/' });
 
 var storage = multer.diskStorage({ //multers disk storage settings
@@ -18,9 +20,7 @@ var storage = multer.diskStorage({ //multers disk storage settings
     }
 });
 
-var upload = multer({ //multer settings
-                storage: storage
-            }).single('file');
+var upload = multer({ storage: storage}).single('file');
 
 
 
@@ -75,6 +75,11 @@ function changeEmail() {
   };
 }
 
+router.route('/picture/:filePath')
+.get(function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../profile-pictures/' + req.params.filePath));
+});
+
 router.route('/byEmail/:userEmail')
 
 .get(function(req, res, next) {
@@ -83,25 +88,24 @@ router.route('/byEmail/:userEmail')
     res.json(user);
   });
 })
-// Upload Image.
-// .post(upload.single('file'),function (req, res, next) {
-//   res.status(200).json({
-//       status: 'Ok',
-//     });
-// })
 
-.post(
-  function(req, res) {
-        upload(req,res,function(err){
-			console.log(req.file);
-            if(err){
-                 res.json({error_code:1,err_desc:err});
-                 return;
-            }
-             res.json({error_code:0,err_desc:null});
-        });
-    }
-)
+.post(function(req, res) {
+  upload(req,res,function(err) {
+    User.findOne({'email' : req.params.userEmail}, function(err, user) {
+      if(err) throw err;
+      if(user.img) {
+        // console.log("To DLETE: " + path.join(__dirname, '../'+ user.img));
+        fs.unlink(path.join(__dirname, '../'+ user.img));
+      }
+      User.update({'email' : req.params.userEmail}, {
+          img: req.file.path
+      }, function(err, affected, resp) {
+          if(err) throw err;
+      });
+      res.json({error_code:0,err_desc:null});
+    });
+  });
+})
 
 .put(function(req, res, next) {
   User.findOneAndUpdate({'email' : req.params.userEmail}, {
@@ -120,6 +124,7 @@ router.route('/byEmail/:userEmail')
     res.json(resp);
   });
 });
+
 router.route('/role/:username')
 
 .put(Verify.verifyAdminUser,function(req, res, next) {
@@ -189,6 +194,14 @@ router.get('/profile',Verify.verifyOrdinaryUser,function(req,res,next){
         user:user
       });
     }
+  });
+});
+
+router.route('/byUsername/:username')
+.get(function(req, res, next) {
+  User.findOneAndRemove({'username' : req.params.username}, function (err, resp) {
+    if (err) throw err;
+    res.json(resp);
   });
 });
 

@@ -4,6 +4,7 @@ import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { EndPointService } from '../../services/end-point.service';
+import { ImageViewDirective } from '../../directives/image-view.directive';
 
 
 
@@ -16,11 +17,19 @@ export class ProfileComponent implements OnInit {
   private user : any;
   private isEditEnable: boolean;
   public uploader: FileUploader;
-
-
+  private profilePicture: string;
   public hasBaseDropZoneOver:boolean = false;
   public hasAnotherDropZoneOver:boolean = false;
 
+  private carreers =
+  [
+    "Ingenieria de Sistemas",
+    "Ingenieria Civil",
+    "Ingenieria Electrónica",
+    "Ingenieria Industrial",
+    "Matemáticas",
+    "Otra"
+  ];
 
   constructor(
     private authService : AuthService,
@@ -33,19 +42,13 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.isEditEnable = false;
     this.authService.getProfile().subscribe(profile => {
-      this.user = profile.user;
-      this.uploader  = new FileUploader({url: this.endPoint.prepEndPoint('usersAPI/byEmail/' + this.user.email)});
+    this.user = profile.user;
+    this.uploader  = new FileUploader({url: this.endPoint.prepEndPoint('usersAPI/byEmail/' + this.user.email)});
+    this.profilePicture = this.usersService.getProfilePicture((this.user.img && this.user.img.split('/')[1])  || 'dummy.jpg');
     }, err => {
       console.log(err);
       return false;
     });
-  }
-  onClickLogOut(){
-    this.authService.logout();
-    this.router.navigate(['/']);
-  }
-  onClickSubmissions(){
-    this.router.navigate(['/submissions/user/'+this.user.username]);
   }
 
   editProfileOnClick() {
@@ -54,7 +57,6 @@ export class ProfileComponent implements OnInit {
   doneEditOnClick() {
     this.isEditEnable = false;
     this.usersService.editUser(this.user).subscribe(data => {
-      // console.log(data);
     });
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user;
@@ -63,7 +65,18 @@ export class ProfileComponent implements OnInit {
       return false;
     });
   }
-  // test(){
-  //     console.log(this.uploader);
-  // }
+
+  selectImageOnClick() {
+    this.uploader.queue.pop();
+    this.profilePicture = this.usersService.getProfilePicture((this.user.img && this.user.img.split('/')[1]) || 'dummy.jpg');
+  }
+
+  cancelOnClick() {
+    this.uploader.queue.pop();
+    this.profilePicture = this.usersService.getProfilePicture((this.user.img && this.user.img.split('/')[1])  || 'dummy.jpg');
+  }
+
+  uploadOnClick() {
+    this.profilePicture = this.usersService.getProfilePicture((this.user.img && this.user.img.split('/')[1])  || 'dummy.jpg');
+  }
 }

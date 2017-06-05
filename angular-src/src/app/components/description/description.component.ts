@@ -94,7 +94,7 @@ export class DescriptionComponent implements OnInit {
     value += CodeMirror.commands.joinLines.toString().replace(/^function\s*\(/, "function joinLines(").replace(/\n  /g, "\n") + "\n";
 
      this.editor = CodeMirror(document.getElementById("codeeditor"),{
-       value : '#include <iostream>\n\nusing namespace std;\n\nint main() {\n\treturn 0;\n}',
+       value : '#include <iostream>\n\nusing namespace std;\n\nint main() {\n\treturn 0;\n}', 
       // value : value,
        lineNumbers: true,
        matchBrackets: true,
@@ -119,7 +119,7 @@ export class DescriptionComponent implements OnInit {
       this.problem = query;
       this.problem.description = this.problem.description || {};
       if(this.problem.description.samples === undefined) this.problem.description.samples = [];
-  
+
       // console.log(this.problem);
       // this.problem.description.sample_input = this.problem.description.sample_input.split(',');
       // this.problem.description.sample_output = this.problem.description.sample_output.split(',');

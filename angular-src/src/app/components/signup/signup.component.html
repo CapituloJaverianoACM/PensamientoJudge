@@ -5,31 +5,85 @@
 
       <h1> Sign up </h1>
       <form #loginForm = "ngForm" (submit) = "onSignUpSubmit()">
+        <!-- First Name -->
         <div class="form-group">
-          <label for="first_name">First Name</label>
-          <input  type="text" [(ngModel)] = "first_name" name = "first_name" class="form-control" id="first_name" required >
+          <label for="first_name">Name</label>
+          <input  type="text" [(ngModel)] = "first_name" name="first_name" class="form-control" id="first_name" #nameLabel="ngModel"required >
+          <div *ngIf="nameLabel.errors && (nameLabel.dirty || nameLabel.touched)" class="alert alert-danger">
+            <div [hidden]="!nameLabel.errors.required">
+              Name is required.
+            </div>
+          </div>
         </div>
+        <!-- End First Name -->
+        <!-- Last Name -->
         <div class="form-group">
           <label for="last_name">Last Name</label>
-          <input  type="text" [(ngModel)] = "last_name" name = "last_name" class="form-control" id="last_name" required >
+          <input  type="text" [(ngModel)] = "last_name" name="last_name" class="form-control" id="last_name" #lastnameLabel="ngModel" required >
+          <div *ngIf="lastnameLabel.errors && (lastnameLabel.dirty || lastnameLabel.touched)" class="alert alert-danger">
+            <div [hidden]="!lastnameLabel.errors.required">
+              Last Name is required.
+            </div>
+          </div>
         </div>
+        <!-- End Last Name -->
+        <!-- Username -->
         <div class="form-group">
+
           <label for="username">Usename</label>
-          <input  type="text" [(ngModel)] = "username" name = "username" class="form-control" id="username" required >
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input  type="text" [(ngModel)] = "email" name = "email" class="form-control" id="email" required >
-        </div>
-        <div class="form-group">
-          <label for="career">Career</label>
-          <input  type="text" [(ngModel)] = "career" name = "career" class="form-control" id="career" required >
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input  type="password" [(ngModel)] = "password" name = "password" class="form-control" id="password" required>
+          <input type="text" [(ngModel)]="username" name="username" class="form-control" id="username" minlength="8" maxlength="20" required #usernameLabel="ngModel">
+          <div *ngIf="isUserTaken" class="alert alert-danger">
+            <div>The user is already taken.</div>
+          </div>
+          <div *ngIf="usernameLabel.errors && (usernameLabel.dirty || usernameLabel.touched)" class="alert alert-danger">
+            <div [hidden]="!usernameLabel.errors.required">
+              Username is required.
+            </div>
+            <div [hidden]="!usernameLabel.errors.minlength">
+              Username must be at least 8 character long.
+            </div>
+            <div [hidden]="!usernameLabel.errors.maxlength">
+              Username must be at most 8 character long.
+            </div>
+          </div>
 
         </div>
+        <!-- End Username -->
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" [(ngModel)] = "email" name="email" class="form-control" id="email" required #emailLabel="ngModel">
+          <div *ngIf="!isEmailValid" class="alert alert-danger">
+            <div>Insert a valid email.</div>
+          </div>
+          <div *ngIf="isEmailTaken" class="alert alert-danger">
+            <div>Email already taken.</div>
+          </div>
+          <div *ngIf="emailLabel.errors && (emailLabel.dirty || emailLabel.touched)" class="alert alert-danger">
+            <div [hidden]="!emailLabel.errors.required">
+              Email is required.
+            </div>
+          </div>
+        </div>
+        <!-- End Email -->
+        <!-- Carrer -->
+        <div class="form-group">
+          <label for="career">Career: </label>
+          <select class="selectpicker" [(ngModel)] = "career" name="career">
+            <option [value]="career" *ngFor="let carr of carreers" >{{carr}}</option>
+          </select>
+        </div>
+        <!-- End Carrer -->
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input  type="password" [(ngModel)] = "password" name="password" class="form-control" id="password" minlength="8" maxlength="20" required>
+          <ng2-password-strength-bar
+            [passwordToCheck]="password"
+            [barLabel]="barLabel">
+          </ng2-password-strength-bar>
+        </div>
+        <!-- End Password -->
         <button type="submit" class="btn btn-success" >submit</button>
       </form>
 

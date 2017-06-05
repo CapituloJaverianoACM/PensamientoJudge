@@ -4,18 +4,40 @@
     <div class="row">
       <div class="col-sm-4">
         <h3>{{user.first_name}} {{user.last_name}}</h3>
-        <a href="http://placehold.it"><img src="http://placehold.it/350x350"></a>
+        <div class="text-center" *ngIf="!uploader.queue.length">
+          <img class="img-thumbnail img-responsive" *ngIf="profilePicture" [src]="profilePicture">
+        </div>
+        <div *ngFor="let item of uploader.queue">
+          <div class="text-center">
+            <img class="img-thumbnail img-responsive" src="" appImageView [image]="item?._file" />
+          </div>
+        </div>
         <div class="upload-button text-center">
-          <input type="file" ng2FileSelect [uploader]="uploader" />
+          <label (click)="selectImageOnClick()" class="btn btn-primary btn-file">
+            <span class="glyphicon glyphicon-camera"></span> Select Picture
+            <input type="file" ng2FileSelect [uploader]="uploader" accept="image/x-png,image/gif,image/jpeg"/>
+          </label>
 
-          <!-- <button class="btn btn-primary" type="file"
-                  (click)="test()" >
-              <span class="glyphicon glyphicon-open"></span> Upload Image</button> -->
-          <div *ngFor="let item of uploader.queue">
+          <div class="upload-button" *ngFor="let item of uploader.queue">
+            <div *ngIf="!item.isSuccess">
 
-            <button class="btn btn-primary" type="file"
-                    (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-                <span class="glyphicon glyphicon-open"></span> Upload Image</button>
+                <button
+                class="btn btn-success"
+                type="file"
+                (click)="item.upload()"
+                (click)="uploadOnClick()"
+                [disabled]="item.isReady || item.isUploading || item.isSuccess"
+                >
+                <span class="glyphicon glyphicon-ok"></span> Upload Image
+              </button>
+
+              <button
+              class="btn btn-danger"
+              type="button"
+              (click)="cancelOnClick()">
+              <span class="glyphicon glyphicon-remove"></span> Cancel
+            </button>
+            </div>
           </div>
 
 
@@ -34,7 +56,10 @@
 
         <h4 class="sub-tittle">Carrer</h4>
         <p *ngIf="!isEditEnable" >{{user.career}}</p>
-        <input *ngIf="isEditEnable" type="text" [(ngModel)] = "user.career" value="{{user.career}}" class="form-control" id="career">
+        <!-- <input *ngIf="isEditEnable" type="text" [(ngModel)] = "user.career" value="{{user.career}}" class="form-control" id="career"> -->
+        <select *ngIf="isEditEnable" class="selectpicker" [(ngModel)] = "user.career" name="career">
+          <option *ngFor="let carr of carreers" >{{carr}}</option>
+        </select>
 
         <h4 class="sub-tittle">Email</h4>
         <p>{{user.email}}</p>
