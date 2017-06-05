@@ -19,60 +19,17 @@ export class DescriptionComponent implements OnInit {
   nameProblem : string;
   problem : any;
   user: any;
-  // samples : any;
-  // dir : string;
   editor : any;
   fractionString: string = 'Inside Angular one half = $\\frac 12$';
   themes = ["default",
-  "3024-day",
-  "3024-night",
-  "abcdef",
-  "ambiance",
-  "base16-dark",
-  "base16-light",
-  "bespin",
-  "blackboard",
-  "cobalt",
-  "colorforth",
-  "dracula",
-  "duotone-dark",
-  "duotone-light",
   "eclipse",
-  "elegant",
-  "erlang-dark",
-  "hopscotch",
-  "icecoder",
-  "isotope",
-  "lesser-dark",
-  "liquibyte",
-  "material",
-  "mbo",
-  "mdn-like",
-  "midnight",
   "monokai",
   "neat",
-  "neo",
-  "night",
-  "panda-syntax",
-  "paraiso-dark",
-  "paraiso-light",
-  "pastel-on-dark",
-  "railscasts",
-  "rubyblue",
-  "seti",
-  "solarized dark",
-  "solarized light",
-  "the-matrix",
-  "tomorrow-night-bright",
-  "tomorrow-night-eighties",
-  "ttcn",
-  "twilight",
-  "vibrant-ink",
-  "xq-dark",
-  "xq-light",
-  "yeti",
-  "zenburn"];
+  "neo",];
   selection  = this.themes[0];
+  private testPassed: number;
+  private barType: string;
+  private sampleTest: any;
   constructor(
     private problemService : ProblemService,
     private authService : AuthService,
@@ -80,10 +37,8 @@ export class DescriptionComponent implements OnInit {
     private route : ActivatedRoute,
     private router : Router
   ) {
-    // this.dir = '../../../assets/CodeMirror/';
   }
   ngAfterViewInit() {
-    // console.log(document.getElementById('codeeditor'));
     var value = "// The bindings defined specifically in the Sublime Text mode\nvar bindings = {\n";
     var map = CodeMirror.keyMap.sublime;
     for (var key in map) {
@@ -95,8 +50,7 @@ export class DescriptionComponent implements OnInit {
     value += CodeMirror.commands.joinLines.toString().replace(/^function\s*\(/, "function joinLines(").replace(/\n  /g, "\n") + "\n";
 
      this.editor = CodeMirror(document.getElementById("codeeditor"),{
-       value : '#include <iostream>\n\nusing namespace std;\n\nint main() {\n\treturn 0;\n}', 
-      // value : value,
+       value : '#include <iostream>\n\nusing namespace std;\n\nint main() {\n\treturn 0;\n}',
        lineNumbers: true,
        matchBrackets: true,
        autoCloseBrackets: true,
@@ -104,15 +58,13 @@ export class DescriptionComponent implements OnInit {
        mode: "text/x-c++src",
        keyMap: "sublime",
        tabSize: 2
-      //  extraKeys: {"Ctrl-Space": "autocomplete"}
      });
      CodeMirror(document.getElementById("inputEditor"));
-    // console.log(document.getElementById('codeeditor'));
-    // console.log(this.editor+'fdsa');
   }
 
   ngOnInit() {
-    // this.nameProblem = this.route.snapshot.url[ 1] ;
+    this.testPassed = 7.0; // TODO - chage to judge response.
+    this.barType = "danger";
     this.route.params.subscribe( params => {
       this.nameProblem = params['name'];
     });
@@ -120,18 +72,6 @@ export class DescriptionComponent implements OnInit {
       this.problem = query;
       this.problem.description = this.problem.description || {};
       if(this.problem.description.samples === undefined) this.problem.description.samples = [];
-
-      // console.log(this.problem);
-      // this.problem.description.sample_input = this.problem.description.sample_input.split(',');
-      // this.problem.description.sample_output = this.problem.description.sample_output.split(',');
-      // console.log(this.problem.description);
-      // this.samples = [];
-      // for( var i = 0 ; i < this.problem.description.sample_input.length ; ++i ){
-      //   this.samples.push({
-      //     input: this.problem.description.sample_input[ i ],
-      //     output: this.problem.description.sample_output[ i ]
-      //   })
-      // }
     }, err =>{
       console.log(err);
       return false;
@@ -140,16 +80,13 @@ export class DescriptionComponent implements OnInit {
       this.user = profile.user;
     }, err => {
       console.log(err);
-
       this.flashMesssagesService.show("Please log in",{
         cssClass : 'alert-danger',
-        timeout : 10000
+        timeout : 1000
       });
       return false;
     });
   }
-
-
 
   convertString( code ){
     var res : string ;
@@ -166,6 +103,20 @@ export class DescriptionComponent implements OnInit {
     return res;
   }
 
+  calculateScore() {
+    this.problemService.getProblem(this.nameProblem).subscribe(query =>{
+      this.problem = query;
+      this.testPassed = (this.testPassed /this.problem.max_score || 0.0) * 100;
+      if(this.testPassed === Number.POSITIVE_INFINITY) this.testPassed = 0.0;
+      // this.testPassed = parseFloat(this.testPassed.toFixed(2));
+      this.testPassed = Math.round(this.testPassed);
+      if(this.testPassed <=  40.0) this.barType = "danger";
+      else if(this.testPassed > 40.0 && this.testPassed < 60.0) this.barType = "warning";
+      else if(this.testPassed >= 60.0) this.barType = "success";
+      console.log(this.barType);
+    });
+  }
+
   onSubmissionSubmit(){
     if( !this.authService.loggedIn() ){
       this.router.navigate(['/']);
@@ -176,9 +127,6 @@ export class DescriptionComponent implements OnInit {
       userId : this.user._id,
       problemId : this.problem._id
     };
-    // console.log(submission.source_code);
-    // console.log(this.editor+' fin');
-    // console.log(this.editor.getValue());
     if( !submission.userId ){
       this.flashMesssagesService.show("Please log in",{
         cssClass : 'alert-danger',
@@ -188,17 +136,14 @@ export class DescriptionComponent implements OnInit {
     }
     this.problemService.submitSubmission(submission).subscribe( data =>{
       if( data.success ){
-
         console.log(data);
         this.flashMesssagesService.show("submission OK ",{
           cssClass : 'alert-success',
-          timeout : 100000
-
+          timeout : 1000
         });
         this.flashMesssagesService.show(data.submission.veredict,{
           cssClass : 'alert-info',
-          timeout : 100000
-
+          timeout : 1000
         });
       }
       else{
@@ -206,19 +151,30 @@ export class DescriptionComponent implements OnInit {
           cssClass : 'alert-danger',
           timeout : 3000
         });
-
       }
     });
   }
   selectionChange(){
     this.editor.setOption("theme", this.selection);
     location.hash = "#" + this.selection;
+    this.calculateScore();
   }
+
+  runCodeOnClick() {
+    var dummySample = {
+      input: "1234",
+      user_output: "User Out",
+      expected_output: "Expected Out",
+      veredict: "Test Veredict",
+      outcome: 1
+    };
+    this.sampleTest = dummySample;
+    console.log(this.sampleTest);
+  }
+
   public collapsed(event:any):void {
-    // console.log(event);
   }
 
   public expanded(event:any):void {
-    // console.log(event);
   }
 }

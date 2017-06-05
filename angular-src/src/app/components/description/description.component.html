@@ -6,7 +6,7 @@
   <p [MathJax]="problem.description.statement">{{problem.description.statement}}</p>
   <div class="section-title">Input Format</div>
   <p [MathJax]="problem.description.input_format">{{problem.description.input_format}}</p>
-  <div class="section-title">Outpu Formatt</div>
+  <div class="section-title">Output Format</div>
   <p [MathJax]="problem.description.output_format">{{problem.description.output_format}}</p>
   <div class="section-title">Samples</div>
   <ul class="list-group">
@@ -23,23 +23,54 @@
 </div>
 
   <!-- CodeMirror -->
+  <div class="section-title">Code Editor</div>
   <br>
-  <div >
-    <ol class="breadcrumb">
-      <li><h4>{{nameProblem}}</h4></li>
-      <br>
-    <div  id="codeeditor" #EditorCode ></div>
-    </ol>
-    <select [(ngModel)] = "selection" (change)="selectionChange()">
-          <option [value]="theme" *ngFor="let theme of themes" >{{theme}}</option>
-    </select>
 
-  <!-- <script >
-    var myCodeMirror = CodeMirror(document.getElementById("codeeditor"));
-  </script> -->
+  <div>
+    <ol class="breadcrumb">
+      <br>
+      <div  id="codeeditor" #EditorCode ></div>
+      <br>
+    </ol>
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="section-title text-right">Editor Theme: </div>
+      </div>
+      <div class="col-sm-3">
+        <select class="form-control selectpicker" [(ngModel)] = "selection" (change)="selectionChange()">
+          <option [value]="theme" *ngFor="let theme of themes" >{{theme}}</option>
+        </select>
+      </div>
+    </div>
   </div>
-  <button type="button" class="btn btn-success" (click)="isCollapsed = false">Submit Code</button>
-  <!-- CodeMirror -->
+
+  <div class="row">
+    <div class="col-sm-6">
+      <button type="button" class="btn btn-info btn-lg btn-block"(click)="runCodeOnClick()"> <span class="glyphicon glyphicon-console"></span> Run Code</button>
+    </div>
+    <div class="col-sm-6">
+      <button type="button" class="btn btn-success btn-lg btn-block" (click)="onSubmissionSubmit()" (click)="isCollapsed = false"><span class="glyphicon glyphicon-ok"></span> Submit Code</button>
+    </div>
+  </div>
+
+  <div class="row result">
+    <div class="col-sm-1">
+      <div class="section-title">Socore: </div>
+    </div>
+    <div class="col-sm-10">
+      <progressbar [animate]="true" [value]="testPassed" [type]="barType"><b>{{testPassed}}%</b></progressbar>
+    </div>
+    <div class="col-sm-1">
+      <div class="section-title">{{testPassed}}%</div>
+    </div>
+  </div>
+
+  <ul class="list-group">
+    <li class="list-group-item">
+      <app-problem-sample-cases [sampleCase]="sampleTest || {}"></app-problem-sample-cases>
+    </li>
+  </ul>
+
 </div>
 
 

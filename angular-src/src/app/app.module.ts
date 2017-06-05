@@ -8,7 +8,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages'
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { PaginationModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, ProgressbarModule} from 'ngx-bootstrap';
 import { PopoverModule } from 'ngx-popover';
 import { CollapseModule } from 'ngx-bootstrap';
 import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
@@ -46,6 +46,7 @@ import { AdminProblemEditComponent } from './components/admin-problem-edit/admin
 import { AdminUserComponent } from './components/admin-user/admin-user.component';
 import { ImageViewDirective } from './directives/image-view.directive';
 import { AdminProblemTestCasesComponent } from './components/admin-problem-test-cases/admin-problem-test-cases.component';
+import { ProblemSampleCasesComponent } from './components/problem-sample-cases/problem-sample-cases.component';
 
 const appRoutes: Routes =[
     {path : '' , component : HomeComponent },
@@ -101,7 +102,8 @@ const appRoutes: Routes =[
     AdminUserComponent,
     FileSelectDirective,
     ImageViewDirective,
-    AdminProblemTestCasesComponent	
+    AdminProblemTestCasesComponent,
+    ProblemSampleCasesComponent
   ],
   imports: [
     BrowserModule,
@@ -116,6 +118,7 @@ const appRoutes: Routes =[
     PopoverModule,
     PasswordStrengthBarModule,
     CollapseModule.forRoot(),
+    ProgressbarModule.forRoot(),
   ],
   providers: [
     ValidateService,

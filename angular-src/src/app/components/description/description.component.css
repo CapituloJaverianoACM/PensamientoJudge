@@ -25,3 +25,10 @@ h1 {
 .samples-display {
   padding-top: 10px;
 }
+button {
+  margin-top: 10px;
+}
+
+.result {
+  margin-top: 18px;
+}

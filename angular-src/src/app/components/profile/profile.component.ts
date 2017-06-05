@@ -68,7 +68,10 @@ export class ProfileComponent implements OnInit {
 
   selectImageOnClick() {
     this.uploader.queue.pop();
-    this.profilePicture = this.usersService.getProfilePicture((this.user.img && this.user.img.split('/')[1]) || 'dummy.jpg');
+    this.authService.getProfile().subscribe(profile => {
+      this.user = profile.user;
+      this.profilePicture = this.usersService.getProfilePicture((this.user.img && this.user.img.split('/')[1]) || 'dummy.jpg');
+    });
   }
 
   cancelOnClick() {
@@ -77,6 +80,8 @@ export class ProfileComponent implements OnInit {
   }
 
   uploadOnClick() {
-    this.profilePicture = this.usersService.getProfilePicture((this.user.img && this.user.img.split('/')[1])  || 'dummy.jpg');
+    this.authService.getProfile().subscribe(profile => {this.user = profile.user;
+      this.profilePicture = this.usersService.getProfilePicture((this.user.img && this.user.img.split('/')[1])  || 'dummy.jpg');
+    });
   }
 }

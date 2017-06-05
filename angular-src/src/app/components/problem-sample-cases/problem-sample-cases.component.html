@@ -1,0 +1,30 @@
+
+<div *ngIf="sampleCase.outcome" class="section-title">
+  Your code did pass this test case.
+</div>
+<div *ngIf="!sampleCase.outcome" class="section-title">
+  Your code not did pass this test case.
+</div>
+
+<div class="section-title">
+  Entradas
+</div>
+
+<pre>{{sampleCase.input}}</pre>
+
+<div class="section-title">
+  Salida Tuya
+</div>
+<pre>{{sampleCase.user_output}}</pre>
+
+<div class="section-title">
+  Salida Esperada
+</div>
+<pre>{{sampleCase.expected_output}}</pre>
+
+<div class="section-title">
+  Veredicto
+</div>
+<pre>{{sampleCase.veredict}}</pre>
+
+<div class="section-title">{{problemPassInfo}}</div>
