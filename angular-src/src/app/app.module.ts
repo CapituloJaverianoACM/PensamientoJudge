@@ -10,7 +10,9 @@ import { PaginationModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { PopoverModule } from 'ngx-popover';
+import { CollapseModule } from 'ngx-bootstrap';
 import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
+
 // Imports for loading & configuring the in-memory web api
 
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
@@ -43,6 +45,7 @@ import { AdminProblemComponent } from './components/admin-problem/admin-problem.
 import { AdminProblemEditComponent } from './components/admin-problem-edit/admin-problem-edit.component';
 import { AdminUserComponent } from './components/admin-user/admin-user.component';
 import { ImageViewDirective } from './directives/image-view.directive';
+import { AdminProblemTestCasesComponent } from './components/admin-problem-test-cases/admin-problem-test-cases.component';
 
 const appRoutes: Routes =[
     {path : '' , component : HomeComponent },
@@ -55,6 +58,7 @@ const appRoutes: Routes =[
         { path : 'problems', component: AdminProblemComponent},
         { path : 'problems/:problemName', component: AdminProblemEditComponent},
         { path : 'users', component: AdminUserComponent},
+        { path : 'problems/:problemName/testCases' , component: AdminProblemTestCasesComponent }
 
       ]
     },
@@ -96,7 +100,8 @@ const appRoutes: Routes =[
     AdminProblemEditComponent,
     AdminUserComponent,
     FileSelectDirective,
-    ImageViewDirective
+    ImageViewDirective,
+    AdminProblemTestCasesComponent	
   ],
   imports: [
     BrowserModule,
@@ -109,7 +114,8 @@ const appRoutes: Routes =[
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
     PopoverModule,
-    PasswordStrengthBarModule
+    PasswordStrengthBarModule,
+    CollapseModule.forRoot(),
   ],
   providers: [
     ValidateService,

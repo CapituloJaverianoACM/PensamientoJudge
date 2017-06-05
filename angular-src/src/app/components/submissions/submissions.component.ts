@@ -135,9 +135,9 @@ export class SubmissionsComponent implements OnInit {
       this.pageArr.push( this.arr[ i ] );
     }
   }
-  onClickCode( item : any)
+  onClickCode( item : any , modal : any )
   {
-    console.log(PR);
+    // console.log(PR);
     if( !this.showCode(item) )
       return false;
     // console.log(document.getElementById("modalEditor"));
@@ -154,9 +154,10 @@ export class SubmissionsComponent implements OnInit {
       //   });
       // else
       //   this.editorModal.doc.setValue(code);
-      document.getElementById("modalEditor").innerHTML = code;
-      console.log(PR.prettyPrint());
+      document.getElementById("modalEditor").innerHTML = '<pre class = "prettyprint" >'+code+'</pre>';
+      PR.prettyPrint();
       document.getElementById("titleModal").innerHTML = item.id;
+      modal.show();
     }, err =>{
       console.log(err);
       return false;
@@ -187,7 +188,8 @@ export class SubmissionsComponent implements OnInit {
           problemName:  this.submissions[ i ].problem[ 0 ].name,
           username : this.submissions[ i ].user[ 0 ].username,
           veredict : this.submissions[ i ].veredict,
-          cl : cl
+          cl : cl,
+          time_stamp : new Date(this.submissions[ i ].time_stamp).toUTCString()
         } );
       }
       this.pageArr = [];

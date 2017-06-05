@@ -88,7 +88,7 @@ function judge( ){
     // if you use printf the string is ok , if use echo the final file is wrong
     var file = shell.exec('printf "%s" \"' + submission.source_code + '\" > ' + pathSourceComplete );
     var time = submission.problem.time_limit;
-    if( file.code === 0  && time   )
+    if( file.code === 0     )
     {
       // console.log(submission.problem);
       req.body.source_code = pathSourceComplete;
@@ -105,7 +105,7 @@ function judge( ){
       {
         console.log('The output folder is empty.');
       }
-      else
+      else if( time )
       {
 
         var compiler = shell.exec('g++ -Wall -o '+pathExeComplete+' '+pathSourceComplete);
@@ -212,6 +212,8 @@ router.get('/',function(req,res,next) {
         foreignField:"_id",
         as:"user"
       }
+    },{
+      $sort : { time_stamp : -1 }
     }
   ],function(err,submissions){
     if(err) throw err;
@@ -236,6 +238,8 @@ router.get('/user/:userName',function(req,res,next){
         foreignField:"_id",
         as:"user"
       }
+    },{
+      $sort : { time_stamp : -1 }
     },
     {
       $match :{
@@ -275,6 +279,8 @@ router.route('/problem/:problemName')
         foreignField:"_id",
         as:"user"
       }
+    },{
+      $sort : { time_stamp : -1 }
     },
     {
       $match :{
@@ -319,6 +325,8 @@ router.get('/userProblem/:problemName',Verify.verifyOrdinaryUser,function(req,re
         foreignField:"_id",
         as:"user"
       }
+    },{
+      $sort : { time_stamp : -1 }
     },
     {
       $match :{

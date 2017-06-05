@@ -29,14 +29,14 @@
 
       <tr *ngFor='let item of pageArr'>
         <th >
-          <a *ngIf="showCode(item)" (click)="onClickCode(item)" (click)="lgModal.show()" >
+          <a *ngIf="showCode(item)" (click)="onClickCode(item,lgModal)"  >
           {{item.id}}
           </a>
           <div *ngIf="!showCode(item)">
             {{item.id}}
           </div>
         </th>
-        <th>{{item.cl}}</th>
+        <th>{{item.time_stamp}}</th>
         <th [hidden]="type==0||type==3">
           <a [routerLink]="['/problems',item.problemName]">
             {{item.problemName}}
@@ -74,10 +74,8 @@
               <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-            <!-- <ol class="breadcrumb"> -->
-              <pre  id="modalEditor" class="prettyprint"></pre>
-            <!-- </ol> -->
+        <div class="modal-body" id="modalEditor">
+
         </div>
 
       </div>
