@@ -38,6 +38,15 @@
     var myCodeMirror = CodeMirror(document.getElementById("codeeditor"));
   </script> -->
   </div>
-  <button type="button" class="btn btn-success" (click)="onClick($event)">Submit Code</button>
+  <button type="button" class="btn btn-success" (click)="isCollapsed = false">Submit Code</button>
   <!-- CodeMirror -->
+</div>
+
+
+<hr>
+<div (collapsed)="collapsed($event)"
+     (expanded)="expanded($event)"
+     [collapse]="isCollapsed"
+     class="card card-block card-header">
+  <div class="well well-lg">Some content</div>
 </div>

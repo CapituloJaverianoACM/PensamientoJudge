@@ -1,0 +1,28 @@
+<div *ngIf="problem">
+  <h4>Test Cases Problem {{nameProblem}}</h4>
+  <div *ngFor="let number of arrayTest">
+    <div class="row">
+        <div class="col-sm-1">
+            <h6>{{number}}</h6>
+        </div>
+        <div class="col-sm-2">
+          <h6>Input</h6>
+        </div>
+        <div class="col-sm-3">
+            <!-- <input type="file" ng2FileSelect [uploader]="changeFile(uploader,'POST',number)" /> -->
+            <input type="file" ng2FileSelect [uploader]="uploader" (change)="changeFile(uploader,number,0)" />
+        </div>
+        <div class="col-sm-2">
+          <h6>Output</h6>
+        </div>
+        <div class="col-sm-3">
+          <input type="file" ng2FileSelect [uploader]="uploader" (change)="changeFile(uploader,number,1)"/>
+        </div>
+        <div class="col-sm-1">
+          <span class="glyphicon glyphicon-remove pull-right close" (click)="deleleCaseOnClick(number)"></span>
+        </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="addTestCaseOnClick()">Add Test Case</button>
+  <button type="button" class="btn btn-primary" (click)="submitChangeOnClick()">Confirm</button>
+</div>

@@ -15,6 +15,7 @@ declare var CodeMirror: any;
 export class DescriptionComponent implements OnInit {
   @ViewChild('EditorCode') el:ElementRef;
   @ViewChild('hi') eel:ElementRef;
+    public isCollapsed:boolean = true;
   nameProblem : string;
   problem : any;
   user: any;
@@ -119,7 +120,7 @@ export class DescriptionComponent implements OnInit {
       this.problem = query;
       this.problem.description = this.problem.description || {};
       if(this.problem.description.samples === undefined) this.problem.description.samples = [];
-  
+
       // console.log(this.problem);
       // this.problem.description.sample_input = this.problem.description.sample_input.split(',');
       // this.problem.description.sample_output = this.problem.description.sample_output.split(',');
@@ -148,9 +149,7 @@ export class DescriptionComponent implements OnInit {
     });
   }
 
-  onClick(event){
-    this.onSubmissionSubmit();
-  }
+
 
   convertString( code ){
     var res : string ;
@@ -189,6 +188,7 @@ export class DescriptionComponent implements OnInit {
     }
     this.problemService.submitSubmission(submission).subscribe( data =>{
       if( data.success ){
+
         console.log(data);
         this.flashMesssagesService.show("submission OK ",{
           cssClass : 'alert-success',
@@ -213,5 +213,12 @@ export class DescriptionComponent implements OnInit {
   selectionChange(){
     this.editor.setOption("theme", this.selection);
     location.hash = "#" + this.selection;
+  }
+  public collapsed(event:any):void {
+    // console.log(event);
+  }
+
+  public expanded(event:any):void {
+    // console.log(event);
   }
 }
