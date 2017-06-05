@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http , Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+import 'rxjs/Rx' ;
 import {EndPointService} from './end-point.service';
 import { AuthService } from './auth.service';
 
@@ -136,6 +137,54 @@ export class ProblemService {
     // console.log(JSON.stringify(problem));
     return this.http.post(ep, problem,{headers: headers})
       .map(res => res.json());
+  }
+  getTetsCasesInput( problem ){
+    this.authService.loadToken();
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
+    let ep = this.endPoint.prepEndPoint('problemAPI/testCases/input/'+problem._id);
+    return this.http.get(ep,{headers: headers})
+    .map(res => res.json());
+  }
+  deleteTestCasesInput(problem,nameItemDelete){
+    this.authService.loadToken();
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
+    let ep = this.endPoint.prepEndPoint('problemAPI/testCases/input/'+problem._id+'/'+nameItemDelete);
+    return this.http.delete(ep,{headers: headers})
+      .map(res => res.json());
+
+  }
+  getTetsCasesOutput( problem ){
+    this.authService.loadToken();
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
+    let ep = this.endPoint.prepEndPoint('problemAPI/testCases/output/'+problem._id);
+    return this.http.get(ep,{headers: headers})
+    .map(res => res.json());
+  }
+  deleteTestCasesOutput(problem,nameItemDelete){
+    this.authService.loadToken();
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
+    let ep = this.endPoint.prepEndPoint('problemAPI/testCases/output/'+problem._id+'/'+nameItemDelete);
+    return this.http.delete(ep,{headers: headers})
+      .map(res => res.json());
+
+  }
+  dowloadFile( problem , nameFile , type )
+  {
+    this.authService.loadToken();
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
+    let ep = this.endPoint.prepEndPoint('problemAPI/testCases/'+type+'/'+problem._id+'/'+nameFile);
+    return this.http.get(ep,{headers: headers});
+
   }
 
 }

@@ -4,8 +4,10 @@ var mongoose = require('mongoose');
 var Verify = require('./verifyRouter');
 var shell = require('shelljs');
 var multer  = require('multer');
+var path = require('path');
 
 var Problem = require('../models/problems');
+var fs = require('fs');
 
 var problemRouter = express.Router();
 problemRouter.use(bodyParser.json());
@@ -143,15 +145,31 @@ problemRouter.route('/corte/:corte')
   });
 });
 
-problemRouter.route('/testCases/input/:_id')
+problemRouter.route('/testCases/input/:_id/:itemName')
+.get(function(req,res){
+    var filePath = path.join(pathTestInput+'/'+req.params._id, req.params.itemName);
+    var stat = fs.statSync(filePath);
+
+    res.writeHead(200, {
+        'Content-Length': stat.size
+    });
+
+    var readStream = fs.createReadStream(filePath);
+    // We replaced all the event handlers with a simple call to readStream.pipe()
+    readStream.pipe(res);
+})
 .delete(function(req,res){
-  Problem.findOne({"_id":req.params._id},function(err,problem){
-    if(err) throw err;
-    var len = problem.description.testCases.length;
-    for( var i = 0 ; i < len ; ++i )
-    {
-    }
-    res.json({error_code:0,err_desc:null});
+  var path = pathTestInput+req.params._id+'/'+req.params.itemName;
+    fs.unlink(  path , function(err) {
+      if(err) throw err;
+      console.log('Delete OK '+req.params.itemName );
+    });
+});
+
+problemRouter.route('/testCases/input/:_id')
+.get( function(req,res){
+  fs.readdir(pathTestInput+req.params._id, function(err, files)  {
+    res.json(files);
   });
 })
 .post(function(req,res){
@@ -161,46 +179,42 @@ problemRouter.route('/testCases/input/:_id')
          res.json({error_code:1,err_desc:err});
          return;
     }
-    Problem.findOne({"_id":req.params._id},function(err,problem){
-      if(err) throw err;
-      // console.log(problem);
-      var len = problem.description.testCases.length;
-      var nameOther = req.file.originalname.split('.')[0] + '.out';
-      var pos = len;
-      for( var i = 0 ; i < len ; ++i )
-      {
-          if( problem.description.testCases[ i ][ 0 ] == req.file.originalname )
-          {
-            pos == -1 ;
-          }
-          else if( problem.description.testCases[ i ][ 1 ] == nameOther )
-          {
-            pos= i;
-            break;
-          }
-      }
-      if( pos != -1  )
-      {
-        if( pos == len )
-          problem.description.testCases.push(new Array<String>(2));
-        problem.description.testCases[pos][0] = req.file.originalname;
-        // console.log(problem.description);
-        Problem.findOneAndUpdate({
-          "_id":req.params._id
-        },
-        {
-          $set : { "description":problem.description}
-        },function(err,pro){
-          if( err ) throw err;
-          console.log("OK");
-        });
-      }
-      res.json({error_code:0,err_desc:null});
-    });
+  res.json({error_code:0,err_desc:null});
   });
 });
 
+problemRouter.route('/testCases/output/:_id/:itemName')
+.get(function(req,res){
+    var filePath = path.join(pathTestOutput+'/'+req.params._id, req.params.itemName);
+    var stat = fs.statSync(filePath);
+
+    res.writeHead(200, {
+        'Content-Length': stat.size
+    });
+
+    var readStream = fs.createReadStream(filePath);
+    // We replaced all the event handlers with a simple call to readStream.pipe()
+    // var rr;
+    // readStream.pipe(rr);
+    // console.log(rr);
+    // console.log(readStream);
+    console.log(readStream.pipe(res));
+    // console.log(readStream);
+})
+.delete(function(req,res){
+  var path = pathTestOutput+req.params._id+'/'+req.params.itemName;
+    fs.unlink(  path , function(err) {
+      if(err) throw err;
+      console.log('Delete OK '+req.params.itemName );
+    });
+});
+
 problemRouter.route('/testCases/output/:_id')
+.get( function(req,res){
+  fs.readdir(pathTestOutput+req.params._id, function(err, files)  {
+    res.json(files);
+  });
+})
 .post(function(req,res){
   uploadOutput( req , res , function(err){
     // console.log(req.file);
@@ -208,42 +222,7 @@ problemRouter.route('/testCases/output/:_id')
          res.json({error_code:1,err_desc:err});
          return;
     }
-    Problem.findOne({"_id":req.params._id},function(err,problem){
-      if(err) throw err;
-      // console.log(problem.description);
-      var len = problem.description.testCases.length;
-      var nameOther = req.file.originalname.split('.')[ 0 ] + '.in';
-      var pos = len;
-      for( var i = 0 ; i < len ; ++i )
-      {
-          if( problem.description.testCases[ i ][ 1 ] == req.file.originalname )
-          {
-            pos == -1 ;
-          }
-          else if( problem.description.testCases[ i ][ 0 ] == nameOther )
-          {
-            pos= i;
-            break;
-          }
-      }
-      if( pos != -1  )
-      {
-        if( pos == len )
-          problem.description.testCases.push(new Array<String>(2));
-        problem.description.testCases[pos][ 1 ] = req.file.originalname;
-        // console.log(problem.description);
-        Problem.findOneAndUpdate({
-          "_id":req.params._id
-        },
-        {
-          $set : { "description":problem.description}
-        },function(err,pro){
-          if( err ) throw err;
-          console.log("OK");
-        });
-      }
-      res.json({error_code:0,err_desc:null});
-    });
+    res.json({error_code:0,err_desc:null});
   });
 });
 
