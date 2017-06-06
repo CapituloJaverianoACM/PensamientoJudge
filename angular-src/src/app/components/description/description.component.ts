@@ -39,6 +39,7 @@ export class DescriptionComponent implements OnInit {
   ) {
   }
   ngAfterViewInit() {
+    this.sampleTest = [];
     var value = "// The bindings defined specifically in the Sublime Text mode\nvar bindings = {\n";
     var map = CodeMirror.keyMap.sublime;
     for (var key in map) {
@@ -103,18 +104,14 @@ export class DescriptionComponent implements OnInit {
     return res;
   }
 
-  calculateScore() {
-    this.problemService.getProblem(this.nameProblem).subscribe(query =>{
-      this.problem = query;
-      this.testPassed = (this.testPassed /this.problem.max_score || 0.0) * 100;
-      if(this.testPassed === Number.POSITIVE_INFINITY) this.testPassed = 0.0;
-      // this.testPassed = parseFloat(this.testPassed.toFixed(2));
-      this.testPassed = Math.round(this.testPassed);
-      if(this.testPassed <=  40.0) this.barType = "danger";
-      else if(this.testPassed > 40.0 && this.testPassed < 60.0) this.barType = "warning";
-      else if(this.testPassed >= 60.0) this.barType = "success";
-      console.log(this.barType);
-    });
+  calculateScore(total, passed) {
+    this.testPassed = (passed / total || 0.0) * 100;
+    if(this.testPassed === Number.POSITIVE_INFINITY) this.testPassed = 0.0;
+    this.testPassed = Math.round(this.testPassed);
+    if(this.testPassed <=  40.0) this.barType = "danger";
+    else if(this.testPassed > 40.0 && this.testPassed < 60.0) this.barType = "warning";
+    else if(this.testPassed >= 60.0) this.barType = "success";
+    console.log(this.barType);
   }
 
   onSubmissionSubmit(){
@@ -125,7 +122,8 @@ export class DescriptionComponent implements OnInit {
     const submission = {
       source_code : this.convertString(this.editor.getValue()),
       userId : this.user._id,
-      problemId : this.problem._id
+      problemId : this.problem._id,
+      sample : false
     };
     if( !submission.userId ){
       this.flashMesssagesService.show("Please log in",{
@@ -145,6 +143,7 @@ export class DescriptionComponent implements OnInit {
           cssClass : 'alert-info',
           timeout : 1000
         });
+        this.calculateScore(data.data.totalCases, data.data.totalAC);
       }
       else{
         this.flashMesssagesService.show(data.err.message,{
@@ -157,7 +156,6 @@ export class DescriptionComponent implements OnInit {
   selectionChange(){
     this.editor.setOption("theme", this.selection);
     location.hash = "#" + this.selection;
-    this.calculateScore();
   }
 
   runCodeOnClick() {
@@ -165,11 +163,32 @@ export class DescriptionComponent implements OnInit {
       input: "1234",
       user_output: "User Out",
       expected_output: "Expected Out",
-      veredict: "Test Veredict",
+      veredict: "Judging…",
       outcome: 1
     };
-    this.sampleTest = dummySample;
     console.log(this.sampleTest);
+    const submission = {
+      source_code : this.convertString(this.editor.getValue()),
+      userId : this.user._id,
+      problemId : this.problem._id,
+      sample : true
+    };
+    this.problemService.submitSubmission(submission).subscribe(data => {
+      console.log("Data");
+      console.log(data);
+      var len = data.submission.genOut.length;
+      this.sampleTest = [];
+      for( var i = 0; i < len ; ++i ) {
+        this.sampleTest.push({
+          veredict : data.submission.testsResults[i],
+          user_output : data.submission.genOut[i],
+          expected_output : this.problem.description.samples[i][1],
+          input : this.problem.description.samples[i][0],
+          tittle : i
+        })
+      }
+      console.log(this.sampleTest);
+    });
   }
 
   public collapsed(event:any):void {

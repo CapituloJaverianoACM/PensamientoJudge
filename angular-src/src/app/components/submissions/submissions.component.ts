@@ -154,8 +154,9 @@ export class SubmissionsComponent implements OnInit {
       //   });
       // else
       //   this.editorModal.doc.setValue(code);
-
-      document.getElementById("modalEditor").innerHTML = '<pre class = "prettyprint" ><![CDATA['+code+']]></pre>';
+      code = code.replace("<","&lt");
+      code = code.replace(">","&gt");
+      document.getElementById("modalEditor").innerHTML = '<pre class = "prettyprint" ><code>'+code+'</code></pre>';
       PR.prettyPrint();
       document.getElementById("titleModal").innerHTML = item.id;
       modal.show();

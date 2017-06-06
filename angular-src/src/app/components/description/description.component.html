@@ -65,19 +65,15 @@
     </div>
   </div>
 
+
   <ul class="list-group">
     <li class="list-group-item">
-      <app-problem-sample-cases [sampleCase]="sampleTest || {}"></app-problem-sample-cases>
+      <tabset>
+         <tab *ngFor="let sample of sampleTest "heading="Test: {{sample.tittle}}">
+           <app-problem-sample-cases [sampleCase]="sample || {}"></app-problem-sample-cases>
+         </tab>
+     </tabset>
     </li>
   </ul>
 
-</div>
-
-
-<hr>
-<div (collapsed)="collapsed($event)"
-     (expanded)="expanded($event)"
-     [collapse]="isCollapsed"
-     class="card card-block card-header">
-  <div class="well well-lg">Some content</div>
 </div>

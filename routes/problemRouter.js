@@ -67,8 +67,8 @@ problemRouter.route('/')
     // });
     // res.end('Added the problem with id: ' + id);
     problem.description = problem.description || {};
-    problem.description.route_test_input = pathTestInput+problem._id;
-    problem.description.route_test_output = pathTestOutput+problem._id;
+    problem.description.route_test_input = pathTestInput+problem._id+'/';
+    problem.description.route_test_output = pathTestOutput+problem._id+'/';
     // console.log(problem);
     // console.log('fdsaf');
     Problem.findOneAndUpdate({'_id' : problem._id }, {
@@ -110,13 +110,21 @@ problemRouter.route('/:problemName')
 })
 
 .put(function(req, res, next) {
-  // Problem.findOneAndUpdate({'name' : req.params.problemName}, {
   Problem.findOneAndUpdate({'_id' : req.body._id}, { /// TODO - johan
     $set: req.body
   }, {
     new: true
   }, function(err, problem) {
     if(err) throw err;
+    var delInExamplesFiles = shell.exec('rm '+problem.description.route_test_input+'*.insample');
+    var delOutExamplesFiles = shell.exec('rm '+problem.description.route_test_output+'*.outsample');
+    var len = problem.description.samples.length;
+    for (var i = 0; i < len; i++) {
+      samplesFileIn = 'printf "%s" "'+problem.description.samples[ i ][ 0 ]+'" > '+problem.description.route_test_input+i+'.insample';
+      samplesFileOut = 'printf "%s" "'+problem.description.samples[ i ][ 1 ]+'" > '+problem.description.route_test_output+i+'.outsample';
+      shell.exec(samplesFileIn);
+      shell.exec(samplesFileOut);
+    }
     res.json(problem);
   });
 })

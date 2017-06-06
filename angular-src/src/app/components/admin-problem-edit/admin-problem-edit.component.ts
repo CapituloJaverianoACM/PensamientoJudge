@@ -59,4 +59,8 @@ export class AdminProblemEditComponent implements OnInit {
     this.router.navigate(['/admin','problems']);
   }
 
+  addTestCasesOnClick() {
+    this.router.navigate(['/admin','problems',this.problem.name, 'testCases']);
+  }
+
 }
