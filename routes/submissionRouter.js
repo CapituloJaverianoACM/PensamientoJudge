@@ -98,8 +98,7 @@ function judge( ){
       {
 
         var compiler = shell.exec('g++ -Wall -o '+pathExeComplete+' '+pathSourceComplete);
-        if( !compiler.code )
-        {
+        if( !compiler.code ) {
             console.log('Compilation OK');
             var extIn = req.body.sample?'.insample':'.in';
             var extOut = req.body.sample?'.outsample':'.out';
@@ -117,54 +116,72 @@ function judge( ){
             req.body.genOut = [];
             req.body.totalCases = lenInput;
             var totAC = 0;
+            req.body.veredict = 'Queue';
+            console.log("LENGTH " + lenInput);
             for (var i = 0; i < lenInput; i++) {
-              if( filesInput[ i ].split('.')[1] == 'insample'  || !req.body.sample )
-              {
+              if( filesInput[ i ].split('.')[1] == 'insample'  || !req.body.sample ) {
                 var param1 = pathTestInput+filesInput[i] + ' ';
                 var param2 = pathTestOutput+filesOutput[i] + ' ';
                 var param3 = pathTestInput+i + '.out ';
                 var param4 = pathExeComplete + ' ';
                 var param5 = time;
                 var run = shell.exec("./judge/judge.sh "+param1+param2+param3+param4+param5);
-                if( run.code == TIMELIMITERROR ){
-                  req.body.veredict = 'Time limit';
-                  // if( !req.body.sample )
-                  //   break;
+                if( run.code == TIMELIMITERROR ) {
                   console.log("Time limit");
-                  req.body.testsResults.push('Time limit')
+                  req.body.testsResults.push('Time limit');
                 }
                 else if( run.code == RUNTIMEERROR ) {
                   console.log("Run time Error");
-                  req.body.veredict = 'Run Time Error';
-                  // if( !req.body.sample )
-                  //   break;
-                  req.body.testsResults.push('Run Time Error')
+                  req.body.testsResults.push('Run Time Error');
                 }
                 else if( run.code == WRONGANSWER){
                   console.log("Wrong Answer");
-                  req.body.veredict = 'Wrong Answer';
-                  // if( !req.body.sample )
-                  //   break;
-                  req.body.testsResults.push('Wrong Answer')
+                  req.body.testsResults.push('Wrong Answer');
                 }
                 else if( run.code == ACCEPTED){
                   console.log('Accepted');
-                  req.body.veredict = 'Accepted';
-                  req.body.testsResults.push('Accepted')
+                  req.body.testsResults.push('Accepted');
                   ++totAC;
                 }
-                req.body.genOut.push(shell.exec('cat '+param3).stdout);
+                if(run.code == RUNTIMEERROR) {
+                  var runTimeErr = " ";
+                  var execError = run.stderr.split(" ");
+                  for (var j = 4; j < execError.length; j++) {
+                    if(execError[j] == "timeout") break;
+                    runTimeErr = runTimeErr + execError[j] + " ";
+                  }
+                  req.body.genOut.push(runTimeErr);
+                }
+                else if(run.code != TIMELIMITERROR)
+                  req.body.genOut.push(shell.exec('cat '+param3).stdout);
+                else
+                  req.body.genOut.push('Terminated due to timeout');
                 shell.exec('rm '+param3);
-
+              }
+              console.log("End Loop");
+            }
+            req.body.veredict = 'Accepted';
+            for(var i = 0; i < req.body.testsResults.length; ++i){
+              if(req.body.testsResults[i] != 'Accepted') {
+                req.body.veredict = req.body.testsResults[i];
+                break;
               }
             }
             req.body.totalAC = totAC;
             shell.exec('rm '+pathExeComplete);
-        }
-        else
-        {
-          console.log(compiler);
+        } else {
+          var filesInput = fs.readdirSync(pathTestInput);
+          var lenInput = filesInput.length;
           req.body.veredict = 'Compilation Error';
+          console.log('Compilation Error');
+          req.body.testsResults = [];
+          req.body.genOut = [];
+          for(var i = 0; i < lenInput; ++i) {
+            if( filesInput[ i ].split('.')[1] == 'insample'  || !req.body.sample ) {
+              req.body.testsResults.push('Compilation Error');
+              req.body.genOut.push(compiler.stderr);
+            }
+          }
           req.body.messageCompilation = compiler;
         }
       }

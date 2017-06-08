@@ -5,7 +5,7 @@
     <h1> Log in </h1>
     <form #loginForm = "ngForm" (submit) = "onLoginSubmit()">
       <div class="form-group">
-        <label for="username">Usename or email</label>
+        <label for="username">Usename or Email</label>
         <input  type="text" [(ngModel)] = "username" name = "username" class="form-control" id="username" required >
       </div>
       <div class="form-group">
@@ -13,7 +13,7 @@
         <input  type="password" [(ngModel)] = "password" name = "password" class="form-control" id="password" required>
 
       </div>
-      <button type="submit" class="btn btn-success" >submit</button>
+      <button type="submit" class="btn btn-success btn-lg btn-block" >Login</button>
     </form>
 
   </div>

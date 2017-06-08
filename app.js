@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var cors = require('cors');
+var FacebookStrategy= require('passport-facebook').Strategy;
 
 var config = require('./config');
 

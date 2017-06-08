@@ -1,14 +1,60 @@
-<header>
-    <div class="container" id="maincontent" tabindex="-1">
-        <div class="row">
-            <div class="col-lg-12">
-                <img class="img-responsive" src="assets/img/profile.png" alt="">
-                <div class="intro-text">
-                    <h1 class="name">Aprende a programar practicando</h1>
-                    <hr class="star-light">
-                    <span class="skills">¡El mejor lugar para aprender!</span>
-                </div>
-            </div>
+<div class="container">
+
+<!-- Page Content -->
+
+    <!-- Heading Row -->
+    <div class="row">
+        <div class="col-md-6">
+            <img class="img-responsive img-rounded" src="http://placehold.it/700x350" alt="">
         </div>
+        <!-- /.col-md-8 -->
+        <div class="col-md-6">
+            <h1>Practica Programando</h1>
+            <p>Totalmente gratis puedes acceder a retos de programación exclusivos para que preactiques para tus prebas y crezcas como programador. La mejor manera de mejorar como programador es poniendo aprueba tus conocimientos y este es el mejor lugar para hcerlo.</p>
+            <a *ngIf="!authService.isLoggedIn()" [routerLink]="['/signup']" class="btn btn-success btn-lg" href="#">¡Regístrate!</a>
+            <a *ngIf="authService.isLoggedIn()" [routerLink]="['/problems']" class="btn btn-success btn-lg" href="#">¡Comenzar!</a>
+        </div>
+        <!-- /.col-md-4 -->
     </div>
-</header>
+    <!-- /.row -->
+
+    <hr>
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Comunidad</h2>
+            <p>Es importante generar una comunidad académica para sacar el mejor provecho de este lugar.</p>
+        </div>
+        <!-- /.col-md-4 -->
+        <div class="col-md-4">
+            <h2>¿Qué Es?</h2>
+            <p>Es un lugar para crecer como programador practicando y poniendo a prueba tus habilidades.</p>
+        </div>
+        <!-- /.col-md-4 -->
+        <div class="col-md-4">
+            <h2>Creadores</h2>
+            <p>Está plataforma fue patrosinada por el Capítulo Javeriano ACM y desarrollada por dos de sus miembros: <a href="mailto:juan-penaloza@javeriana.edu.co">Juan Pablo Peñaloza</a>  y <a href="mailto:johanmurillo@javeriana.edu.co">Johan Murillo</a>.</p>
+        </div>
+        <!-- /.col-md-4 -->
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <blockquote>
+              <div class="row">
+                <div class="col-sm-3 text-center">
+                  <img class="img-circle" src="http://www.adweek.com/agencyspy/wp-content/uploads/sites/7/2015/06/steve-jobs.jpg" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-sm-9">
+                  <p>"Everybody in this country should learn to program a computer, because it teaches you how to think."</p>
+                  <small>Steve Jobs</small>
+                </div>
+              </div>
+            </blockquote>
+      </div>
+    </div>
+  </div>
+
+<!-- /.container -->

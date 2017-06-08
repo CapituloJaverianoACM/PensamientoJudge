@@ -8,7 +8,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages'
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { PaginationModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
-import { BsDropdownModule, ProgressbarModule , TabsModule} from 'ngx-bootstrap';
+import { BsDropdownModule, ProgressbarModule , TabsModule, AlertModule} from 'ngx-bootstrap';
 import { PopoverModule } from 'ngx-popover';
 import { CollapseModule } from 'ngx-bootstrap';
 import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
@@ -120,6 +120,7 @@ const appRoutes: Routes =[
     CollapseModule.forRoot(),
     ProgressbarModule.forRoot(),
     TabsModule.forRoot(),
+    AlertModule.forRoot(),
   ],
   providers: [
     ValidateService,

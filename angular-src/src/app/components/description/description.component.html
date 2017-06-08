@@ -46,14 +46,14 @@
 
   <div class="row">
     <div class="col-sm-6">
-      <button type="button" class="btn btn-info btn-lg btn-block"(click)="runCodeOnClick()"> <span class="glyphicon glyphicon-console"></span> Run Code</button>
+      <button type="button" [disabled]="isLoading" class="btn btn-warning btn-lg btn-block"(click)="runCodeOnClick()"> <span class="glyphicon glyphicon-console"></span> Run Code</button>
     </div>
     <div class="col-sm-6">
-      <button type="button" class="btn btn-success btn-lg btn-block" (click)="onSubmissionSubmit()" (click)="isCollapsed = false"><span class="glyphicon glyphicon-ok"></span> Submit Code</button>
+      <button type="button" [disabled]="isLoading" class="btn btn-success btn-lg btn-block" (click)="onSubmissionSubmit()" (click)="isCollapsed = false"><span class="glyphicon glyphicon-ok"></span> Submit Code</button>
     </div>
   </div>
 
-  <div class="row result">
+  <div *ngIf="isSubmited" class="row result">
     <div class="col-sm-1">
       <div class="section-title">Socore: </div>
     </div>
@@ -65,12 +65,32 @@
     </div>
   </div>
 
+  <div *ngIf="isLoading" class="loader"></div>
 
-  <ul class="list-group">
+  <div *ngIf="!isAC && isSubmited && !isRunCode">
+    <alert type="warning">
+      <h1>{{submissonVeredict}}</h1>
+      <ul *ngIf="isConsoleError" class="list-group">
+        <li class="list-group-item">
+          <pre>{{consoleMessage}}</pre>
+        </li>
+      </ul>
+    </alert>
+  </div>
+
+  <div *ngIf="isAC && isSubmited && !isRunCode">
+    <alert type="success">
+      <h1>{{submissonVeredict}}</h1>
+    </alert>
+  </div>
+
+  <ul *ngIf="isRunCode" class="list-group">
     <li class="list-group-item">
       <tabset>
-         <tab *ngFor="let sample of sampleTest "heading="Test: {{sample.tittle}}">
-           <app-problem-sample-cases [sampleCase]="sample || {}"></app-problem-sample-cases>
+         <tab *ngFor="let sample of sampleTest"
+          [heading]="sample.tittle"
+          >
+            <app-problem-sample-cases [sampleCase]="sample || {}"></app-problem-sample-cases>
          </tab>
      </tabset>
     </li>

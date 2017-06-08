@@ -201,13 +201,7 @@ problemRouter.route('/testCases/output/:_id/:itemName')
     });
 
     var readStream = fs.createReadStream(filePath);
-    // We replaced all the event handlers with a simple call to readStream.pipe()
-    // var rr;
-    // readStream.pipe(rr);
-    // console.log(rr);
-    // console.log(readStream);
     console.log(readStream.pipe(res));
-    // console.log(readStream);
 })
 .delete(function(req,res){
   var path = pathTestOutput+req.params._id+'/'+req.params.itemName;

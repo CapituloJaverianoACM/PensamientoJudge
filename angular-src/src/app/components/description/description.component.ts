@@ -15,21 +15,25 @@ declare var CodeMirror: any;
 export class DescriptionComponent implements OnInit {
   @ViewChild('EditorCode') el:ElementRef;
   @ViewChild('hi') eel:ElementRef;
-    public isCollapsed:boolean = true;
-  nameProblem : string;
-  problem : any;
-  user: any;
-  editor : any;
-  fractionString: string = 'Inside Angular one half = $\\frac 12$';
-  themes = ["default",
-  "eclipse",
-  "monokai",
-  "neat",
-  "neo",];
-  selection  = this.themes[0];
+  public isCollapsed:boolean = true;
+  private nameProblem : string;
+  private problem : any;
+  private user: any;
+  private editor : any;
+  private fractionString: string = 'Inside Angular one half = $\\frac 12$';
+  private themes = ["default", "eclipse", "monokai", "neat", "neo",];
+  private selection  = this.themes[0];
   private testPassed: number;
   private barType: string;
   private sampleTest: any;
+  private isRunCode: boolean;
+  private isLoading: boolean;
+  private isConsoleError: boolean;
+  private consoleMessage: string;
+  private submissonVeredict: string;
+  private isAC: boolean;
+  private isSubmited: boolean;
+
   constructor(
     private problemService : ProblemService,
     private authService : AuthService,
@@ -64,7 +68,9 @@ export class DescriptionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.testPassed = 7.0; // TODO - chage to judge response.
+    this.isRunCode = false;
+    this.isConsoleError = false;
+    this.testPassed = 0; // TODO - chage to judge response.
     this.barType = "danger";
     this.route.params.subscribe( params => {
       this.nameProblem = params['name'];
@@ -72,11 +78,9 @@ export class DescriptionComponent implements OnInit {
     this.problemService.getProblem(this.nameProblem).subscribe(query =>{
       this.problem = query;
       this.problem.description = this.problem.description || {};
-      if(this.problem.description.samples === undefined) this.problem.description.samples = [];
-    }, err =>{
-      console.log(err);
-      return false;
-    });
+      if(this.problem.description.samples === undefined)
+        this.problem.description.samples = [];
+    }, err => { console.log(err); return false; });
     this.authService.getProfile().subscribe(profile =>{
       this.user = profile.user;
     }, err => {
@@ -89,11 +93,10 @@ export class DescriptionComponent implements OnInit {
     });
   }
 
-  convertString( code ){
+  convertString( code ) {
     var res : string ;
     res = "";
-    for( var c in code )
-    {
+    for( var c in code ) {
       if( code[c] == '\"' )
         res += "\\\"";
       else if( code[ c ] == '\\' )
@@ -111,10 +114,11 @@ export class DescriptionComponent implements OnInit {
     if(this.testPassed <=  40.0) this.barType = "danger";
     else if(this.testPassed > 40.0 && this.testPassed < 60.0) this.barType = "warning";
     else if(this.testPassed >= 60.0) this.barType = "success";
-    console.log(this.barType);
   }
 
-  onSubmissionSubmit(){
+  onSubmissionSubmit() {
+    this.isRunCode = false;
+    this.isLoading = true;
     if( !this.authService.loggedIn() ){
       this.router.navigate(['/']);
       return false;
@@ -125,48 +129,32 @@ export class DescriptionComponent implements OnInit {
       problemId : this.problem._id,
       sample : false
     };
-    if( !submission.userId ){
-      this.flashMesssagesService.show("Please log in",{
-        cssClass : 'alert-danger',
-        timeout : 3000
-      });
-      return false;
-    }
+
     this.problemService.submitSubmission(submission).subscribe( data =>{
       if( data.success ){
+        this.isSubmited = true;
         console.log(data);
-        this.flashMesssagesService.show("submission OK ",{
-          cssClass : 'alert-success',
-          timeout : 1000
-        });
-        this.flashMesssagesService.show(data.submission.veredict,{
-          cssClass : 'alert-info',
-          timeout : 1000
-        });
         this.calculateScore(data.data.totalCases, data.data.totalAC);
-      }
-      else{
-        this.flashMesssagesService.show(data.err.message,{
-          cssClass : 'alert-danger',
-          timeout : 3000
-        });
-      }
+        this.submissonVeredict = data.submission.veredict;
+        this.isAC = (this.submissonVeredict == "Accepted");
+        if(this.submissonVeredict == 'Compilation Error' || this.submissonVeredict == "Run Time Error") {
+          this.isConsoleError = true;
+          this.consoleMessage = data.data.genOut[0];
+        }
+      } else{console.log(data.err.message);}
+      this.isLoading = false;
     });
   }
+
   selectionChange(){
     this.editor.setOption("theme", this.selection);
     location.hash = "#" + this.selection;
   }
 
   runCodeOnClick() {
-    var dummySample = {
-      input: "1234",
-      user_output: "User Out",
-      expected_output: "Expected Out",
-      veredict: "Judging…",
-      outcome: 1
-    };
-    console.log(this.sampleTest);
+    this.isRunCode = false;
+
+    this.isLoading = true;
     const submission = {
       source_code : this.convertString(this.editor.getValue()),
       userId : this.user._id,
@@ -174,19 +162,21 @@ export class DescriptionComponent implements OnInit {
       sample : true
     };
     this.problemService.submitSubmission(submission).subscribe(data => {
+      this.isRunCode = true;
       console.log("Data");
       console.log(data);
       var len = data.submission.genOut.length;
-      this.sampleTest = [];
+      this.sampleTest = new Array(len);
       for( var i = 0; i < len ; ++i ) {
-        this.sampleTest.push({
+        this.sampleTest[i] = {
           veredict : data.submission.testsResults[i],
           user_output : data.submission.genOut[i],
           expected_output : this.problem.description.samples[i][1],
           input : this.problem.description.samples[i][0],
-          tittle : i
-        })
+          tittle : "Test: " + i
+        };
       }
+      this.isLoading = false;
       console.log(this.sampleTest);
     });
   }
@@ -196,4 +186,5 @@ export class DescriptionComponent implements OnInit {
 
   public expanded(event:any):void {
   }
+
 }

@@ -1,0 +1,24 @@
+p {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: normal;
+  margin: 0.5em;
+  line-height: 1.5em;
+  font-size: 1.4rem;
+}
+
+h1, h2 {
+  text-align: center;
+  text-transform: capitalize;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-size: 115%;*/
+  font-weight: normal;
+}
+
+.btn {
+  margin: 10px;
+}
+
+blockquote {
+  padding-top: 70px;
+  border: 0px;
+}
