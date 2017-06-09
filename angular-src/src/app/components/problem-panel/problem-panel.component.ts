@@ -21,4 +21,9 @@ export class ProblemPanelComponent implements OnInit {
     this.router.navigate(['/problems/'+problemName]);
   }
 
+  getMaxScore() {
+    if(this.problem.description.testCases.length == 0) return 0;
+    else return this.problem.description.testCases[0].length;
+  }
+
 }

@@ -9,13 +9,10 @@
         <div class="row">
 
           <div class="col-sm-3">
-            <h4 class="sub-tittle">Max Score</h4>
-            <input type="number" [(ngModel)] = "problem.max_score" value="{{problem.max_score}}" class="form-control" id="max-score">
-          </div>
-
-          <div class="col-sm-2">
             <h4 class="sub-tittle">Difficulty</h4>
-            <input type="text" [(ngModel)] = "problem.difficulty" value="{{problem.difficulty}}" class="form-control" id="difficulty">
+            <select class="form-control selectpicker" [(ngModel)] = "problem.difficulty" id="difficulty">
+              <option [value]="diff" *ngFor="let diff of difficulties" >{{diff}}</option>
+            </select>
           </div>
 
           <div class="col-sm-3">
@@ -23,9 +20,12 @@
             <input type="number" [(ngModel)] = "problem.time_limit" value="{{problem.time_limit}}" class="form-control" id="TL">
           </div>
 
-          <div class="col-sm-2">
+          <div class="col-sm-4">
             <h4 class="sub-tittle">Theme</h4>
-            <input type="text" [(ngModel)] = "problem.theme" value="{{problem.theme}}" class="form-control" id="name">
+            <!-- <input type="text" [(ngModel)] = "problem.theme" value="{{problem.theme}}" class="form-control" id="name"> -->
+            <select class="form-control selectpicker" [(ngModel)] = "problem.theme" id="theme">
+              <option [value]="them" *ngFor="let them of problemTheme" >{{them}}</option>
+            </select>
           </div>
 
           <div class="col-sm-2">
