@@ -62,15 +62,9 @@ problemRouter.route('/')
     if (err) throw err;
     console.log('Problem created!');
     var id = problem._id;
-    // res.writeHead(200, { // 200 OK, added problem without errors.
-    //   'Content-Type':'application/json'
-    // });
-    // res.end('Added the problem with id: ' + id);
     problem.description = problem.description || {};
     problem.description.route_test_input = pathTestInput+problem._id+'/';
     problem.description.route_test_output = pathTestOutput+problem._id+'/';
-    // console.log(problem);
-    // console.log('fdsaf');
     Problem.findOneAndUpdate({'_id' : problem._id }, {
         $set: problem
       }, {
@@ -89,7 +83,6 @@ problemRouter.route('/')
           status: 'Added the problem with id: ' + id
         });
       });
-      //--------------
   });
 })
 
@@ -163,7 +156,6 @@ problemRouter.route('/testCases/input/:_id/:itemName')
     });
 
     var readStream = fs.createReadStream(filePath);
-    // We replaced all the event handlers with a simple call to readStream.pipe()
     readStream.pipe(res);
 })
 .delete(function(req,res){
@@ -182,7 +174,6 @@ problemRouter.route('/testCases/input/:_id')
 })
 .post(function(req,res){
   uploadInput( req , res , function(err){
-    // console.log(req.file);
     if(err){
          res.json({error_code:1,err_desc:err});
          return;
@@ -219,7 +210,6 @@ problemRouter.route('/testCases/output/:_id')
 })
 .post(function(req,res){
   uploadOutput( req , res , function(err){
-    // console.log(req.file);
     if(err){
          res.json({error_code:1,err_desc:err});
          return;
@@ -227,6 +217,5 @@ problemRouter.route('/testCases/output/:_id')
     res.json({error_code:0,err_desc:null});
   });
 });
-
 
 module.exports = problemRouter;

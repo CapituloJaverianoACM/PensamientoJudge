@@ -6,6 +6,11 @@
 
         <h4 class="sub-tittle">Problem Name</h4>
         <input type="text" [(ngModel)] = "problem.name" value="{{problem.name}}" class="form-control" id="name">
+
+        <label class="checkbox-inline"><input [checked]="problem.is_original" [(ngModel)]="problem.is_original" type="checkbox" value="">Problema Original</label>
+        <h4 *ngIf="!problem.is_original" class="sub-tittle">Link Parcial Fuente</h4>
+        <input *ngIf="!problem.is_original" type="text" [(ngModel)] = "problem.link_fuente" value="{{problem.name}}" class="form-control" id="fuente">
+
         <div class="row">
 
           <div class="col-sm-3">

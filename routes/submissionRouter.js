@@ -16,7 +16,6 @@ var pathExe = './submissions-exe/';
 
 router.post('/init',function(req,res,next){
   CounterSubmission.findOneAndUpdate({_id:"submissionid"},{$set:{sequence_value:0}},function (err,counterSubmission) {
-    console.log("hi");
       if(err) return next(err);
       res.writeHead(200,{
         'Content-Type': 'text/plain'
@@ -315,7 +314,29 @@ router.route('/idProblem/:problemId')
   });
 });
 
+// 593a3a58f7e3bd9a177cbdab
+router.route('/successRate/:problemId')
+.get(function(req, res, next) {
+  var coutProbSubmissionQuery = {
+    problemId: req.params.problemId,
+  };
 
+  var coutProbSubmissionAcceptedQuery = {
+    problemId: req.params.problemId,
+    veredict: "Accepted"
+  };
+
+  Submission.count(coutProbSubmissionQuery, function(err, allProbCount){
+    Submission.count(coutProbSubmissionAcceptedQuery, function(err, acProbCount) {
+      console.log("All Problem " + allProbCount);
+      console.log("All Accepted " + acProbCount);
+      var successRate = (acProbCount / allProbCount).toFixed(2);
+      if(allProbCount == 0) successRate = 0;
+      res.json({"successRate": successRate});
+    });
+  });
+
+});
 router.get('/userProblem/:problemName',Verify.verifyOrdinaryUser,function(req,res,next){
   Submission.aggregate([
     {

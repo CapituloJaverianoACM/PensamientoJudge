@@ -80,9 +80,14 @@ var problemSchema = new Schema({
     default: '#include <iostream>\n\nusing namespace std;\n\nint main() {\n\treturn 0;\n}',
     required: false
   },
-  // TODO - Delete this column
-  required_knowledge: {
+  link_fuente: {
     type: String,
+    default: 'https://sophia.javeriana.edu.co/programacion/parciales',
+    required: false
+  },
+  is_original: {
+    type: Boolean,
+    default: false,
     required: false
   },
   description: descriptionSchema

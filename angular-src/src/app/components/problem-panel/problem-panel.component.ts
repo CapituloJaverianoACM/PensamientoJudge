@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { ProblemService } from '../../services/problem.service';
 @Component({
   selector: 'app-problem-panel',
   templateUrl: './problem-panel.component.html',
@@ -9,21 +9,25 @@ import { Router } from '@angular/router';
 export class ProblemPanelComponent implements OnInit {
   @Input() nameProblem: string = "No Input";
   problem : any;
+  private problemSuccessRate: Number;
   constructor(
-    private router : Router
+    private router : Router,
+    private problemService: ProblemService
   ) { }
 
   ngOnInit() {
     this.problem = this.nameProblem;
+    this.getProblemSuccessRate();
   }
 
   solveProblemOnClick(problemName) {
     this.router.navigate(['/problems/'+problemName]);
   }
 
-  getMaxScore() {
-    if(this.problem.description.testCases.length == 0) return 0;
-    else return this.problem.description.testCases[0].length;
+  getProblemSuccessRate() {
+    this.problemService.getProblemSuccessRate(this.problem._id).subscribe(data => {
+      this.problemSuccessRate = (data.successRate || 0) * 100;
+    });
   }
 
 }

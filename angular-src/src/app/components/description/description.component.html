@@ -2,7 +2,8 @@
 
   <div *ngIf="problem">
 
-  <h1 class="problem-tittle">Problem: {{nameProblem}}</h1>
+  <h1 class="problem-tittle">{{nameProblem}}</h1>
+  <h2 *ngIf="!problem.is_original" class="section-title"><a [href]="problem.link_fuente" target="_blank">Parcial Completo</a></h2>
   <p [MathJax]="problem.description.statement">{{problem.description.statement}}</p>
   <div class="section-title">Input Format</div>
   <p [MathJax]="problem.description.input_format">{{problem.description.input_format}}</p>

@@ -176,15 +176,24 @@ export class ProblemService {
       .map(res => res.json());
 
   }
-  dowloadFile( problem , nameFile , type )
-  {
+
+  dowloadFile( problem , nameFile , type ) {
     this.authService.loadToken();
     let headers = new Headers();
     headers.append('Content-Type','application/json');
     headers.append('x-access-token',this.authService.authToken);
     let ep = this.endPoint.prepEndPoint('problemAPI/testCases/'+type+'/'+problem._id+'/'+nameFile);
     return this.http.get(ep,{headers: headers});
+  }
 
+  getProblemSuccessRate(problemId) {
+    this.authService.loadToken();
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
+    let ep = this.endPoint.prepEndPoint('submissionAPI/successRate/'+problemId);
+    return this.http.get(ep,{headers: headers})
+    .map(res => res.json());
   }
 
 }
