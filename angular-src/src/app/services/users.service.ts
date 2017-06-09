@@ -13,8 +13,10 @@ export class UsersService {
   ) { }
 
   getAllUsers() {
+    this.authService.loadToken();
     let headers = new Headers();
     headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
     let ep = this.endPoint.prepEndPoint('usersAPI/');
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );

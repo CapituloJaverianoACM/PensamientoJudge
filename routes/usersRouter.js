@@ -8,9 +8,9 @@ var async = require("async");
 var multer  = require('multer');
 var path = require('path');
 var fs = require('fs');
-// var upload = multer({ dest: 'profile-pictures/' });
+var Logs = require('../models/logs');
 
-var storage = multer.diskStorage({ //multers disk storage settings
+var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './profile-pictures/');
     },
@@ -25,9 +25,12 @@ var upload = multer({ storage: storage}).single('file');
 
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', Verify.verifyAdminUser, function(req, res, next) {
   User.find({},function(err,users){
-    if(err) throw err;
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
     res.json(users);
   });
 });
@@ -35,8 +38,8 @@ router.get('/', function(req, res, next) {
 router.post('/signup',function(req,res){
   User.register(new User(req.body),
     req.body.password, function(err,user)  {
-      if(err)
-      {
+      if(err) {
+        Logs.create({log: err}, function(err, log){});
         return res.status(210).json({
           err:err,
           success: false
@@ -54,19 +57,21 @@ router.post('/signup',function(req,res){
 function findByEmail(email) {
   var query = User.find({'email':email});
   query.exec(function(err,user){
-    if(err) {
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
       return false;
-    }
-    if(user) {
-      return user;
-    }
+    };
+    if(user) { return user;}
   });
 }
 
 function changeEmail() {
   return function(req,res,next) {
     User.findOne({ 'email' : req.body.username }, function(err, user) {
-      if (err) { return next(err); }
+      if (err) {
+        Logs.create({log: err}, function(err, log){});
+        return false;
+      };
       if (user) {
         req.body.username = user.username;
       }
@@ -84,43 +89,68 @@ router.route('/byEmail/:userEmail')
 
 .get(function(req, res, next) {
   User.findOne({'email' : req.params.userEmail}, function(err, user) {
-    if(err) throw err;
-    res.json(user);
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
+    console.log(user);
+    var userResponse = user;
+    if(user) userResponse = {username: user.username}
+    res.json(userResponse);
   });
 })
 
-.post(function(req, res) {
+.post(Verify.verifyOrdinaryUser, function(req, res) {
+  if(req.decoded._doc.email != req.params.userEmail){
+    Logs.create({log: "Not self user"}, function(err, log){});
+    return false;
+  }
   upload(req,res,function(err) {
     User.findOne({'email' : req.params.userEmail}, function(err, user) {
-      if(err) throw err;
+      if (err) {
+        Logs.create({log: err}, function(err, log){});
+        return false;
+      };
       if(user.img) {
-        // console.log("To DLETE: " + path.join(__dirname, '../'+ user.img));
         fs.unlink(path.join(__dirname, '../'+ user.img));
       }
       User.update({'email' : req.params.userEmail}, {
           img: req.file.path
       }, function(err, affected, resp) {
-          if(err) throw err;
+        if (err) {
+          Logs.create({log: err}, function(err, log){});
+          return false;
+        };
       });
       res.json({error_code:0,err_desc:null});
     });
   });
 })
 
-.put(function(req, res, next) {
+.put(Verify.verifyOrdinaryUser, function(req, res, next) {
+  if(req.decoded._doc.email != req.params.userEmail){
+    Logs.create({log: "Not self user"}, function(err, log){});
+    return false;
+  }
   User.findOneAndUpdate({'email' : req.params.userEmail}, {
     $set: req.body
   }, {
     new: true
   }, function(err, user) {
-    if(err) throw err;
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
     res.json(user);
   });
 })
 
 .delete(Verify.verifyAdminUser,function(req, res, next) {
   User.findOneAndRemove({'email' : req.params.userEmail}, function (err, resp) {
-    if (err) throw err;
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
     res.json(resp);
   });
 });
@@ -132,7 +162,10 @@ router.route('/role/:username')
   {
     is_admin : req.body.is_admin
   }, function( err , user ){
-    if( err ) throw err;
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
     res.json(user);
   });
 });
@@ -141,11 +174,11 @@ router.route('/role/:username')
 
 router.post('/login',changeEmail(),function(req,res,next){
   passport.authenticate('local',function(err,user,info){
-    if(err){
-      return next(err);
-    }
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
     if(!user){
-      // return res.status(401).json({
       return res.status(201).json({
         success: false,
         err: info
@@ -184,11 +217,14 @@ router.get('/logout',function(req,res){
     status: 'Bye!'
   });
 });
+
 router.get('/profile',Verify.verifyOrdinaryUser,function(req,res,next){
   username = req.decoded._doc.username;
   User.findOne({'username':username},function(err,user){
-    if (err) { return next(err); }
-
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
     if(user) {
       res.json({
         user:user
@@ -199,9 +235,13 @@ router.get('/profile',Verify.verifyOrdinaryUser,function(req,res,next){
 
 router.route('/byUsername/:username')
 .get(function(req, res, next) {
-  User.findOneAndRemove({'username' : req.params.username}, function (err, resp) {
-    if (err) throw err;
-    res.json(resp);
+  User.findOne({'username' : req.params.username}, function (err, resp) {
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
+    var userResponse = {username: resp.username};
+    res.json(userResponse);
   });
 });
 

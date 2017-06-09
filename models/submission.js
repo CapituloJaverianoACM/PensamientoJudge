@@ -16,8 +16,6 @@ var SubmissionSchema = new Schema({
     required: true
   },
   veredict: {
-    // type: Number,
-    // default: 0.0 //change if not is this
     type: String,
     required: true,
     enum:['Queue','Accepted','Wrong Answer','Time limit','Run Time Error','Compilation Error'],
@@ -29,7 +27,7 @@ var SubmissionSchema = new Schema({
   },
   time_stamp: {
     type : Date,
-    default: Date.now 
+    default: Date.now
   },
   userId: {
     type : Schema.ObjectId ,

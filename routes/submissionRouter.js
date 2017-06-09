@@ -7,6 +7,7 @@ var Submission = require('../models/submission');
 var CounterSubmission = require('../models/counterSubmission');
 var Problem = require('../models/problems');
 var ObjectId = require('mongoose').Types.ObjectId;
+var Logs = require('../models/logs');
 var fs = require('fs');
 
 
@@ -14,57 +15,66 @@ var pathSource = './submissions-src/';
 var pathExe = './submissions-exe/';
 
 
-router.post('/init',function(req,res,next){
+router.post('/init',Verify.verifyAdminUser,function(req,res,next){
   CounterSubmission.findOneAndUpdate({_id:"submissionid"},{$set:{sequence_value:0}},function (err,counterSubmission) {
-      if(err) return next(err);
-      res.writeHead(200,{
-        'Content-Type': 'text/plain'
-      });
-      res.end('OK');
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
+    res.writeHead(200,{
+      'Content-Type': 'text/plain'
+    });
+    res.end('OK');
   });
 });
 
-function getNextSequenceValue(sequenceName){
+function getNextSequenceValue(sequenceName) {
   return function(req,res,next){
     if( req.decoded._doc._id != req.body.userId ){
-      console.log("The id is diferent");
       var err ;
       err.json({
         message : "The id is diferent"
       });
-      throw err;
+      if (err) {
+        Logs.create({log: err}, function(err, log){});
+        return false;
+      };
     }
    CounterSubmission.findOneAndUpdate(
     {"_id": "submissionid" },
     {$inc:{"sequence_value":1}},
       function(err,doc) {
-        if(err)
-          return next( err);
-        if(doc){
-
-          req.body._id =  doc.sequence_value;
-        }
+        if (err) {
+          Logs.create({log: err}, function(err, log){});
+          return false;
+        };
+        if(doc){ req.body._id =  doc.sequence_value; }
         next();
-      }
-    );
- };
+      });
+  };
 }
 
 function getProblem() {
   return function( req, res , next ){
-
     Problem.findOne({'_id' : new ObjectId(req.body.problemId)}, function(err, problem) {
-      if(err) throw err;
+      if (err) {
+        Logs.create({log: err}, function(err, log){});
+        return false;
+      };
       req.body.problem = problem;
       next();
     });
   };
 }
+
 function getProblemName() {
   return function( req, res , next ){
 
     Problem.findOne({'name' : req.params.problemName}, function(err, problem) {
-      if(err) throw err;
+      if (err) {
+        Logs.create({log: err}, function(err, log){});
+        return false;
+      };
       req.body.problem = problem;
       next();
     });
@@ -78,24 +88,19 @@ function judge( ){
     var pathExeComplete = pathExe + submission._id;
     var file = shell.exec('printf "%s" \"' + submission.source_code + '\" > ' + pathSourceComplete );
     var time = submission.problem.time_limit;
-    if( file.code === 0)
-    {
+    if( file.code === 0) {
       req.body.source_code = pathSourceComplete;
       var pathTestInput = submission.problem.description.route_test_input;
       var pathTestOutput = submission.problem.description.route_test_output;
       var input = shell.exec('if [ ! \"$(ls -A '+pathTestInput+')\" ];then exit 101; fi');
       var output = shell.exec('if [ ! \"$(ls -A '+pathTestOutput+')\" ];then exit 102; fi');
-      if( input.code == 101 )
-      {
+      if( input.code == 101 ) {
           console.log('The input folder is empty.');
       }
-      else if( output.code == 102 )
-      {
+      else if( output.code == 102 ) {
         console.log('The output folder is empty.');
       }
-      else if( time )
-      {
-
+      else if( time ) {
         var compiler = shell.exec('g++ -Wall -o '+pathExeComplete+' '+pathSourceComplete);
         if( !compiler.code ) {
             console.log('Compilation OK');
@@ -107,8 +112,6 @@ function judge( ){
             var ACCEPTED = 0;
             var filesInput = fs.readdirSync(pathTestInput);
             var filesOutput = fs.readdirSync(pathTestOutput);
-            console.log(filesInput);
-            console.log(filesOutput);
             var lenInput = filesInput.length;
             shell.exec('chmod +x ./judge/judge.sh');
             req.body.testsResults = [];
@@ -116,7 +119,6 @@ function judge( ){
             req.body.totalCases = lenInput;
             var totAC = 0;
             req.body.veredict = 'Queue';
-            console.log("LENGTH " + lenInput);
             for (var i = 0; i < lenInput; i++) {
               if( filesInput[ i ].split('.')[1] == 'insample'  || !req.body.sample ) {
                 var param1 = pathTestInput+filesInput[i] + ' ';
@@ -126,19 +128,15 @@ function judge( ){
                 var param5 = time;
                 var run = shell.exec("./judge/judge.sh "+param1+param2+param3+param4+param5);
                 if( run.code == TIMELIMITERROR ) {
-                  console.log("Time limit");
                   req.body.testsResults.push('Time limit');
                 }
                 else if( run.code == RUNTIMEERROR ) {
-                  console.log("Run time Error");
                   req.body.testsResults.push('Run Time Error');
                 }
                 else if( run.code == WRONGANSWER){
-                  console.log("Wrong Answer");
                   req.body.testsResults.push('Wrong Answer');
                 }
                 else if( run.code == ACCEPTED){
-                  console.log('Accepted');
                   req.body.testsResults.push('Accepted');
                   ++totAC;
                 }
@@ -152,12 +150,11 @@ function judge( ){
                   req.body.genOut.push(runTimeErr);
                 }
                 else if(run.code != TIMELIMITERROR)
-                  req.body.genOut.push(shell.exec('cat '+param3).stdout);
+                  req.body.genOut.push(shell.exec('cat '+param3).stdout); // FIXME - Not show in console. Change Cat
                 else
-                  req.body.genOut.push('Terminated due to timeout');
-                shell.exec('rm '+param3);
+                  req.body.genOut.push('Terminated due to timeout. Check if you have a infinite loop.');
+                shell.exec('rm '+param3); // FIXME - use file system not shell.
               }
-              console.log("End Loop");
             }
             req.body.veredict = 'Accepted';
             for( i = 0; i < req.body.testsResults.length; ++i){
@@ -172,7 +169,6 @@ function judge( ){
           var filesInput = fs.readdirSync(pathTestInput);
           var lenInput = filesInput.length;
           req.body.veredict = 'Compilation Error';
-          console.log('Compilation Error');
           req.body.testsResults = [];
           req.body.genOut = [];
           for(var i = 0; i < lenInput; ++i) {
@@ -189,17 +185,20 @@ function judge( ){
   };
 }
 
-router.post('/submit' ,Verify.verifyOrdinaryUser,getNextSequenceValue('submissionid'), getProblem(),judge( ) , function(req,res,next){
+router.post('/submit' ,Verify.verifyOrdinaryUser,getNextSequenceValue('submissionid'), getProblem(), judge(), function(req,res,next) {
   if( !req.body.sample ) {
     Submission.create(req.body,function(err,submission){
-      if(err) return next( err);
+      if (err) {
+        Logs.create({log: err}, function(err, log){});
+        return false;
+      };
       res.json({
         success : true,
         submission: submission,
         data : req.body
       });
     });
-  }else{
+  } else {
     res.json({
       success : true,
       submission: req.body
@@ -208,7 +207,7 @@ router.post('/submit' ,Verify.verifyOrdinaryUser,getNextSequenceValue('submissio
 });
 
 
-router.get('/',function(req,res,next) {
+router.get('/', Verify.verifyOrdinaryUser, function(req,res,next) {
   Submission.aggregate([
     {
       $lookup:{
@@ -229,12 +228,15 @@ router.get('/',function(req,res,next) {
       $sort : { time_stamp : -1 }
     }
   ],function(err,submissions){
-    if(err) throw err;
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
     res.json(submissions);
   });
 });
 
-router.get('/user/:userName',function(req,res,next){
+router.get('/user/:userName',Verify.verifyOrdinaryUser, function(req,res,next){
   Submission.aggregate([
     {
       $lookup:{
@@ -260,7 +262,10 @@ router.get('/user/:userName',function(req,res,next){
       }
     }
   ],function(err,submissions){
-    if(err) throw err;
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
     res.json(submissions);
   });
 
@@ -268,14 +273,17 @@ router.get('/user/:userName',function(req,res,next){
 router.route('/idUser/:userId')
 .delete(Verify.verifyAdminUser,function(req,res,next){
   Submission.remove({'userId':req.params.userId},function (err, resp) {
-    if (err) throw err;
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
     res.json(resp);
   });
 });
 
 router.route('/problem/:problemName')
 
-.get(function(req,res,next){
+.get(Verify.verifyOrdinaryUser, function(req,res,next){
   Submission.aggregate([
     {
       $lookup:{
@@ -301,7 +309,10 @@ router.route('/problem/:problemName')
       }
     }
   ],function(err,submissions){
-    if(err) throw err;
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
     res.json(submissions);
   });
 
@@ -309,14 +320,16 @@ router.route('/problem/:problemName')
 router.route('/idProblem/:problemId')
 .delete(Verify.verifyAdminUser,function(req,res,next){
   Submission.remove({'problemId':req.params.problemId},function (err, resp) {
-    if (err) throw err;
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
     res.json(resp);
   });
 });
 
-// 593a3a58f7e3bd9a177cbdab
 router.route('/successRate/:problemId')
-.get(function(req, res, next) {
+.get(Verify.verifyOrdinaryUser, function(req, res, next) {
   var coutProbSubmissionQuery = {
     problemId: req.params.problemId,
   };
@@ -327,9 +340,15 @@ router.route('/successRate/:problemId')
   };
 
   Submission.count(coutProbSubmissionQuery, function(err, allProbCount){
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
     Submission.count(coutProbSubmissionAcceptedQuery, function(err, acProbCount) {
-      console.log("All Problem " + allProbCount);
-      console.log("All Accepted " + acProbCount);
+      if (err) {
+        Logs.create({log: err}, function(err, log){});
+        return false;
+      };
       var successRate = (acProbCount / allProbCount).toFixed(2);
       if(allProbCount == 0) successRate = 0;
       res.json({"successRate": successRate});
@@ -364,18 +383,26 @@ router.get('/userProblem/:problemName',Verify.verifyOrdinaryUser,function(req,re
       }
     }
   ],function(err,submissions){
-    if(err) throw err;
+    if (err) {
+      Logs.create({log: err}, function(err, log){});
+      return false;
+    };
     res.json(submissions);
   });
 });
+
 router.get('/code/:id',Verify.verifyOrdinaryUser,function(req,res,next){
   Submission.find({"_id":req.params.id},
     function(err,submissions){
-      if(err) next(err);
+      if (err) {
+        Logs.create({log: err}, function(err, log){});
+        return false;
+      };
       fs.readFile(submissions[0].source_code, 'utf8', function (err,data) {
         if (err) {
-          return console.log(err);
-        }
+          Logs.create({log: err}, function(err, log){});
+          return false;
+        };
         res.json(data);
       });
 

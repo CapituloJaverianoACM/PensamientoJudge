@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
     this.isEditEnable = false;
     this.authService.getProfile().subscribe(profile => {
     this.user = profile.user;
-    this.uploader  = new FileUploader({url: this.endPoint.prepEndPoint('usersAPI/byEmail/' + this.user.email)});
+    this.uploader  = new FileUploader({url: this.endPoint.prepEndPoint('usersAPI/byEmail/' + this.user.email), authToken: this.authService.authToken, authTokenHeader: "x-access-token"});
     this.profilePicture = this.usersService.getProfilePicture((this.user.img && this.user.img.split('/')[1])  || 'dummy.jpg');
     }, err => {
       console.log(err);

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProblemService } from '../../services/problem.service';
 import { FileUploader,FileItem } from 'ng2-file-upload';
 import { EndPointService } from '../../services/end-point.service';
+import { AuthService } from '../../services/auth.service';
 
 
 
@@ -27,7 +28,8 @@ export class AdminProblemTestCasesComponent implements OnInit {
     private route: ActivatedRoute,
     private problemService: ProblemService,
     private router: Router,
-    private endPoint: EndPointService
+    private endPoint: EndPointService,
+    private authService : AuthService,
 
   ) { }
 
@@ -100,7 +102,7 @@ export class AdminProblemTestCasesComponent implements OnInit {
               }
             } );
           });
-          this.uploader = new FileUploader({url: this.endPoint.prepEndPoint('problemAPI/testCases/')});
+          this.uploader = new FileUploader({url: this.endPoint.prepEndPoint('problemAPI/testCases/'), authToken: this.authService.authToken, authTokenHeader: "x-access-token"});
         }
       );
     });

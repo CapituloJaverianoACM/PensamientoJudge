@@ -16,28 +16,33 @@ export class ProblemService {
   ) { }
 
   getAllProblems(){
+    this.authService.loadToken();
     let headers = new Headers();
     headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
     let ep = this.endPoint.prepEndPoint('problemAPI/');
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
   }
   getProblem( name ){
+    this.authService.loadToken();
     let headers = new Headers();
     headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
     let ep = this.endPoint.prepEndPoint('problemAPI/'+name);
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
   }
   getProblemByCorte( corte ) {
+    this.authService.loadToken();
     let headers = new Headers();
     headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
     let ep = this.endPoint.prepEndPoint('problemAPI/corte/'+corte);
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
   }
   submitSubmission( submission ){
-    // console.log(submission);
     this.authService.loadToken();
     let headers = new Headers();
     headers.append('Content-Type','application/json');
@@ -57,8 +62,6 @@ export class ProblemService {
   }
   getAllSubmissionsMyUser(){
     this.authService.loadToken();
-    this.authService.loadUser();
-    // console.log(this.authService.user);
     let headers = new Headers();
     headers.append('Content-Type','application/json');
     headers.append('x-access-token',this.authService.authToken);
@@ -68,27 +71,27 @@ export class ProblemService {
   }
   getAllSubmissionsUser(username){
     this.authService.loadToken();
-    // console.log(this.authService.user);
     let headers = new Headers();
     headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
     let ep = this.endPoint.prepEndPoint('submissionAPI/user/'+username );
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
   }
   getAllSubmissionsProblem(problemName){
     this.authService.loadToken();
-    // console.log(this.authService.user);
     let headers = new Headers();
     headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
     let ep = this.endPoint.prepEndPoint('submissionAPI/problem/'+problemName );
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
   }
   getAllSubmissions(){
     this.authService.loadToken();
-    // console.log(this.authService.user);
     let headers = new Headers();
     headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
     let ep = this.endPoint.prepEndPoint('submissionAPI/');
     return this.http.get(ep,{headers:headers})
       .map( res => res.json() );
