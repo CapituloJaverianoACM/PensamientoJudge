@@ -1,4 +1,4 @@
-import { Component, OnInit , Input , ViewChild , ElementRef } from '@angular/core';
+import { Component, OnInit , Input , ViewChild , ElementRef, HostListener } from '@angular/core';
 import { ProblemService } from '../../services/problem.service';
 import { AuthService } from '../../services/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -10,6 +10,7 @@ declare var CodeMirror: any;
 @Component({
   selector: 'app-description',
   templateUrl: './description.component.html',
+  host: {'window:beforeunload':'doSomething'},
   styleUrls: ['./description.component.css']
 })
 export class DescriptionComponent implements OnInit {
@@ -54,17 +55,6 @@ export class DescriptionComponent implements OnInit {
     value += "}\n\n// The implementation of joinLines\n";
     value += CodeMirror.commands.joinLines.toString().replace(/^function\s*\(/, "function joinLines(").replace(/\n  /g, "\n") + "\n";
 
-     this.editor = CodeMirror(document.getElementById("codeeditor"),{
-       value : '#include <iostream>\n\nusing namespace std;\n\nint main() {\n\treturn 0;\n}',
-       lineNumbers: true,
-       matchBrackets: true,
-       autoCloseBrackets: true,
-       showCursorWhenSelecting: true,
-       mode: "text/x-c++src",
-       keyMap: "sublime",
-       tabSize: 2
-     });
-     CodeMirror(document.getElementById("inputEditor"));
   }
 
   ngOnInit() {
@@ -77,6 +67,18 @@ export class DescriptionComponent implements OnInit {
     });
     this.problemService.getProblem(this.nameProblem).subscribe(query =>{
       this.problem = query;
+      this.editor = CodeMirror(
+        document.getElementById("codeeditor"),{
+          value : this.problem.template || '#include <iostream>\n\nusing namespace std;\n\nint main() {\n\treturn 0;\n}',
+          lineNumbers: true,
+          matchBrackets: true,
+          autoCloseBrackets: true,
+          showCursorWhenSelecting: true,
+          mode: "text/x-c++src",
+          keyMap: "sublime",
+          tabSize: 2
+        });
+        // CodeMirror(document.getElementById("inputEditor"));
       this.problem.description = this.problem.description || {};
       if(this.problem.description.samples === undefined)
         this.problem.description.samples = [];

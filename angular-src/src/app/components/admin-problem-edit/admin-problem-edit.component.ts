@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProblemService } from '../../services/problem.service'
 import {MathjaxDirective} from '../../directives/mathjax.directive';
 
+declare var CodeMirror: any;
 
 @Component({
   selector: 'app-admin-problem-edit',
@@ -10,11 +11,13 @@ import {MathjaxDirective} from '../../directives/mathjax.directive';
   styleUrls: ['./admin-problem-edit.component.css']
 })
 export class AdminProblemEditComponent implements OnInit {
-
-  nameProblem: string;
-  problem: any;
-  samples : any;
-  emptyString: string;
+  @ViewChild('EditorCode') el:ElementRef;
+  private nameProblem: string;
+  private problem: any;
+  private samples : any;
+  private emptyString: string;
+  private codeEditor: any;
+  private editorConfig: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,6 +26,26 @@ export class AdminProblemEditComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.editorConfig = {
+      value : '#include <iostream>\n\nusing namespace std;\n\nint main() {\n\treturn 0;\n}',
+      // lineNumbers: true,
+      // matchBrackets: true,
+      // autoCloseBrackets: true,
+      // showCursorWhenSelecting: true,
+      mode: "text/x-c++src",
+      // keyMap: "sublime",
+      tabSize: 2
+    };
+    console.log(CodeMirror);
+    var value = "// The bindings defined specifically in the Sublime Text mode\nvar bindings = {\n";
+    var map = CodeMirror.keyMap.sublime;
+    for (var key in map) {
+      var val = map[key];
+      if (key != "fallthrough" && val != "..." && (!/find/.test(val) || /findUnder/.test(val)))
+        value += "  \"" + key + "\": \"" + val + "\",\n";
+    }
+    value += "}\n\n// The implementation of joinLines\n";
+    value += CodeMirror.commands.joinLines.toString().replace(/^function\s*\(/, "function joinLines(").replace(/\n  /g, "\n") + "\n";
     this.route.params.subscribe(params => {
       this.nameProblem = params['problemName']; // (+) converts string 'id' to a number
       this.problemService.getProblem(this.nameProblem).subscribe(
@@ -30,6 +53,17 @@ export class AdminProblemEditComponent implements OnInit {
           this.problem = query;
           this.problem.description = this.problem.description || {};
           if(this.problem.description.samples === undefined) this.problem.description.samples = [];
+          this.codeEditor = CodeMirror(
+            document.getElementById("codeeditor"),{
+              value : this.problem.template || '#include <iostream>\n\nusing namespace std;\n\nint main() {\n\treturn 0;\n}',
+              lineNumbers: true,
+              matchBrackets: true,
+              autoCloseBrackets: true,
+              showCursorWhenSelecting: true,
+              mode: "text/x-c++src",
+              keyMap: "sublime",
+              tabSize: 2
+            });
         }
       );
     });
@@ -46,6 +80,7 @@ export class AdminProblemEditComponent implements OnInit {
   }
 
   saveChangesOnClick() {
+    this.problem.template = this.codeEditor.getValue();
     this.problemService.updateProblem(this.problem).subscribe(data =>{
       this.backToProblems();
     });

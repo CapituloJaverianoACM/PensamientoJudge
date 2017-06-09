@@ -47,6 +47,7 @@ import { AdminUserComponent } from './components/admin-user/admin-user.component
 import { ImageViewDirective } from './directives/image-view.directive';
 import { AdminProblemTestCasesComponent } from './components/admin-problem-test-cases/admin-problem-test-cases.component';
 import { ProblemSampleCasesComponent } from './components/problem-sample-cases/problem-sample-cases.component';
+import { CodemirrorModule } from 'ng2-codemirror';
 
 const appRoutes: Routes =[
     {path : '' , component : HomeComponent },
@@ -106,6 +107,7 @@ const appRoutes: Routes =[
     ProblemSampleCasesComponent
   ],
   imports: [
+    CodemirrorModule,
     BrowserModule,
     FormsModule,
     HttpModule,

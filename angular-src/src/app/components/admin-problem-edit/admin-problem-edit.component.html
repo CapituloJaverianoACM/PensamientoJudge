@@ -78,6 +78,8 @@
           value="{{sample[1]}}"
           ></textarea>
         </div>
+
+
         <div class="text-center confirm-buttons">
           <button (click)="addSampleOnClick()" type="button" class="btn btn-warning">Add Sample <span class="glyphicon glyphicon-plus"></span> </button>
         </div>
@@ -108,12 +110,20 @@
           </ul>
       </div>
     </div>
-    <div class="text-center confirm-buttons">
-      <button (click)="addTestCasesOnClick()" type="button" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-plus"></span> Add Test Cases</button>
-      <button (click)="cancelOnClick()" type="button" class="btn btn-danger btn-lg">Cancel</button>
-      <button (click)="saveChangesOnClick()" type="button" class="btn btn-success btn-lg">Done</button>
-    </div>
 
 
+  </div>
+  <h4 class="sub-tittle">Code Template</h4>
+  <div>
+    <ol class="breadcrumb">
+      <br>
+      <div  id="codeeditor" #EditorCode ></div>
+      <br>
+    </ol>
+  </div>
+  <div class="text-center confirm-buttons">
+    <button (click)="addTestCasesOnClick()" type="button" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-plus"></span> Add Test Cases</button>
+    <button (click)="cancelOnClick()" type="button" class="btn btn-danger btn-lg">Cancel</button>
+    <button (click)="saveChangesOnClick()" type="button" class="btn btn-success btn-lg">Done</button>
   </div>
 </div>

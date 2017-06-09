@@ -17,14 +17,6 @@ var descriptionSchema = new Schema({
     default: "",
     required: false
   },
-  // sample_input: {
-  //   type: [String],
-  //   required: false
-  // },
-  // sample_output: {
-  //   type: [String],
-  //   required: false
-  // },
   samples:{
     type: [[String]],
     required: false,
@@ -70,7 +62,7 @@ var problemSchema = new Schema({
   },
   time_limit: {
     type: Number,
-    default: 0.0,
+    default: 1.0,
     required: false
   },
   theme: {
@@ -81,6 +73,11 @@ var problemSchema = new Schema({
   corte: {
     type: Number,
     default: "",
+    required: false
+  },
+  template: {
+    type: String,
+    default: '#include <iostream>\n\nusing namespace std;\n\nint main() {\n\treturn 0;\n}',
     required: false
   },
   // TODO - Delete this column

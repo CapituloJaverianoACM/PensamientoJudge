@@ -79,7 +79,7 @@ function judge( ){
     var pathExeComplete = pathExe + submission._id;
     var file = shell.exec('printf "%s" \"' + submission.source_code + '\" > ' + pathSourceComplete );
     var time = submission.problem.time_limit;
-    if( file.code === 0     )
+    if( file.code === 0)
     {
       req.body.source_code = pathSourceComplete;
       var pathTestInput = submission.problem.description.route_test_input;
