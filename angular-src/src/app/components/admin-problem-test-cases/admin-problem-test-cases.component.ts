@@ -22,7 +22,7 @@ export class AdminProblemTestCasesComponent implements OnInit {
   public uploader: FileUploader;
   arrInputDel : Array< string > = new Array< string > ();
   arrOutputDel : Array< string > = new Array< string > ();
-  arrValidTest : Array< boolean > = new Array< boolean > (true);
+  arrValidTest : Array< boolean > = new Array< boolean > ();
   constructor(
     private route: ActivatedRoute,
     private problemService: ProblemService,
@@ -96,6 +96,7 @@ export class AdminProblemTestCasesComponent implements OnInit {
                   ++i,++j;
                 }
                 this.arrayTest.push( ++k );
+                this.arrValidTest.push(true);
               }
             } );
           });
