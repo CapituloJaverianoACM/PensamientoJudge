@@ -161,7 +161,7 @@ function judge( ){
               console.log("End Loop");
             }
             req.body.veredict = 'Accepted';
-            for(var i = 0; i < req.body.testsResults.length; ++i){
+            for( i = 0; i < req.body.testsResults.length; ++i){
               if(req.body.testsResults[i] != 'Accepted') {
                 req.body.veredict = req.body.testsResults[i];
                 break;

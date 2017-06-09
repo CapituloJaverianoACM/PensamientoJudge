@@ -6,6 +6,7 @@ var shell = require('shelljs');
 var multer  = require('multer');
 var path = require('path');
 
+var CodeProblemUser = require('../models/codeProblemUser');
 var Problem = require('../models/problems');
 var fs = require('fs');
 
@@ -226,6 +227,45 @@ problemRouter.route('/testCases/output/:_id')
     }
     res.json({error_code:0,err_desc:null});
   });
+});
+
+problemRouter.route('/getCode/:idProblem')
+.get(Verify.verifyOrdinaryUser , function(req,res){
+  var user = req.decoded._doc;
+    CodeProblemUser.findOne({"userId":user._id,"problemId":req.params.idProblem},
+    function(err,code){
+      if(err)
+        throw err;
+      if( !code )
+        code = {code:""};
+      res.json({
+        code : code.code
+      });
+    }
+  );
+})
+.post( Verify.verifyOrdinaryUser ,function( req , res ){
+  var user = req.decoded._doc;
+  var newCode = req.body;
+  req.body.problemId = req.params.idProblem;
+  req.body.userId = user._id;
+  CodeProblemUser.remove({"userId":user._id,"problemId":req.params.idProblem},
+    function(err,resp)
+    {
+      if(err) throw err;
+      CodeProblemUser.create(newCode,
+
+        function( err , codeProblemUser )
+        {
+          if(err)throw err;
+          res.status(200).json({
+            success: true,
+            status : 'Added OK'
+          });
+        }
+      );
+    }
+  );
 });
 
 

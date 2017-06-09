@@ -186,5 +186,26 @@ export class ProblemService {
     return this.http.get(ep,{headers: headers});
 
   }
+  getCodeProblemUser( problem )
+  {
+    this.authService.loadToken();
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
+    let ep = this.endPoint.prepEndPoint('problemAPI/getCode/'+problem._id);
+    return this.http.get(ep,{headers: headers})
+      .map(res => res.json());
 
+  }
+  createCodeProblemUser( problem , code )
+  {
+    this.authService.loadToken();
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    headers.append('x-access-token',this.authService.authToken);
+    let ep = this.endPoint.prepEndPoint('problemAPI/getCode/'+problem._id);
+    return this.http.post(ep,code,{headers: headers})
+      .map(res => res.json());
+
+  }
 }

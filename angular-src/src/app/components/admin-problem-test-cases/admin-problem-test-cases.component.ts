@@ -22,6 +22,7 @@ export class AdminProblemTestCasesComponent implements OnInit {
   public uploader: FileUploader;
   arrInputDel : Array< string > = new Array< string > ();
   arrOutputDel : Array< string > = new Array< string > ();
+  arrValidTest : Array< boolean > = new Array< boolean > (true);
   constructor(
     private route: ActivatedRoute,
     private problemService: ProblemService,
@@ -44,14 +45,29 @@ export class AdminProblemTestCasesComponent implements OnInit {
               var lenI , lenO ;
               lenI = testCasesInput.length;
               lenO = testCasesOutput.length;
+              var arrTempInput = [];
+              var arrTempOutput = [];
+
               for( var i = 0 ; i < lenI ; ++i )
               {
-                testCasesInput[ i ] = testCasesInput[i].split('.')[0];
+                var split = testCasesInput[i].split('.');
+                var name = split[ 0 ];
+                var ext = split[ 1 ];
+                if( ext == "in" )
+                  arrTempInput.push( name );
               }
-              for( var i = 0 ; i < lenO ; ++i )
+              for( var i = 0 ; i < lenI ; ++i )
               {
-                testCasesOutput[ i ] = testCasesOutput[i].split('.')[0];
+                var split = testCasesOutput[i].split('.');
+                var name = split[ 0 ];
+                var ext = split[ 1 ];
+                if( ext == "out" )
+                  arrTempOutput.push( name );
               }
+              testCasesInput = arrTempInput;
+              testCasesOutput = arrTempOutput;
+              lenI = testCasesInput.length;
+              lenO = testCasesOutput.length;
                var j , k  ;
               i = j = k =0;
               while( i < lenI || j < lenO )
@@ -98,6 +114,7 @@ export class AdminProblemTestCasesComponent implements OnInit {
     this.arrNameOutput.push( idAdd+'' );
     this.arrPosInput.push(false);
     this.arrPosOutput.push(false);
+    this.arrValidTest.push(true);
   }
   submitChangeOnClick()
   {
@@ -106,6 +123,19 @@ export class AdminProblemTestCasesComponent implements OnInit {
     // console.log(this.arrOutputDel);
     // console.log(this.arrNameInput);
     // console.log(this.arrNameOutput);
+    var lenq = this.uploader.queue.length;
+    var okTestCases = true;
+    for( var i = 0 ; i < lenq ; ++i )
+    {
+      var index = this.uploader.queue[ i ].index;
+      if( !this.arrPosInput[ index ] || !this.arrPosOutput[ index ] )
+      {
+        okTestCases = false;
+        this.arrValidTest[ index ] = false;
+      }
+    }
+    if( !okTestCases )
+      return false;
     this.uploader.uploadAll();
     for( let name of this.arrInputDel )
       this.problemService.deleteTestCasesInput( this.problem , name+'.in' ).subscribe( data => {
@@ -116,6 +146,7 @@ export class AdminProblemTestCasesComponent implements OnInit {
         // console.log(data )
       });
     this.router.navigate(['/admin']);
+    return true;
   }
   changeFile( value : any  , index : number , type : number  ){
     // console.log("jfas");
@@ -128,8 +159,14 @@ export class AdminProblemTestCasesComponent implements OnInit {
       // console.log(index-1 + " " + type);
       var fileType = type?'out':'in';
       var name = this.arrNameInput[index-1]+'.'+fileType;
+      if( type )
+        this.arrPosOutput[ index -1 ] = true;
+      else
+        this.arrPosInput[ index- 1 ] = true;
       // console.log(name);
+      value.queue[ len- 1 ].index = index-1;
       value.queue[ len-1 ].file.name = name;
+      value.queue[ len-1 ].typeFile = type,
       // value.queue[ len-1 ].file.name_id = ;
       value.queue[ len -1 ].change = true;
       var complement = type?'output':'input';
@@ -157,6 +194,7 @@ export class AdminProblemTestCasesComponent implements OnInit {
     this.arrNameOutput.splice(index,1);
     this.arrPosInput.splice(index,1);
     this.arrPosOutput.splice(index,1);
+    this.arrValidTest.splice(index,1);
     var len = this.arrayTest.length;
     // this.arrayTest = [];
     // for( var i = 1 ; i < len ; ++i )

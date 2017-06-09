@@ -36,6 +36,9 @@
           <span class="glyphicon glyphicon-remove pull-right close" (click)="deleleCaseOnClick(number)"></span>
         </div>
     </div>
+    <div *ngIf="!arrValidTest[number-1]" class="alert alert-danger">
+      Delete or update input and output
+    </div>
   </div>
   <button type="button" class="btn btn-primary" (click)="addTestCaseOnClick()">Add Test Case</button>
   <button type="button" class="btn btn-primary" (click)="submitChangeOnClick()">Confirm</button>

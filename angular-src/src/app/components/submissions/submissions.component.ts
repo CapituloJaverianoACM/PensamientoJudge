@@ -3,6 +3,7 @@ import { ActivatedRoute , Router } from '@angular/router';
 import { ProblemService } from '../../services/problem.service';
 import { AuthService } from '../../services/auth.service';
 import { LocalDataSource } from 'ng2-smart-table';
+import * as moment from 'moment-timezone';
 declare var CodeMirror: any;
 declare var PR: any;
 
@@ -24,7 +25,7 @@ export class SubmissionsComponent implements OnInit {
   currentPage : number = 0;
   editorModal : any;
   maxSize: number = 5;
-
+  dateFormat  = moment();
   constructor(
     private problemService : ProblemService,
     private authService : AuthService,
@@ -154,8 +155,8 @@ export class SubmissionsComponent implements OnInit {
       //   });
       // else
       //   this.editorModal.doc.setValue(code);
-      code = code.replace("<","&lt");
-      code = code.replace(">","&gt");
+      code = code.replace(new RegExp("<",'g'),"&lt");
+      code = code.replace(new RegExp(">",'g'),"&gt");
       document.getElementById("modalEditor").innerHTML = '<pre class = "prettyprint" ><code>'+code+'</code></pre>';
       PR.prettyPrint();
       document.getElementById("titleModal").innerHTML = item.id;
@@ -185,13 +186,15 @@ export class SubmissionsComponent implements OnInit {
           cl = 'compile'
         else
           cl = 'queue';
+        // console.log(this.dateFormat.tz(new Date(this.submissions[ i ].time_stamp).toString()));
+        // console.log(new Date(this.submissions[ i ].time_stamp).get());
         this.arr.push( {
           id : this.submissions[ i ]._id,
           problemName:  this.submissions[ i ].problem[ 0 ].name,
           username : this.submissions[ i ].user[ 0 ].username,
           veredict : this.submissions[ i ].veredict,
           cl : cl,
-          time_stamp : new Date(this.submissions[ i ].time_stamp).toUTCString()
+          time_stamp : new Date(this.submissions[ i ].time_stamp).toString()
         } );
       }
       this.pageArr = [];

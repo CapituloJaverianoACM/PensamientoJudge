@@ -34,6 +34,7 @@ export class DescriptionComponent implements OnInit {
   private submissonVeredict: string;
   private isAC: boolean;
   private isSubmited: boolean;
+  private qCode : any;
 
   constructor(
     private problemService : ProblemService,
@@ -67,21 +68,24 @@ export class DescriptionComponent implements OnInit {
     });
     this.problemService.getProblem(this.nameProblem).subscribe(query =>{
       this.problem = query;
-      this.editor = CodeMirror(
-        document.getElementById("codeeditor"),{
-          value : this.problem.template || '#include <iostream>\n\nusing namespace std;\n\nint main() {\n\treturn 0;\n}',
-          lineNumbers: true,
-          matchBrackets: true,
-          autoCloseBrackets: true,
-          showCursorWhenSelecting: true,
-          mode: "text/x-c++src",
-          keyMap: "sublime",
-          tabSize: 2
-        });
-        // CodeMirror(document.getElementById("inputEditor"));
-      this.problem.description = this.problem.description || {};
-      if(this.problem.description.samples === undefined)
-        this.problem.description.samples = [];
+      this.problemService.getCodeProblemUser( this.problem ).subscribe( queryCode =>{
+        this.qCode = queryCode ;
+        this.editor = CodeMirror(
+          document.getElementById("codeeditor"),{
+            value : this.qCode.code || this.problem.template || '#include <iostream>\n\nusing namespace std;\n\nint main() {\n\treturn 0;\n}',
+            lineNumbers: true,
+            matchBrackets: true,
+            autoCloseBrackets: true,
+            showCursorWhenSelecting: true,
+            mode: "text/x-c++src",
+            keyMap: "sublime",
+            tabSize: 2
+          });
+          // CodeMirror(document.getElementById("inputEditor"));
+        this.problem.description = this.problem.description || {};
+        if(this.problem.description.samples === undefined)
+          this.problem.description.samples = [];
+      } , err => { console.log(err); return false;});
     }, err => { console.log(err); return false; });
     this.authService.getProfile().subscribe(profile =>{
       this.user = profile.user;
@@ -187,6 +191,15 @@ export class DescriptionComponent implements OnInit {
   }
 
   public expanded(event:any):void {
+  }
+
+  ngOnDestroy()
+  {
+    var send = {
+      code : this.editor.getValue()
+    };
+    this.problemService.createCodeProblemUser(this.problem,send).subscribe( data =>{
+    });
   }
 
 }
