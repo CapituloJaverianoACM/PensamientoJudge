@@ -1,4 +1,4 @@
-<div *ngIf="problem">
+<div class="container" *ngIf="problem">
   <h4>Test Cases Problem {{nameProblem}}</h4>
   <div *ngFor="let number of arrayTest">
     <div class="row">
@@ -14,12 +14,18 @@
           </div>
 
         </div>
-        <div class="col-sm-3" id = "{{number}}.in">
+        <div class="col-sm-2" id = "{{number}}.in">
             <!-- <input type="file" ng2FileSelect [uploader]="changeFile(uploader,'POST',number)" /> -->
             <!-- <label  class="btn btn-primary btn-file"> -->
               <!-- <span class="glyphicon glyphicon-upload"></span>  -->
+            <label  class="btn btn-primary btn-file">
+              <span class="glyphicon glyphicon-cloud-upload"></span>
               <input type="file"  ng2FileSelect [uploader]="uploader" (change)="changeFile(uploader,number,0)" />
+            </label>
             <!-- </label> -->
+        </div>
+        <div class="col-sm-1" *ngIf = "arrPosInput[number-1]">
+          {{number}}.in
         </div>
         <div class="col-sm-2">
           <div *ngIf="arrPosOutput[number-1]">
@@ -29,8 +35,14 @@
             <h6>Output</h6>
           </div>
         </div>
-        <div class="col-sm-3" id = "{{number}}.out">
-          <input type="file"  ng2FileSelect [uploader]="uploader" (change)="changeFile(uploader,number,1)"/>
+        <div class="col-sm-2" id = "{{number}}.out">
+          <label  class="btn btn-primary btn-file">
+            <span class="glyphicon glyphicon-cloud-upload"></span>
+            <input type="file"  ng2FileSelect [uploader]="uploader" (change)="changeFile(uploader,number,1)"/>
+          </label>
+        </div>
+        <div class="col-sm-1" *ngIf = "arrPosOutput[number-1]">
+          {{number}}.out
         </div>
         <div class="col-sm-1">
           <span class="glyphicon glyphicon-remove pull-right close" (click)="deleleCaseOnClick(number)"></span>
@@ -40,6 +52,10 @@
       Delete or update input and output
     </div>
   </div>
-  <button type="button" class="btn btn-primary" (click)="addTestCaseOnClick()">Add Test Case</button>
-  <button type="button" class="btn btn-primary" (click)="submitChangeOnClick()">Confirm</button>
+  <br>
+  <div class="text-center confirm-buttons">
+    <button type="button" class="btn btn-info" (click)="addTestCaseOnClick()">Add Test Case</button>
+    <button type="button" class="btn btn-danger" [routerLink]="['/admin','problems']"> Cancel</button>
+    <button type="button" class="btn btn-success" (click)="submitChangeOnClick()">Confirm</button>
+  </div>
 </div>

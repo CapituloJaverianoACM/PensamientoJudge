@@ -47,6 +47,7 @@ import { AdminUserComponent } from './components/admin-user/admin-user.component
 import { ImageViewDirective } from './directives/image-view.directive';
 import { AdminProblemTestCasesComponent } from './components/admin-problem-test-cases/admin-problem-test-cases.component';
 import { ProblemSampleCasesComponent } from './components/problem-sample-cases/problem-sample-cases.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const appRoutes: Routes =[
     {path : '' , component : HomeComponent },
@@ -76,7 +77,9 @@ const appRoutes: Routes =[
         }
       ]
     },
-    {path : 'problems', component : ProblemsListComponent , canActivate: [AuthGuard] }
+    {path : 'problems', component : ProblemsListComponent , canActivate: [AuthGuard] },
+    {path: '404', component: NotFoundComponent},
+    {path: '**', redirectTo: '/404'},
 ];
 
 @NgModule({
@@ -103,7 +106,8 @@ const appRoutes: Routes =[
     FileSelectDirective,
     ImageViewDirective,
     AdminProblemTestCasesComponent,
-    ProblemSampleCasesComponent
+    ProblemSampleCasesComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
