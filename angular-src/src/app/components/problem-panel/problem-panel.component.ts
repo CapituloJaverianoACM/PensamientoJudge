@@ -26,7 +26,8 @@ export class ProblemPanelComponent implements OnInit {
 
   getProblemSuccessRate() {
     this.problemService.getProblemSuccessRate(this.problem._id).subscribe(data => {
-      this.problemSuccessRate = (data.successRate || 0) * 100;
+      this.problemSuccessRate = ((data.successRate || 0) * 100.00);
+      this.problemSuccessRate = parseFloat(this.problemSuccessRate.toFixed(2));
     });
   }
 

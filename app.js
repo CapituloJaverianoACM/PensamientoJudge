@@ -28,7 +28,6 @@ app.use(function(req, res, next) { //allow cross origin requests
       res.header("Access-Control-Allow-Origin", "http://localhost:4200");
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept ,x-access-token");
       res.header("Access-Control-Allow-Credentials", true);
-      // console.log(res);
       next();
   });
 
@@ -69,9 +68,7 @@ app.use('/problemAPI', problemRouter); // TODO - Always add API at the end to no
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+  res.status(200).sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 // error handler

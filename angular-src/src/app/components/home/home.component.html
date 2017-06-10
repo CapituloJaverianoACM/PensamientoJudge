@@ -5,12 +5,17 @@
     <!-- Heading Row -->
     <div class="row">
         <div class="col-md-6">
-            <img class="img-responsive img-rounded" src="http://placehold.it/700x350" alt="">
+            <img class="img-responsive img-rounded" src="https://unsplash.it/700/350/?random" alt="">
         </div>
         <!-- /.col-md-8 -->
         <div class="col-md-6">
             <h1>Practica Programando</h1>
-            <p>Totalmente gratis puedes acceder a retos de programación exclusivos para que preactiques para tus prebas y crezcas como programador. La mejor manera de mejorar como programador es poniendo aprueba tus conocimientos y este es el mejor lugar para hcerlo.</p>
+            <p>Encontrar retos de programación exclusivos para el entrenamiento
+              de la persona que estudia programación, donde crecerá sin costo
+              alguno. Avanzar como programador solo se puede lograr al poner
+              aprueba los conocimientos que ya tiene, este es el mejor lugar
+              para hacerlo.
+            </p>
             <a *ngIf="!authService.isLoggedIn()" [routerLink]="['/signup']" class="btn btn-success btn-lg" href="#">¡Regístrate!</a>
             <a *ngIf="authService.isLoggedIn()" [routerLink]="['/problems']" class="btn btn-success btn-lg" href="#">¡Comenzar!</a>
         </div>
@@ -28,7 +33,7 @@
         </div>
         <!-- /.col-md-4 -->
         <div class="col-md-4">
-            <h2>¿Qué Es?</h2>
+            <h2>¿Qué es?</h2>
             <p>Es un lugar para crecer como programador practicando y poniendo a prueba tus habilidades.</p>
         </div>
         <!-- /.col-md-4 -->
@@ -45,7 +50,7 @@
         <blockquote>
               <div class="row">
                 <div class="col-sm-3 text-center">
-                  <img class="img-circle" src="http://www.adweek.com/agencyspy/wp-content/uploads/sites/7/2015/06/steve-jobs.jpg" style="width: 100px;height:100px;">
+                  <img class="img-circle" src="https://s3.amazonaws.com/user-media.venngage.com/653853-b002e1417ae7934816a34e51d1fc7518.jpg" style="width: 100px;height:100px;">
                 </div>
                 <div class="col-sm-9">
                   <p>"Everybody in this country should learn to program a computer, because it teaches you how to think."</p>

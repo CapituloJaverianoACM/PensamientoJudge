@@ -121,11 +121,6 @@ export class AdminProblemTestCasesComponent implements OnInit {
   }
   submitChangeOnClick()
   {
-    // console.log(this.uploader);
-    // console.log(this.arrInputDel);
-    // console.log(this.arrOutputDel);
-    // console.log(this.arrNameInput);
-    // console.log(this.arrNameOutput);
     var lenq = this.uploader.queue.length;
     var okTestCases = true;
     for( var i = 0 ; i < lenq ; ++i )
@@ -142,24 +137,17 @@ export class AdminProblemTestCasesComponent implements OnInit {
     this.uploader.uploadAll();
     for( let name of this.arrInputDel )
       this.problemService.deleteTestCasesInput( this.problem , name+'.in' ).subscribe( data => {
-        // console.log(data )
       });
     for( let name of this.arrOutputDel )
       this.problemService.deleteTestCasesOutput( this.problem , name+'.out' ).subscribe( data => {
-        // console.log(data )
       });
     this.router.navigate(['/admin']);
     return true;
   }
   changeFile( value : any  , index : number , type : number  ){
-    // console.log("jfas");
-    // console.log(value)
-    // console.log("-----");
-    // // console.log(method + " " + index+" "+(index-1));
     var len = value.queue.length;
     if( len && !value.queue[ len -1 ].change)
     {
-      // console.log(index-1 + " " + type);
       var fileType = type?'out':'in';
       var name = this.arrNameInput[index-1]+'.'+fileType;
       if( type )

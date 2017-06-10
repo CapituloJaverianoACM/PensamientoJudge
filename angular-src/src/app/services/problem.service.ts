@@ -136,8 +136,6 @@ export class ProblemService {
     headers.append('Content-Type','application/json');
     headers.append('x-access-token',this.authService.authToken);
     let ep = this.endPoint.prepEndPoint('problemAPI/');
-    console.log("Ok Til Helo");
-    // console.log(JSON.stringify(problem));
     return this.http.post(ep, problem,{headers: headers})
       .map(res => res.json());
   }
@@ -227,9 +225,5 @@ export class ProblemService {
      data;
       return true;
     } );
-    // return this.getProblem( name ).subscribe( data =>{
-    //   dataS = data;
-    //   console.log(dataS);
-    // } ) ? true : false;
   }
 }

@@ -87,8 +87,8 @@ export class DescriptionComponent implements OnInit {
           this.problem.description = this.problem.description || {};
           if(this.problem.description.samples === undefined)
             this.problem.description.samples = [];
-        } , err => { console.log(err); return false;});
-      
+        } , err => {return false;});
+
 
 
     }, err => { console.log(err);return false; });
@@ -144,7 +144,6 @@ export class DescriptionComponent implements OnInit {
     this.problemService.submitSubmission(submission).subscribe( data =>{
       if( data.success ){
         this.isSubmited = true;
-        console.log(data);
         this.calculateScore(data.data.totalCases, data.data.totalAC);
         this.submissonVeredict = data.submission.veredict;
         this.isAC = (this.submissonVeredict == "Accepted");
@@ -174,8 +173,6 @@ export class DescriptionComponent implements OnInit {
     };
     this.problemService.submitSubmission(submission).subscribe(data => {
       this.isRunCode = true;
-      console.log("Data");
-      console.log(data);
       var len = data.submission.genOut.length;
       this.sampleTest = new Array(len);
       for( var i = 0; i < len ; ++i ) {
@@ -188,7 +185,6 @@ export class DescriptionComponent implements OnInit {
         };
       }
       this.isLoading = false;
-      console.log(this.sampleTest);
     });
   }
 
