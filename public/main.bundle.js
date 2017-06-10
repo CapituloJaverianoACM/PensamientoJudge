@@ -729,7 +729,7 @@ module.exports = "<div class=\"footer\">\n  <div class=\"footer-above\">\n    <d
 /***/ 1107:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n\n<!-- Page Content -->\n\n    <!-- Heading Row -->\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <img class=\"img-responsive img-rounded\" src=\"http://placehold.it/700x350\" alt=\"\">\n        </div>\n        <!-- /.col-md-8 -->\n        <div class=\"col-md-6\">\n            <h1>Practica Programando</h1>\n            <p>Encontrar retos de programación exclusivos para el entrenamiento\n              de la persona que estudia programación, donde crecerá sin costo\n              alguno. Avanzar como programador solo se puede lograr al poner\n              aprueba los conocimientos que ya tiene, este es el mejor lugar\n              para hacerlo.\n            </p>\n            <a *ngIf=\"!authService.isLoggedIn()\" [routerLink]=\"['/signup']\" class=\"btn btn-success btn-lg\" href=\"#\">¡Regístrate!</a>\n            <a *ngIf=\"authService.isLoggedIn()\" [routerLink]=\"['/problems']\" class=\"btn btn-success btn-lg\" href=\"#\">¡Comenzar!</a>\n        </div>\n        <!-- /.col-md-4 -->\n    </div>\n    <!-- /.row -->\n\n    <hr>\n\n    <!-- Content Row -->\n    <div class=\"row\">\n        <div class=\"col-md-4\">\n            <h2>Comunidad</h2>\n            <p>Es importante generar una comunidad académica para sacar el mejor provecho de este lugar.</p>\n        </div>\n        <!-- /.col-md-4 -->\n        <div class=\"col-md-4\">\n            <h2>¿Qué es?</h2>\n            <p>Es un lugar para crecer como programador practicando y poniendo a prueba tus habilidades.</p>\n        </div>\n        <!-- /.col-md-4 -->\n        <div class=\"col-md-4\">\n            <h2>Creadores</h2>\n            <p>Está plataforma fue patrosinada por el Capítulo Javeriano ACM y desarrollada por dos de sus miembros: <a href=\"mailto:juan-penaloza@javeriana.edu.co\">Juan Pablo Peñaloza</a>  y <a href=\"mailto:johanmurillo@javeriana.edu.co\">Johan Murillo</a>.</p>\n        </div>\n        <!-- /.col-md-4 -->\n    </div>\n    <!-- /.row -->\n\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n        <blockquote>\n              <div class=\"row\">\n                <div class=\"col-sm-3 text-center\">\n                  <img class=\"img-circle\" src=\"http://www.adweek.com/agencyspy/wp-content/uploads/sites/7/2015/06/steve-jobs.jpg\" style=\"width: 100px;height:100px;\">\n                </div>\n                <div class=\"col-sm-9\">\n                  <p>\"Everybody in this country should learn to program a computer, because it teaches you how to think.\"</p>\n                  <small>Steve Jobs</small>\n                </div>\n              </div>\n            </blockquote>\n      </div>\n    </div>\n  </div>\n\n<!-- /.container -->\n"
+module.exports = "<div class=\"container\">\n\n<!-- Page Content -->\n\n    <!-- Heading Row -->\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <img class=\"img-responsive img-rounded\" src=\"https://unsplash.it/700/350/?random\" alt=\"\">\n        </div>\n        <!-- /.col-md-8 -->\n        <div class=\"col-md-6\">\n            <h1>Practica Programando</h1>\n            <p>Encontrar retos de programación exclusivos para el entrenamiento\n              de la persona que estudia programación, donde crecerá sin costo\n              alguno. Avanzar como programador solo se puede lograr al poner\n              aprueba los conocimientos que ya tiene, este es el mejor lugar\n              para hacerlo.\n            </p>\n            <a *ngIf=\"!authService.isLoggedIn()\" [routerLink]=\"['/signup']\" class=\"btn btn-success btn-lg\" href=\"#\">¡Regístrate!</a>\n            <a *ngIf=\"authService.isLoggedIn()\" [routerLink]=\"['/problems']\" class=\"btn btn-success btn-lg\" href=\"#\">¡Comenzar!</a>\n        </div>\n        <!-- /.col-md-4 -->\n    </div>\n    <!-- /.row -->\n\n    <hr>\n\n    <!-- Content Row -->\n    <div class=\"row\">\n        <div class=\"col-md-4\">\n            <h2>Comunidad</h2>\n            <p>Es importante generar una comunidad académica para sacar el mejor provecho de este lugar.</p>\n        </div>\n        <!-- /.col-md-4 -->\n        <div class=\"col-md-4\">\n            <h2>¿Qué es?</h2>\n            <p>Es un lugar para crecer como programador practicando y poniendo a prueba tus habilidades.</p>\n        </div>\n        <!-- /.col-md-4 -->\n        <div class=\"col-md-4\">\n            <h2>Creadores</h2>\n            <p>Está plataforma fue patrosinada por el Capítulo Javeriano ACM y desarrollada por dos de sus miembros: <a href=\"mailto:juan-penaloza@javeriana.edu.co\">Juan Pablo Peñaloza</a>  y <a href=\"mailto:johanmurillo@javeriana.edu.co\">Johan Murillo</a>.</p>\n        </div>\n        <!-- /.col-md-4 -->\n    </div>\n    <!-- /.row -->\n\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n        <blockquote>\n              <div class=\"row\">\n                <div class=\"col-sm-3 text-center\">\n                  <img class=\"img-circle\" src=\"https://s3.amazonaws.com/user-media.venngage.com/653853-b002e1417ae7934816a34e51d1fc7518.jpg\" style=\"width: 100px;height:100px;\">\n                </div>\n                <div class=\"col-sm-9\">\n                  <p>\"Everybody in this country should learn to program a computer, because it teaches you how to think.\"</p>\n                  <small>Steve Jobs</small>\n                </div>\n              </div>\n            </blockquote>\n      </div>\n    </div>\n  </div>\n\n<!-- /.container -->\n"
 
 /***/ }),
 
@@ -1267,8 +1267,6 @@ var ProblemService = (function () {
         headers.append('Content-Type', 'application/json');
         headers.append('x-access-token', this.authService.authToken);
         var ep = this.endPoint.prepEndPoint('problemAPI/');
-        console.log("Ok Til Helo");
-        // console.log(JSON.stringify(problem));
         return this.http.post(ep, problem, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -1348,10 +1346,6 @@ var ProblemService = (function () {
             data;
             return true;
         });
-        // return this.getProblem( name ).subscribe( data =>{
-        //   dataS = data;
-        //   console.log(dataS);
-        // } ) ? true : false;
     };
     ProblemService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
@@ -1870,11 +1864,6 @@ var AdminProblemTestCasesComponent = (function () {
         this.arrValidTest.push(true);
     };
     AdminProblemTestCasesComponent.prototype.submitChangeOnClick = function () {
-        // console.log(this.uploader);
-        // console.log(this.arrInputDel);
-        // console.log(this.arrOutputDel);
-        // console.log(this.arrNameInput);
-        // console.log(this.arrNameOutput);
         var lenq = this.uploader.queue.length;
         var okTestCases = true;
         for (var i = 0; i < lenq; ++i) {
@@ -1890,26 +1879,19 @@ var AdminProblemTestCasesComponent = (function () {
         for (var _i = 0, _a = this.arrInputDel; _i < _a.length; _i++) {
             var name = _a[_i];
             this.problemService.deleteTestCasesInput(this.problem, name + '.in').subscribe(function (data) {
-                // console.log(data )
             });
         }
         for (var _b = 0, _c = this.arrOutputDel; _b < _c.length; _b++) {
             var name = _c[_b];
             this.problemService.deleteTestCasesOutput(this.problem, name + '.out').subscribe(function (data) {
-                // console.log(data )
             });
         }
         this.router.navigate(['/admin']);
         return true;
     };
     AdminProblemTestCasesComponent.prototype.changeFile = function (value, index, type) {
-        // console.log("jfas");
-        // console.log(value)
-        // console.log("-----");
-        // // console.log(method + " " + index+" "+(index-1));
         var len = value.queue.length;
         if (len && !value.queue[len - 1].change) {
-            // console.log(index-1 + " " + type);
             var fileType = type ? 'out' : 'in';
             var name = this.arrNameInput[index - 1] + '.' + fileType;
             if (type)
@@ -2223,7 +2205,7 @@ var DescriptionComponent = (function () {
                 _this.problem.description = _this.problem.description || {};
                 if (_this.problem.description.samples === undefined)
                     _this.problem.description.samples = [];
-            }, function (err) { console.log(err); return false; });
+            }, function (err) { return false; });
         }, function (err) { console.log(err); return false; });
         this.authService.getProfile().subscribe(function (profile) {
             _this.user = profile.user;
@@ -2278,7 +2260,6 @@ var DescriptionComponent = (function () {
         this.problemService.submitSubmission(submission).subscribe(function (data) {
             if (data.success) {
                 _this.isSubmited = true;
-                console.log(data);
                 _this.calculateScore(data.data.totalCases, data.data.totalAC);
                 _this.submissonVeredict = data.submission.veredict;
                 _this.isAC = (_this.submissonVeredict == "Accepted");
@@ -2309,8 +2290,6 @@ var DescriptionComponent = (function () {
         };
         this.problemService.submitSubmission(submission).subscribe(function (data) {
             _this.isRunCode = true;
-            console.log("Data");
-            console.log(data);
             var len = data.submission.genOut.length;
             _this.sampleTest = new Array(len);
             for (var i = 0; i < len; ++i) {
@@ -2323,7 +2302,6 @@ var DescriptionComponent = (function () {
                 };
             }
             _this.isLoading = false;
-            console.log(_this.sampleTest);
         });
     };
     DescriptionComponent.prototype.collapsed = function (event) {
