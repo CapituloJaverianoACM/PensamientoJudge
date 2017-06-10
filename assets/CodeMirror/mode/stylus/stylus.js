@@ -316,7 +316,7 @@
           return pushContext(state, stream, "block", 0);
         }
       }
-      if (typeIsBlock(type, stream)) {
+      if (typeIsBlock(type, stream, state)) {
         return pushContext(state, stream, "block");
       }
       if (type == "}" && endOfLine(stream)) {
@@ -516,7 +516,7 @@
      */
     states.atBlock = function(type, stream, state) {
       if (type == "(") return pushContext(state, stream, "atBlock_parens");
-      if (typeIsBlock(type, stream)) {
+      if (typeIsBlock(type, stream, state)) {
         return pushContext(state, stream, "block");
       }
       if (typeIsInterpolation(type, stream)) {
@@ -684,6 +684,7 @@
              ch == ")" && (cx.type == "parens" || cx.type == "atBlock_parens") ||
              ch == "{" && (cx.type == "at"))) {
           indent = cx.indent - indentUnit;
+          cx = cx.prev;
         } else if (!(/(\})/.test(ch))) {
           if (/@|\$|\d/.test(ch) ||
               /^\{/.test(textAfter) ||

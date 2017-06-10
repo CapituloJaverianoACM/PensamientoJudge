@@ -1607,13 +1607,6 @@ testVim('r', function(cm, vim, helpers) {
   cm.setCursor(0, 4);
   helpers.doKeys('v', 'j', 'h', 'r', '<Space>');
   eq('wuuu  \n    her', cm.getValue(),'Replacing selection by space-characters failed');
-  cm.setValue("ox");
-  helpers.doKeys('r', '<C-c>');
-  eq('ox', cm.getValue());
-  helpers.doKeys('r', '<Del>');
-  eq('ox', cm.getValue());
-  helpers.doKeys('r', '<CR>');
-  eq('\nx', cm.getValue());
 }, { value: 'wordet\nanother' });
 testVim('r_visual_block', function(cm, vim, helpers) {
   cm.setCursor(2, 3);
@@ -2376,7 +2369,11 @@ testVim('?_greedy_0_or_more', function(cm, vim, helpers) {
   helpers.doKeys('?');
   helpers.assertCursorAt(1, 1);
   helpers.doKeys('n');
+  helpers.assertCursorAt(1, 0);
+  helpers.doKeys('n');
   helpers.assertCursorAt(0, 5);
+  helpers.doKeys('n');
+  helpers.assertCursorAt(0, 4);
   helpers.doKeys('n');
   helpers.assertCursorAt(0, 3);
   helpers.doKeys('n');
@@ -2961,20 +2958,6 @@ testVim('._visual_>', function(cm, vim, helpers) {
   eq('  1\n  2\n  3\n  4', cm.getValue());
   helpers.assertCursorAt(2, 2);
 }, { value: '1\n2\n3\n4'});
-testVim('._replace_repeat', function(cm, vim, helpers) {
-  helpers.doKeys('R');
-  cm.replaceRange('123', cm.getCursor(), offsetCursor(cm.getCursor(), 0, 3));
-  cm.setCursor(0, 3);
-  helpers.doKeys('<Esc>');
-  helpers.doKeys('2', '.');
-  eq('12123123\nabcdefg', cm.getValue());
-  helpers.assertCursorAt(0, 7);
-  cm.setCursor(1, 0);
-  helpers.doKeys('.');
-  eq('12123123\n123123g', cm.getValue());
-  helpers.doKeys('l', '"', '.', 'p');
-  eq('12123123\n123123g123', cm.getValue());
-}, { value: 'abcdef\nabcdefg'});
 testVim('f;', function(cm, vim, helpers) {
   cm.setCursor(0, 0);
   helpers.doKeys('f', 'x');

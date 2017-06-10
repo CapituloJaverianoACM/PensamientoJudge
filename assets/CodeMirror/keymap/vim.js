@@ -259,7 +259,7 @@
         CodeMirror.rmClass(cm.getWrapperElement(), "cm-fat-cursor");
 
       if (!next || next.attach != attachVimMap)
-        leaveVimMode(cm);
+        leaveVimMode(cm, false);
     }
     function attachVimMap(cm, prev) {
       if (this == CodeMirror.keyMap.vim)
@@ -411,11 +411,11 @@
       cfg = cfg || {};
       var scope = cfg.scope;
       if (!option) {
-        return new Error('Unknown option: ' + name);
+        throw Error('Unknown option: ' + name);
       }
       if (option.type == 'boolean') {
         if (value && value !== true) {
-          return new Error('Invalid argument: ' + name + '=' + value);
+          throw Error('Invalid argument: ' + name + '=' + value);
         } else if (value !== false) {
           // Boolean options are set to true if value is not defined.
           value = true;
@@ -443,7 +443,7 @@
       cfg = cfg || {};
       var scope = cfg.scope;
       if (!option) {
-        return new Error('Unknown option: ' + name);
+        throw Error('Unknown option: ' + name);
       }
       if (option.callback) {
         var local = cm && option.callback(undefined, cm);
@@ -649,9 +649,9 @@
         lastCharacterSearch: {increment:0, forward:true, selectedCharacter:''},
         registerController: new RegisterController({}),
         // search history buffer
-        searchHistoryController: new HistoryController(),
+        searchHistoryController: new HistoryController({}),
         // ex Command history buffer
-        exCommandHistoryController : new HistoryController()
+        exCommandHistoryController : new HistoryController({})
       };
       for (var optionName in options) {
         var option = options[optionName];
@@ -1110,9 +1110,7 @@
           }
         }
         if (bestMatch.keys.slice(-11) == '<character>') {
-          var character = lastChar(keys);
-          if (!character) return {type: 'none'};
-          inputState.selectedCharacter = character;
+          inputState.selectedCharacter = lastChar(keys);
         }
         return {type: 'full', command: bestMatch};
       },
@@ -2706,7 +2704,7 @@
       }
     }
     function lastChar(keys) {
-      var match = /^.*(<[^>]+>)$/.exec(keys);
+      var match = /^.*(<[\w\-]+>)$/.exec(keys);
       var selectedCharacter = match ? match[1] : keys.slice(-1);
       if (selectedCharacter.length > 1){
         switch(selectedCharacter){
@@ -2717,7 +2715,6 @@
             selectedCharacter=' ';
             break;
           default:
-            selectedCharacter='';
             break;
         }
       }
@@ -2818,6 +2815,7 @@
         var range = {anchor: new Pos(line, baseCh), head: new Pos(line, headCh)};
         selections.push(range);
       }
+      primIndex = head.line == lastLine ? selections.length - 1 : 0;
       cm.setSelections(selections);
       selectionEnd.ch = headCh;
       base.ch = baseCh;
@@ -4300,18 +4298,13 @@
         // If no value is provided, then we assume this is a get.
         if (!optionIsBoolean && value === undefined || forceGet) {
           var oldValue = getOption(optionName, cm, setCfg);
-          if (oldValue instanceof Error) {
-            showConfirm(cm, oldValue.message);
-          } else if (oldValue === true || oldValue === false) {
+          if (oldValue === true || oldValue === false) {
             showConfirm(cm, ' ' + (oldValue ? '' : 'no') + optionName);
           } else {
             showConfirm(cm, '  ' + optionName + '=' + oldValue);
           }
         } else {
-          var setOptionReturn = setOption(optionName, value, cm, setCfg);
-          if (setOptionReturn instanceof Error) {
-            showConfirm(cm, setOptionReturn.message);
-          }
+          setOption(optionName, value, cm, setCfg);
         }
       },
       setlocal: function (cm, params) {
@@ -4929,7 +4922,7 @@
      * Listens for changes made in insert mode.
      * Should only be active in insert mode.
      */
-    function onChange(cm, changeObj) {
+    function onChange(_cm, changeObj) {
       var macroModeState = vimGlobalState.macroModeState;
       var lastChange = macroModeState.lastInsertModeChanges;
       if (!macroModeState.isPlaying) {
@@ -4942,11 +4935,7 @@
               lastChange.changes = [];
               lastChange.maybeReset = false;
             }
-            if (cm.state.overwrite && !/\n/.test(text)) {
-                lastChange.changes.push([text]);
-            } else {
-                lastChange.changes.push(text);
-            }
+            lastChange.changes.push(text);
           }
           // Change objects may be chained with next.
           changeObj = changeObj.next;
@@ -5128,13 +5117,9 @@
           var change = changes[j];
           if (change instanceof InsertModeKey) {
             CodeMirror.lookupKey(change.keyName, 'vim-insert', keyHandler);
-          } else if (typeof change == "string") {
+          } else {
             var cur = cm.getCursor();
             cm.replaceRange(change, cur, cur);
-          } else {
-            var start = cm.getCursor();
-            var end = offsetCursor(start, 0, change[0].length);
-            cm.replaceRange(change[0], start, end);
           }
         }
       }

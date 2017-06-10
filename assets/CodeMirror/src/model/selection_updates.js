@@ -16,8 +16,8 @@ import { normalizeSelection, Range, Selection, simpleSelection } from "./selecti
 // include a given position (and optionally a second position).
 // Otherwise, simply returns the range between the given positions.
 // Used for cursor motion and such.
-export function extendRange(range, head, other, extend) {
-  if (extend) {
+export function extendRange(doc, range, head, other) {
+  if (doc.cm && doc.cm.display.shift || doc.extend) {
     let anchor = range.anchor
     if (other) {
       let posBefore = cmp(head, anchor) < 0
@@ -35,18 +35,16 @@ export function extendRange(range, head, other, extend) {
 }
 
 // Extend the primary selection range, discard the rest.
-export function extendSelection(doc, head, other, options, extend) {
-  if (extend == null) extend = doc.cm && (doc.cm.display.shift || doc.extend)
-  setSelection(doc, new Selection([extendRange(doc.sel.primary(), head, other, extend)], 0), options)
+export function extendSelection(doc, head, other, options) {
+  setSelection(doc, new Selection([extendRange(doc, doc.sel.primary(), head, other)], 0), options)
 }
 
 // Extend all selections (pos is an array of selections with length
 // equal the number of selections)
 export function extendSelections(doc, heads, options) {
   let out = []
-  let extend = doc.cm && (doc.cm.display.shift || doc.extend)
   for (let i = 0; i < doc.sel.ranges.length; i++)
-    out[i] = extendRange(doc.sel.ranges[i], heads[i], null, extend)
+    out[i] = extendRange(doc, doc.sel.ranges[i], heads[i], null)
   let newSel = normalizeSelection(out, doc.sel.primIndex)
   setSelection(doc, newSel, options)
 }
@@ -125,7 +123,7 @@ function setSelectionInner(doc, sel) {
 // Verify that the selection does not partially select any atomic
 // marked ranges.
 export function reCheckSelection(doc) {
-  setSelectionInner(doc, skipAtomicInSelection(doc, doc.sel, null, false))
+  setSelectionInner(doc, skipAtomicInSelection(doc, doc.sel, null, false), sel_dontScroll)
 }
 
 // Return a selection that does not partially select any atomic

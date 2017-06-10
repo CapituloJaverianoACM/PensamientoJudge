@@ -131,6 +131,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
   }
 
   function blockNormal(stream, state) {
+
     var sol = stream.sol();
 
     var prevLineIsList = state.list !== false,
@@ -152,11 +153,15 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
     }
 
     var match = null;
-    if (state.indentationDiff >= 4 && (prevLineIsIndentedCode || lineIsEmpty(state.prevLine))) {
+    if (state.indentationDiff >= 4) {
       stream.skipToEnd();
-      state.indentation -= 4;
-      state.indentedCode = true;
-      return tokenTypes.code;
+      if (prevLineIsIndentedCode || lineIsEmpty(state.prevLine)) {
+        state.indentation -= 4;
+        state.indentedCode = true;
+        return tokenTypes.code;
+      } else {
+        return null;
+      }
     } else if (stream.eatSpace()) {
       return null;
     } else if ((match = stream.match(atxHeaderRE)) && match[1].length <= 6) {
@@ -588,7 +593,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
     }
     var ch = stream.next();
     if (ch === '(' || ch === '[') {
-      state.f = state.inline = getLinkHrefInside(ch === "(" ? ")" : "]");
+      state.f = state.inline = getLinkHrefInside(ch === "(" ? ")" : "]", 0);
       if (modeCfg.highlightFormatting) state.formatting = "link-string";
       state.linkHref = true;
       return getType(state);

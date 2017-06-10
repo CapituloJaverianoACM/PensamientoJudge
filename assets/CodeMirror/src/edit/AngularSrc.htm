@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://localhost:4200/problems/HelloWorld -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>AngularSrc</title>
+  <!-- mathjax -->
+
+  <script type="text/x-mathjax-config;executed=true">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+  </script>
+  <!-- <script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+    <script type="text/javascript" async="" src="./AngularSrc_files/MathJax.js">
+    </script>
+
+
+    <link href="./AngularSrc_files/bootstrap.min.css" rel="stylesheet">
+  <!-- mathjax -->
+  <!--<base href="/">--><base href=".">
+
+  <!-- mirar -->
+
+  <!-- CodeMirror -->
+  <script src="./AngularSrc_files/codemirror.js"></script>
+  <link rel="stylesheet" href="./AngularSrc_files/codemirror.css">
+  <script src="./AngularSrc_files/javascript.js"></script>
+  <script src="./AngularSrc_files/clike.js"></script>
+  <script src="./AngularSrc_files/show-hint.js"></script>
+  <script src="./AngularSrc_files/anyword-hint.js"></script>
+  <script src="./AngularSrc_files/sublime.js"></script>
+  <script src="./AngularSrc_files/jquery.min.js"></script>
+  <link rel="stylesheet" href="./AngularSrc_files/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link rel="stylesheet" href="./AngularSrc_files/font-awesome.css">  <link rel="stylesheet" href="./AngularSrc_files/show-hint.css">
+  <!-- themes -->
+  <link rel="stylesheet" href="./AngularSrc_files/3024-day.css">
+  <link rel="stylesheet" href="./AngularSrc_files/eclipse.css">
+  <link rel="stylesheet" href="./AngularSrc_files/monokai.css">
+  <link rel="stylesheet" href="./AngularSrc_files/neat.css">
+  <link rel="stylesheet" href="./AngularSrc_files/neo.css">
+    <!-- themes -->
+  <!-- CodeMirror -->
+  <link rel="stylesheet" href="./AngularSrc_files/bootstrap.min(1).css">
+  <link rel="stylesheet" href="./AngularSrc_files/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><link rel="stylesheet" type="text/css" href="./AngularSrc_files/prettify.css">
+
+  <!-- Custom Fonts -->
+  <link href="./AngularSrc_files/css" rel="stylesheet" type="text/css">
+  <link href="./AngularSrc_files/css(1)" rel="stylesheet" type="text/css">
+  <link href="./AngularSrc_files/css(2)" rel="stylesheet">
+  <link href="./AngularSrc_files/css(3)" rel="stylesheet">
+  <link href="./AngularSrc_files/css(4)" rel="stylesheet">
+  <link href="./AngularSrc_files/css(5)" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="http://localhost:4200/favicon.ico">
+<style type="text/css">/*!
+ * Start Bootstrap - Freelancer v3.3.7+1 (http://startbootstrap.com/template-overviews/freelancer)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+body {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+p {
+  font-size: 20px;
+}
+p.small {
+  font-size: 16px;
+}
+a,
+a:hover,
+a:focus,
+a:active,
+a.active {
+  color: #18BC9C;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+hr.star-light,
+hr.star-primary {
+  padding: 0;
+  border: none;
+  border-top: solid 5px;
+  text-align: center;
+  max-width: 250px;
+  margin: 25px auto 30px;
+}
+hr.star-light:after,
+hr.star-primary:after {
+  content: "\F005";
+  font-family: FontAwesome;
+  display: inline-block;
+  position: relative;
+  top: -0.8em;
+  font-size: 2em;
+  padding: 0 0.25em;
+}
+hr.star-light {
+  border-color: white;
+}
+hr.star-light:after {
+  background-color: #18BC9C;
+  color: white;
+}
+hr.star-primary {
+  border-color: #2C3E50;
+}
+hr.star-primary:after {
+  background-color: white;
+  color: #2C3E50;
+}
+.img-centered {
+  margin: 0 auto;
+}
+header {
+  text-align: center;
+  background: #18BC9C;
+  color: white;
+  padding-bottom: 120px;
+}
+header .container {
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+header img {
+  display: block;
+  margin: 0 auto 20px;
+}
+header .intro-text .name {
+  display: block;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 2em;
+}
+header .intro-text .skills {
+  font-size: 1.25em;
+  font-weight: 300;
+}
+@media (min-width: 768px) {
+  header .container {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+  header .intro-text .name {
+    font-size: 4.75em;
+  }
+  header .intro-text .skills {
+    font-size: 1.75em;
+  }
+}
+.navbar-custom {
+  background: #2C3E50;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  border: none;
+  margin-bottom: 0;
+}
+.navbar-custom .navbar-brand {
+  color: white;
+}
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .navbar-brand:focus,
+.navbar-custom .navbar-brand:active,
+.navbar-custom .navbar-brand.active {
+  color: white;
+}
+.navbar-custom .navbar-nav {
+  letter-spacing: 1px;
+}
+.navbar-custom .navbar-nav li a {
+  color: white;
+}
+.navbar-custom .navbar-nav li a:hover {
+  color: #18BC9C;
+}
+.navbar-custom .navbar-nav li a:focus,
+.navbar-custom .navbar-nav li a:active {
+  color: white;
+}
+.navbar-custom .navbar-nav li.active a {
+  color: white;
+  background: #18BC9C;
+}
+.navbar-custom .navbar-nav li.active a:hover,
+.navbar-custom .navbar-nav li.active a:focus,
+.navbar-custom .navbar-nav li.active a:active {
+  color: white;
+  background: #18BC9C;
+}
+.navbar-custom .navbar-toggle {
+  color: white;
+  text-transform: uppercase;
+  font-size: 10px;
+  border-color: white;
+}
+.navbar-custom .navbar-toggle:hover,
+.navbar-custom .navbar-toggle:focus {
+  background-color: #18BC9C;
+  color: white;
+  border-color: #18BC9C;
+}
+@media (min-width: 768px) {
+  .navbar-custom {
+    padding: 25px 0;
+    transition: padding 0.3s;
+  }
+  .navbar-custom .navbar-brand {
+    font-size: 2em;
+    transition: all 0.3s;
+  }
+  .navbar-custom.affix {
+    padding: 10px 0;
+  }
+  .navbar-custom.affix .navbar-brand {
+    font-size: 1.5em;
+  }
+}
+section {
+  padding: 50px 0;
+
+}
+section h2 {
+  margin: 0;
+  font-size: 3em;
+}
+section.success {
+  background: #18BC9C;
+  color: white;
+}
+@media (max-width: 767px) {
+  section {
+    padding: 75px 0;
+  }
+  section.first {
+    padding-top: 75px;
+  }
+}
+.floating-label-form-group {
+  position: relative;
+  margin-bottom: 0;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #eeeeee;
+}
+.floating-label-form-group input,
+.floating-label-form-group textarea {
+  z-index: 1;
+  position: relative;
+  padding-right: 0;
+  padding-left: 0;
+  border: none;
+  border-radius: 0;
+  font-size: 1.5em;
+  background: none;
+  box-shadow: none !important;
+  resize: none;
+}
+.floating-label-form-group label {
+  display: block;
+  z-index: 0;
+  position: relative;
+  top: 2em;
+  margin: 0;
+  font-size: 0.85em;
+  line-height: 1.764705882em;
+  vertical-align: middle;
+  vertical-align: baseline;
+  opacity: 0;
+  transition: top 0.3s ease,opacity 0.3s ease;
+}
+.floating-label-form-group:not(:first-child) {
+  padding-left: 14px;
+  border-left: 1px solid #eeeeee;
+}
+.floating-label-form-group-with-value label {
+  top: 0;
+  opacity: 1;
+}
+.floating-label-form-group-with-focus label {
+  color: #18BC9C;
+}
+form .row:first-child .floating-label-form-group {
+  border-top: 1px solid #eeeeee;
+}
+/* Footer */
+.footer {
+  color: white;
+}
+.footer h3 {
+  margin-bottom: 30px;
+}
+.footer .footer-above {
+  padding-top: 50px;
+  background-color: #2C3E50;
+}
+.footer .footer-col {
+  margin-bottom: 50px;
+}
+.footer .footer-below {
+  padding: 25px 0;
+  background-color: #233140;
+}
+/* End Footer */
+
+.btn-outline {
+  color: white;
+  font-size: 20px;
+  border: solid 2px white;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+  margin-top: 15px;
+}
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active,
+.btn-outline.active {
+  color: #18BC9C;
+  background: white;
+  border: solid 2px white;
+}
+.btn-primary {
+  color: white;
+  background-color: #2C3E50;
+  border-color: #2C3E50;
+  font-weight: 700;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  color: white;
+  background-color: #1a242f;
+  border-color: #161f29;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+.btn-primary.disabled,
+.btn-primary[disabled],
+fieldset[disabled] .btn-primary,
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled:active,
+.btn-primary[disabled]:active,
+fieldset[disabled] .btn-primary:active,
+.btn-primary.disabled.active,
+.btn-primary[disabled].active,
+fieldset[disabled] .btn-primary.active {
+  background-color: #2C3E50;
+  border-color: #2C3E50;
+}
+.btn-primary .badge {
+  color: #2C3E50;
+  background-color: white;
+}
+.btn-success {
+  color: white;
+  background-color: #18BC9C;
+  border-color: #18BC9C;
+}
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active,
+.btn-success.active,
+.open .dropdown-toggle.btn-success {
+  color: white;
+  background-color: #128f76;
+  border-color: #11866f;
+}
+
+.btn-success .badge {
+  color: #18BC9C;
+  background-color: white;
+}
+.btn-social {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  border: 2px solid white;
+  border-radius: 100%;
+  text-align: center;
+  font-size: 20px;
+  line-height: 45px;
+}
+div#maincontent {
+  outline: none;
+  padding-top: 100;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -60px;
+    margin-left: -60px;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+.alert {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  border-radius: 0px;
+}
+</style><style></style><style>p[_ngcontent-lbu-51] {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: normal;
+  margin: 0.5em;
+  line-height: 1.5em;
+  font-size: 1.4rem;
+}
+
+.sample[_ngcontent-lbu-51] {
+  font-family: 'Source Code Pro', monospace;
+  line-height: .9em;
+}
+
+h1[_ngcontent-lbu-51] {
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.section-title[_ngcontent-lbu-51] {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 115%;
+    font-weight: bold;
+}
+
+.samples-display[_ngcontent-lbu-51] {
+  padding-top: 10px;
+}
+button[_ngcontent-lbu-51] {
+  margin-top: 10px;
+}
+
+.result[_ngcontent-lbu-51] {
+  margin-top: 18px;
+}</style><style>.section-title[_ngcontent-lbu-61] {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 115%;
+    font-weight: bold;
+}
+
+p[_ngcontent-lbu-61] {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: normal;
+  
+  line-height: 1.5em;
+  font-size: 1.4rem;
+}
+
+button[_ngcontent-lbu-61] {
+  margin-top: 10px;
+}
+
+pre[_ngcontent-lbu-61] {
+}</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none}
+.MathJax .MathJax_EmBox {display: block!important; overflow: hidden; width: 1px; height: 60em; min-height: 0; max-height: none}
+.MathJax_LineBox {display: table!important}
+.MathJax_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Blank; src: url('about:blank')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style>h3[_ngcontent-lbu-47] {
+  font-family: 'Source Sans Pro', sans-serif;
+  text-transform: capitalize;
+}
+
+p[_ngcontent-lbu-47] {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.4rem;
+  margin: 0.5em;
+}
+
+.upload-button[_ngcontent-lbu-47] {
+  padding-top: 10px;
+}
+
+.page-header[_ngcontent-lbu-47] {
+  font-weight: bold;
+  font-size: 50px;
+}
+
+.sub-tittle[_ngcontent-lbu-47] {
+  padding-top: 10px;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-transform: capitalize;
+  font-weight: 900;
+  font-size: 17px;
+}
+
+.edit-button[_ngcontent-lbu-47] {
+  padding-top: 20px;
+}
+
+.btn-file[_ngcontent-lbu-47] {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file[_ngcontent-lbu-47]   input[type=file][_ngcontent-lbu-47] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}</style><style>.problem-tittle[_ngcontent-lbu-54] {
+  color: #2EC866;
+  font-family: 'Oxygen', sans-serif;
+  font-weight:bold;
+  letter-spacing: 1.5px;
+  font-size: 2em;
+  padding-bottom: 0px;
+  text-transform: capitalize;
+}
+
+.problem-sub-tittle[_ngcontent-lbu-54] {
+  color: #979faf;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 15px;
+  font-weight:bold;
+  padding-top: 25px;
+  padding-right: 5px;
+  padding-bottom: 15px;
+  text-transform: capitalize;
+  display: inline;
+}
+
+#subTittleDiv[_ngcontent-lbu-54] {
+  padding-right: 0px;
+}
+
+.problem-sub-tittle-text[_ngcontent-lbu-54] {
+  color: black;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 15px;
+  font-weight:bold;
+  padding-top: 25px;
+  padding-bottom: 15px;
+  padding-right: 10px;
+  text-transform: capitalize;
+  display: inline;
+}
+
+.solve-button[_ngcontent-lbu-54] {
+  position: relative;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight:lighter;
+  bottom: 30px;
+  background: #2ec866;
+	box-shadow: 0 3px 0 0 #2ec866;
+}
+
+.probems-categories[_ngcontent-lbu-54] {
+    color: black;
+    font-size: 15px;
+    font-weight:bold;
+    
+    
+}
+
+.nav[_ngcontent-lbu-54] > li[_ngcontent-lbu-54] > a[_ngcontent-lbu-54]:focus, .nav[_ngcontent-lbu-54] > li[_ngcontent-lbu-54] > a[_ngcontent-lbu-54]:hover{
+  background: none;
+}
+a.active[_ngcontent-lbu-54], a[_ngcontent-lbu-54]:active, a[_ngcontent-lbu-54]:focus, a[_ngcontent-lbu-54]:hover {
+  color: orange;
+}
+a[_ngcontent-lbu-54] {
+  cursor: pointer
+}</style><style>.problem-tittle[_ngcontent-lbu-55] {
+  color: #2EC866;
+  font-family: 'Oxygen', sans-serif;
+  font-weight:bold;
+  letter-spacing: 1.5px;
+  font-size: 2em;
+  padding-bottom: 0px;
+  text-transform: capitalize;
+}
+
+.problem-sub-tittle[_ngcontent-lbu-55] {
+  color: #979faf;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 15px;
+  font-weight:bold;
+  padding-top: 25px;
+  padding-right: 5px;
+  padding-bottom: 15px;
+  text-transform: capitalize;
+  display: inline;
+}
+
+#subTittleDiv[_ngcontent-lbu-55] {
+  padding-right: 0px;
+}
+
+.problem-sub-tittle-text[_ngcontent-lbu-55] {
+  color: black;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 15px;
+  font-weight:bold;
+  padding-top: 25px;
+  padding-bottom: 15px;
+  padding-right: 10px;
+  text-transform: capitalize;
+  display: inline;
+}
+
+.solve-button[_ngcontent-lbu-55] {
+  position: relative;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight:lighter;
+  bottom: 30px;
+  background: #2ec866;
+	box-shadow: 0 3px 0 0 #2ec866;
+}</style></head>
+<body><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div>
+  <!-- test -->
+  <app-root ng-version="2.4.10" _nghost-lbu-42=""><app-navbar _ngcontent-lbu-42="" _nghost-lbu-45=""><nav _ngcontent-lbu-45="" class="navbar navbar-default navbar-static-top navbar-custom" id="mainNav">
+    <div _ngcontent-lbu-45="" class="container">
+        
+        <div _ngcontent-lbu-45="" class="navbar-header page-scroll">
+            <button _ngcontent-lbu-45="" class="navbar-toggle" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button">
+                <span _ngcontent-lbu-45="" class="sr-only">Toggle navigation</span> Menu <i _ngcontent-lbu-45="" class="fa fa-bars"></i>
+            </button>
+            <a _ngcontent-lbu-45="" class="navbar-brand" ng-reflect-router-link="/" ng-reflect-href="/" href="http://localhost:4200/">Juez Pensamiento</a>
+        </div>
+
+        
+        <div _ngcontent-lbu-45="" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul _ngcontent-lbu-45="" class="nav navbar-nav navbar-right">
+              <!--template bindings={
+  "ng-reflect-ng-if": "true"
+}--><li _ngcontent-lbu-45="" ng-reflect-router-link-active-options="[object Object]" ng-reflect-router-link-active="active">
+                  <a _ngcontent-lbu-45="" ng-reflect-router-link="/admin" ng-reflect-href="/admin" href="http://localhost:4200/admin">Admin</a>
+              </li>
+                <!--template bindings={
+  "ng-reflect-ng-if": "true"
+}--><li _ngcontent-lbu-45="" ng-reflect-router-link-active-options="[object Object]" ng-reflect-router-link-active="active" class="">
+                    <a _ngcontent-lbu-45="" ng-reflect-router-link="/profile" ng-reflect-href="/profile" href="http://localhost:4200/profile">Profile</a>
+                </li>
+                <!--template bindings={
+  "ng-reflect-ng-if": "true"
+}--><li _ngcontent-lbu-45="" ng-reflect-router-link-active-options="[object Object]" ng-reflect-router-link-active="active" class="">
+                    <a _ngcontent-lbu-45="" ng-reflect-router-link="/problems" ng-reflect-href="/problems" href="http://localhost:4200/problems">Problems</a>
+                </li>
+                <!--template bindings={
+  "ng-reflect-ng-if": "true"
+}--><li _ngcontent-lbu-45="" ng-reflect-router-link-active-options="[object Object]" ng-reflect-router-link-active="active">
+                    <a _ngcontent-lbu-45="" ng-reflect-router-link="/submissions" ng-reflect-href="/submissions" href="http://localhost:4200/submissions">submissions</a>
+                </li>
+                <!--template bindings={
+  "ng-reflect-ng-if": "true"
+}--><li _ngcontent-lbu-45="">
+                    <a _ngcontent-lbu-45="" href="http://localhost:4200/#">Log Out</a>
+                </li>
+                <!--template bindings={
+  "ng-reflect-ng-if": null
+}-->
+                <!--template bindings={
+  "ng-reflect-ng-if": null
+}-->
+            </ul>
+        </div>
+        
+    </div>
+    
+</nav>
+</app-navbar>
+<flash-messages _ngcontent-lbu-42="">
+      <div id="flashMessages" ng-reflect-class-name="flash-messages " class="flash-messages ">
+          <!--template bindings={
+  "ng-reflect-ng-if": null
+}-->
+          <!--template bindings={
+  "ng-reflect-ng-for-of": ""
+}--> 
+      </div>
+  </flash-messages>
+<section _ngcontent-lbu-42="">
+  <router-outlet _ngcontent-lbu-42=""></router-outlet><app-problem _nghost-lbu-48="">
+<div _ngcontent-lbu-48="" class="container">
+
+  <ul _ngcontent-lbu-48="" class="nav nav-tabs">
+    <li _ngcontent-lbu-48="" class="nav-item">
+       <a _ngcontent-lbu-48="" routerlinkactive="active" ng-reflect-router-link="/problems,HelloWorld" ng-reflect-router-link-active="active" class="active" ng-reflect-href="/problems/HelloWorld" href="http://localhost:4200/problems/HelloWorld">Description</a>
+    </li>
+
+    <li _ngcontent-lbu-48="" class="nav-item">
+       <a _ngcontent-lbu-48="" routerlinkactive="active" ng-reflect-router-link="/problems,HelloWorld,submissions" ng-reflect-router-link-active="active" ng-reflect-href="/problems/HelloWorld/submissions" href="http://localhost:4200/problems/HelloWorld/submissions">Submissions</a>
+    </li>
+
+  </ul>
+  <router-outlet _ngcontent-lbu-48=""></router-outlet><app-description _nghost-lbu-51=""><div _ngcontent-lbu-51="" class="container">
+
+  <!--template bindings={
+  "ng-reflect-ng-if": "[object Object]"
+}--><div _ngcontent-lbu-51="">
+
+  <h1 _ngcontent-lbu-51="" class="problem-tittle">Problem: HelloWorld</h1>
+  <p _ngcontent-lbu-51="" ng-reflect-fraction-string="Print hello world $N$ times.">Print hello world <span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-4-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;N&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-10" style="width: 0.903em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.723em; height: 0px; font-size: 119%;"><span style="position: absolute; clip: rect(1.744em 1000.72em 2.764em -999.997em); top: -2.578em; left: 0em;"><span class="mrow" id="MathJax-Span-11"><span class="mi" id="MathJax-Span-12" style="font-family: STIXGeneral-Italic;">N<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.063em;"></span></span></span><span style="display: inline-block; width: 0px; height: 2.584em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 0.932em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>N</mi></math></span></span><script type="math/tex" id="MathJax-Element-4">N</script> times.</p>
+  <div _ngcontent-lbu-51="" class="section-title">Input Format</div>
+  <p _ngcontent-lbu-51="" ng-reflect-fraction-string="Single integer $N$.">Single integer <span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-5-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;N&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-13" style="width: 0.903em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.723em; height: 0px; font-size: 119%;"><span style="position: absolute; clip: rect(1.744em 1000.72em 2.764em -999.997em); top: -2.578em; left: 0em;"><span class="mrow" id="MathJax-Span-14"><span class="mi" id="MathJax-Span-15" style="font-family: STIXGeneral-Italic;">N<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.063em;"></span></span></span><span style="display: inline-block; width: 0px; height: 2.584em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 0.932em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>N</mi></math></span></span><script type="math/tex" id="MathJax-Element-5">N</script>.</p>
+  <div _ngcontent-lbu-51="" class="section-title">Output Format</div>
+  <p _ngcontent-lbu-51="" ng-reflect-fraction-string="Print hello world $N$ times.">Print hello world <span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-6-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;N&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-16" style="width: 0.903em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.723em; height: 0px; font-size: 119%;"><span style="position: absolute; clip: rect(1.744em 1000.72em 2.764em -999.997em); top: -2.578em; left: 0em;"><span class="mrow" id="MathJax-Span-17"><span class="mi" id="MathJax-Span-18" style="font-family: STIXGeneral-Italic;">N<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.063em;"></span></span></span><span style="display: inline-block; width: 0px; height: 2.584em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 0.932em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>N</mi></math></span></span><script type="math/tex" id="MathJax-Element-6">N</script> times.</p>
+  <div _ngcontent-lbu-51="" class="section-title">Samples</div>
+  <ul _ngcontent-lbu-51="" class="list-group">
+  <!--template bindings={
+  "ng-reflect-ng-for-of": "4,Hello World\nHello World\nHello World\nHello World"
+}--><div _ngcontent-lbu-51="" class="samples-display">
+
+      <li _ngcontent-lbu-51="" class="list-group-item">
+        <h6 _ngcontent-lbu-51="">Input</h6>
+          <pre _ngcontent-lbu-51="">4</pre>
+        <h6 _ngcontent-lbu-51="">Output</h6>
+          <pre _ngcontent-lbu-51="">Hello World
+Hello World
+Hello World
+Hello World</pre>
+      </li>
+    </div>
+    </ul>
+</div>
+
+  
+  <div _ngcontent-lbu-51="" class="section-title">Code Editor</div>
+  <br _ngcontent-lbu-51="">
+
+  <div _ngcontent-lbu-51="">
+    <ol _ngcontent-lbu-51="" class="breadcrumb">
+      <br _ngcontent-lbu-51="">
+      <div _ngcontent-lbu-51="" id="codeeditor"><div class="CodeMirror cm-s-default"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 34px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;" tabindex="0"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 30px; min-height: 148px; min-width: 174.984px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>7</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 20px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">#include &lt;iostream&gt;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">using</span> <span class="cm-keyword">namespace</span> <span class="cm-def">std</span>;</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable-3">int</span> <span class="cm-def">main</span>() {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">  </span><span class="cm-keyword">return</span> <span class="cm-number">0</span>;</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 148px;"></div><div class="CodeMirror-gutters" style="height: 178px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></div>
+      <br _ngcontent-lbu-51="">
+    </ol>
+    <div _ngcontent-lbu-51="" class="row">
+      <div _ngcontent-lbu-51="" class="col-sm-2">
+        <div _ngcontent-lbu-51="" class="section-title text-right">Editor Theme: </div>
+      </div>
+      <div _ngcontent-lbu-51="" class="col-sm-3">
+        <select _ngcontent-lbu-51="" class="form-control selectpicker ng-untouched ng-pristine ng-valid" ng-reflect-model="default">
+          <!--template bindings={
+  "ng-reflect-ng-for-of": "default,eclipse,monokai,neat,neo"
+}--><option _ngcontent-lbu-51="" value="default" ng-reflect-value="default">default</option><option _ngcontent-lbu-51="" value="eclipse" ng-reflect-value="eclipse">eclipse</option><option _ngcontent-lbu-51="" value="monokai" ng-reflect-value="monokai">monokai</option><option _ngcontent-lbu-51="" value="neat" ng-reflect-value="neat">neat</option><option _ngcontent-lbu-51="" value="neo" ng-reflect-value="neo">neo</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div _ngcontent-lbu-51="" class="row">
+    <div _ngcontent-lbu-51="" class="col-sm-6">
+      <button _ngcontent-lbu-51="" class="btn btn-info btn-lg btn-block" type="button"> <span _ngcontent-lbu-51="" class="glyphicon glyphicon-console"></span> Run Code</button>
+    </div>
+    <div _ngcontent-lbu-51="" class="col-sm-6">
+      <button _ngcontent-lbu-51="" class="btn btn-success btn-lg btn-block" type="button"><span _ngcontent-lbu-51="" class="glyphicon glyphicon-ok"></span> Submit Code</button>
+    </div>
+  </div>
+
+  <div _ngcontent-lbu-51="" class="row result">
+    <div _ngcontent-lbu-51="" class="col-sm-1">
+      <div _ngcontent-lbu-51="" class="section-title">Socore: </div>
+    </div>
+    <div _ngcontent-lbu-51="" class="col-sm-10">
+      <progressbar _ngcontent-lbu-51="" ng-reflect-animate="true" ng-reflect-type="danger" ng-reflect-value="7">
+    <div progress="" ng-reflect-animate="true" ng-reflect-max="100" max="100" class="progress">
+      <bar ng-reflect-type="danger" ng-reflect-value="7">
+  <div aria-valuemin="0" class="progress-bar progress-bar-danger" role="progressbar" style="min-width: 0px; width: 7%;" ng-reflect-klass="progress-bar" ng-reflect-ng-class="progress-bar-danger" ng-reflect-ng-style="[object Object]" aria-valuenow="7" aria-valuetext="7%">
+          <b _ngcontent-lbu-51="">7%</b>
+      </div>
+</bar>
+    </div>
+  </progressbar>
+    </div>
+    <div _ngcontent-lbu-51="" class="col-sm-1">
+      <div _ngcontent-lbu-51="" class="section-title">7%</div>
+    </div>
+  </div>
+
+  <ul _ngcontent-lbu-51="" class="list-group">
+    <li _ngcontent-lbu-51="" class="list-group-item">
+      <app-problem-sample-cases _ngcontent-lbu-51="" _nghost-lbu-61="" ng-reflect-sample-case="[object Object]">
+<!--template bindings={
+  "ng-reflect-ng-if": "1"
+}--><div _ngcontent-lbu-61="" class="section-title">
+  Your code did pass this test case.
+</div>
+<!--template bindings={
+  "ng-reflect-ng-if": null
+}-->
+
+<div _ngcontent-lbu-61="" class="section-title">
+  Entradas
+</div>
+
+<pre _ngcontent-lbu-61="">1234</pre>
+
+<div _ngcontent-lbu-61="" class="section-title">
+  Salida Tuya
+</div>
+<pre _ngcontent-lbu-61="">User Out</pre>
+
+<div _ngcontent-lbu-61="" class="section-title">
+  Salida Esperada
+</div>
+<pre _ngcontent-lbu-61="">Expected Out</pre>
+
+<div _ngcontent-lbu-61="" class="section-title">
+  Veredicto
+</div>
+<pre _ngcontent-lbu-61="">Judging…</pre>
+
+<div _ngcontent-lbu-61="" class="section-title"></div>
+</app-problem-sample-cases>
+    </li>
+  </ul>
+
+</div>
+
+
+<hr _ngcontent-lbu-51="">
+<div _ngcontent-lbu-51="" class="card card-block card-header collapse" ng-reflect-collapse="true" aria-expanded="false" aria-hidden="true" style="display: none;">
+  <div _ngcontent-lbu-51="" class="well well-lg">Some content</div>
+</div>
+</app-description>
+</div>
+</app-problem>
+</section>
+<app-footer _ngcontent-lbu-42="" _nghost-lbu-53=""><div _ngcontent-lbu-53="" class="footer">
+  <div _ngcontent-lbu-53="" class="footer-above">
+    <div _ngcontent-lbu-53="" class="container">
+      <div _ngcontent-lbu-53="" class="row">
+        <div _ngcontent-lbu-53="" class="footer-col col-md-4">
+          <h3 _ngcontent-lbu-53="">Support</h3>
+          <p _ngcontent-lbu-53="">Para información y reportar fallas
+          escribenos a <a _ngcontent-lbu-53="" href="mailto:pensamientogym@gmail.com" target="_top">pensamientogym@gmail.com</a></p>
+        </div>
+        <div _ngcontent-lbu-53="" class="footer-col col-md-4">
+          <h3 _ngcontent-lbu-53="">Suguenos y Contactanos</h3>
+            <ul _ngcontent-lbu-53="" class="list-inline text-center">
+              <li _ngcontent-lbu-53="">
+                  <a _ngcontent-lbu-53="" class="btn-social btn-outline" href="https://www.facebook.com/acmjaveriana" target="_blank"><span _ngcontent-lbu-53="" class="sr-only">Facebook</span><i _ngcontent-lbu-53="" class="fa fa-fw fa-facebook"></i></a>
+              </li>
+              <li _ngcontent-lbu-53="">
+                <a _ngcontent-lbu-53="" class="btn-social btn-outline" href="https://twitter.com/ACMJaveriana" target="_blank"><span _ngcontent-lbu-53="" class="sr-only">Twitter</span><i _ngcontent-lbu-53="" class="fa fa-fw fa-twitter"></i></a>
+              </li>
+              <li _ngcontent-lbu-53="">
+                  <a _ngcontent-lbu-53="" class="btn-social btn-outline" href="https://www.youtube.com/channel/UC3PymX73H7qF6-VJS-wuyJA" target="_blank"><span _ngcontent-lbu-53="" class="sr-only">Google Plus</span><i _ngcontent-lbu-53="" class="fa fa-fw fa-youtube"></i></a>
+              </li>
+              <li _ngcontent-lbu-53="">
+                  <a _ngcontent-lbu-53="" class="btn-social btn-outline" href="https://github.com/CapituloJaverianoACM" target="_blank"><span _ngcontent-lbu-53="" class="sr-only">Linked In</span><i _ngcontent-lbu-53="" class="fa fa-fw fa-github"></i></a>
+              </li>
+              <li _ngcontent-lbu-53="">
+                  <a _ngcontent-lbu-53="" class="btn-social btn-outline" href="mailto:acm#javeriana.edu.co"><span _ngcontent-lbu-53="" class="sr-only">Dribble</span><i _ngcontent-lbu-53="" class="fa fa-fw fa-envelope"></i></a>
+              </li>
+            </ul>
+          </div>
+          <div _ngcontent-lbu-53="" class="footer-col col-md-4">
+            <h3 _ngcontent-lbu-53="">¿Qué es PensamientoGym?</h3>
+            <p _ngcontent-lbu-53="" class="text-justify">Una plataforma con el fin de ayudar a los estudiantes a practicar para sus pruebas de programación.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+  
+</app-footer>
+</app-root>
+<script type="text/javascript" src="./AngularSrc_files/inline.bundle.js"></script><script type="text/javascript" src="./AngularSrc_files/polyfills.bundle.js"></script><script type="text/javascript" src="./AngularSrc_files/styles.bundle.js"></script><script type="text/javascript" src="./AngularSrc_files/vendor.bundle.js"></script><script type="text/javascript" src="./AngularSrc_files/main.bundle.js"></script>
+
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: STIXSizeOneSym, sans-serif;"></div></div></body></html>
