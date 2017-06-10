@@ -28,6 +28,7 @@ import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { ProblemGuard } from './guards/problem.guard';
 import { ProblemComponent } from './components/problem/problem.component';
 import { TabComponent } from './components/tab/tab.component';
 import { TabsComponent } from './components/tabs/tabs.component';
@@ -66,8 +67,8 @@ const appRoutes: Routes =[
     },
     {path : 'submissions', component : SubmissionsComponent , data : {type:1} },
     {path : 'submissions/user/:username', component : SubmissionsComponent ,  data : {type:2} },
-    {path : 'submissions/problem/:problemName', component : SubmissionsComponent ,  data : {type:3} },
-    {path : 'problems/:name', component : ProblemComponent , canActivate: [AuthGuard] ,
+    {path : 'submissions/problem/:problemName', component : SubmissionsComponent ,  data : {type:3}  },
+    {path : 'problems/:name', component : ProblemComponent , canActivate: [AuthGuard,ProblemGuard] ,
       children : [
         {
           path : '' , component : DescriptionComponent
@@ -134,7 +135,8 @@ const appRoutes: Routes =[
     AdminGuard,
     EndPointService,
     ProblemService,
-    UsersService
+    UsersService,
+    ProblemGuard,
   ],
   bootstrap: [AppComponent]
 
