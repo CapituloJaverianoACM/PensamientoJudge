@@ -17,6 +17,16 @@
     cursor: inherit;
     display: block;
 }
-a{
+
+.btn {
+  margin-bottom: 10px;
+  font-weight: normal;
+}
+
+.btn-primary {
+  font-weight: normal;
+}
+
+a {
   cursor: pointer;
 }

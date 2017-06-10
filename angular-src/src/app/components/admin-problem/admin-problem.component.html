@@ -2,18 +2,18 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Edit</th>
-        <th>Problem Name</th>
-        <th>Difficulty</th>
+        <th>Editar</th>
+        <th>Nombre del Problema</th>
+        <th>Dificultad</th>
         <th>Corte</th>
-        <th>Delete</th>
+        <th>Eliminar</th>
       </tr>
     </thead>
     <tbody>
 
       <tr *ngFor='let item of problemArr'>
         <th>
-          <a class="btn btn-info"  [routerLink]="['/admin','problems',item.name]"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+          <a class="btn btn-info"  [routerLink]="['/admin','problems',item.name]"><span class="glyphicon glyphicon-edit"></span> Editar</a>
         </th>
         <th>
           <a [routerLink]="['/problems',item.name]">
@@ -30,14 +30,14 @@
             </popover-content>
 
             <button class="btn btn-danger" [popover]="myPopoverProblem">
-              <span class="glyphicon glyphicon-remove"></span>Delete</button>
+              <span class="glyphicon glyphicon-remove"></span>Eliminar</button>
             </div>
           </th>
         </tr>
       </tbody>
     </table>
     <div class="text-center">
-      <button (click)="smModal.show()"  class="btn btn-success text-center" ><span class="glyphicon glyphicon-plus"></span>Add Problem</button>
+      <button (click)="smModal.show()"  class="btn btn-success text-center" ><span class="glyphicon glyphicon-plus"></span>Agragar Problema</button>
     </div>
 
     <div class="modal fade" bsModal #smModal="bs-modal"
@@ -45,7 +45,8 @@
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title pull-left" >Problem Name</h4>
+            <h4 *ngIf="!problemTaken" class="modal-title pull-left" >Nombre del Problema</h4>
+            <h4 *ngIf="problemTaken" class="modal-title pull-left" >¡Error!</h4>
             <button type="button" class="close pull-right" aria-label="Close" (click)="smModal.hide()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -53,10 +54,11 @@
           <div class="modal-body">
               <input type="text" [(ngModel)] = "nameNewProblem"  class="form-control" >
               <br>
+              <alert *ngIf="problemTaken" type="danger">
+                <p>El <strong>nombre</strong> del problema ya existe, intenta otro nombre.</p>
+              </alert>
             <button (click)="addProblemOnClick()"   class="btn btn-success text-center" ><span class="glyphicon glyphicon-ok"></span></button>
-
           </div>
-
         </div>
       </div>
     </div>

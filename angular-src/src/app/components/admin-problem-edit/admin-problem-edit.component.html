@@ -2,9 +2,9 @@
   <div *ngIf="problem">
     <div class="row">
       <div class="col-sm-6">
-        <h3>Edit: {{problem.name}}</h3>
+        <h3>Editar: {{problem.name}}</h3>
 
-        <h4 class="sub-tittle">Problem Name</h4>
+        <h4 class="sub-tittle">Nombre del Problema</h4>
         <input type="text" [(ngModel)] = "problem.name" value="{{problem.name}}" class="form-control" id="name">
 
         <label class="checkbox-inline"><input [checked]="problem.is_original" [(ngModel)]="problem.is_original" type="checkbox" value="">Problema Original</label>
@@ -14,7 +14,7 @@
         <div class="row">
 
           <div class="col-sm-3">
-            <h4 class="sub-tittle">Difficulty</h4>
+            <h4 class="sub-tittle">Difficultad</h4>
             <select class="form-control selectpicker" [(ngModel)] = "problem.difficulty" id="difficulty">
               <option [value]="diff" *ngFor="let diff of difficulties" >{{diff}}</option>
             </select>
@@ -26,7 +26,7 @@
           </div>
 
           <div class="col-sm-4">
-            <h4 class="sub-tittle">Theme</h4>
+            <h4 class="sub-tittle">Tema</h4>
             <!-- <input type="text" [(ngModel)] = "problem.theme" value="{{problem.theme}}" class="form-control" id="name"> -->
             <select class="form-control selectpicker" [(ngModel)] = "problem.theme" id="theme">
               <option [value]="them" *ngFor="let them of problemTheme" >{{them}}</option>
@@ -40,17 +40,17 @@
         </div>
 
 
-        <h4 class="sub-tittle">Problem Description</h4>
+        <h4 class="sub-tittle">Enunciado</h4>
         <textarea
         class="form-control"
         rows="5"
         [(ngModel)]="problem.description.statement"
         value="{{problem.description.statement}}"
         ></textarea>
-        <h4 class="sub-tittle">Note: </h4>
-        <p> For new lines type <![CDATA[<br>]]>. </p>
+        <h4 class="sub-tittle">Nota: </h4>
+        <p> Para saltos de linea usar: <![CDATA[<br>]]>. </p>
 
-        <h4 class="sub-tittle">Input Format</h4>
+        <h4 class="sub-tittle">Formato Entrada</h4>
         <textarea
         class="form-control"
         rows="5"
@@ -58,7 +58,7 @@
         value="{{problem.description.input_format}}"
         ></textarea>
 
-        <h4 class="sub-tittle">Output Format</h4>
+        <h4 class="sub-tittle">Formato Salida</h4>
         <textarea
         class="form-control"
         rows="5"
@@ -67,7 +67,7 @@
         ></textarea>
         <div *ngFor="let sample of problem.description.samples">
 
-          <h4 class="sub-tittle">Sample Input <a (click)="removeSampleOnClick(sample)"><span class="glyphicon glyphicon-remove pull-right close"></span></a>  </h4>
+          <h4 class="sub-tittle">Ejemplo Entrada <a (click)="removeSampleOnClick(sample)"><span class="glyphicon glyphicon-remove pull-right close"></span></a>  </h4>
           <textarea
           class="form-control"
           rows="3"
@@ -75,7 +75,7 @@
           value="{{sample[0]}}"
           ></textarea>
 
-          <h4 class="sub-tittle">Sample Output</h4>
+          <h4 class="sub-tittle">Ejemplo Entrada</h4>
           <textarea
           class="form-control"
           rows="3"
@@ -86,7 +86,7 @@
 
 
         <div class="text-center confirm-buttons">
-          <button (click)="addSampleOnClick()" type="button" class="btn btn-warning">Add Sample <span class="glyphicon glyphicon-plus"></span> </button>
+          <button (click)="addSampleOnClick()" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-plus"></span> Agragar Ejemplo</button>
         </div>
 
 
@@ -97,18 +97,18 @@
         <p [MathJax]="problem.description.statement">
           {{problem.description.statement}}
         </p>
-        <div class="section-title">Input Format</div>
+        <div class="section-title">Ejemplo Entrada</div>
         <p [MathJax]="problem.description.input_format">{{problem.description.input_format}}</p>
-        <div class="section-title">Outpu Formatt</div>
+        <div class="section-title">Ejemplo Entrada</div>
         <p [MathJax]="problem.description.output_format">{{problem.description.output_format}}</p>
-        <div class="section-title">Samples</div>
+        <div class="section-title">Ejemplos</div>
         <ul class="list-group">
         <div class="samples-display" *ngFor="let sample of problem.description.samples">
 
             <li class="list-group-item">
-              <h6>Input</h6>
+              <h6>Entrada</h6>
                 <pre>{{sample[0]}}</pre>
-              <h6>Output</h6>
+              <h6>Salida</h6>
                 <pre>{{sample[1]}}</pre>
             </li>
           </div>
@@ -127,8 +127,8 @@
     </ol>
   </div>
   <div class="text-center confirm-buttons">
-    <button (click)="addTestCasesOnClick()" type="button" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-plus"></span> Add Test Cases</button>
-    <button (click)="cancelOnClick()" type="button" class="btn btn-danger btn-lg">Cancel</button>
-    <button (click)="saveChangesOnClick()" type="button" class="btn btn-success btn-lg">Done</button>
+    <button (click)="addTestCasesOnClick()" type="button" class="btn btn-info btn-lg">Agregar Casos de Prueba <span class="glyphicon glyphicon-plus"></span></button>
+    <button (click)="cancelOnClick()" type="button" class="btn btn-danger btn-lg">Cancelar</button>
+    <button (click)="saveChangesOnClick()" type="button" class="btn btn-success btn-lg">Confirmar</button>
   </div>
 </div>

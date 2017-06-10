@@ -11,14 +11,17 @@ import { ProblemService } from '../../services/problem.service';
   styleUrls: ['./admin-problem.component.css']
 })
 export class AdminProblemComponent implements OnInit {
-  problemArr : any;
-  nameNewProblem : string;
+  private problemArr : any;
+  private nameNewProblem : string;
+  private problemTaken: boolean;
+
   constructor(
     private problemService : ProblemService,
     private router: Router
   ) {}
 
   ngOnInit() {
+    this.problemTaken = false;
     this.problemService.getAllProblems().subscribe( data =>{
       this.problemArr = data;
     } );
@@ -26,7 +29,6 @@ export class AdminProblemComponent implements OnInit {
   deleteProblem( problem )
   {
     this.problemService.deleteProblem(problem).subscribe( data => {
-      // console.log(data);
       this.problemArr.splice( this.problemArr.indexOf(problem) , 1 );
 
     });
@@ -35,7 +37,12 @@ export class AdminProblemComponent implements OnInit {
     var newProblem = {name: this.nameNewProblem};
     this.problemService.createProblem(newProblem).subscribe(data => {
       console.log(data);
-      this.router.navigate(['/admin','problems',this.nameNewProblem]);
+      if(data.success) {
+        this.router.navigate(['/admin','problems',this.nameNewProblem]);
+        this.problemTaken = true;
+      } else {
+        this.problemTaken = true;
+      }
     });
   }
 }

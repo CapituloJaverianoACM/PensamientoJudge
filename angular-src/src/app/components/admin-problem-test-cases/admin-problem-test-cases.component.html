@@ -15,14 +15,10 @@
 
         </div>
         <div class="col-sm-2" id = "{{number}}.in">
-            <!-- <input type="file" ng2FileSelect [uploader]="changeFile(uploader,'POST',number)" /> -->
-            <!-- <label  class="btn btn-primary btn-file"> -->
-              <!-- <span class="glyphicon glyphicon-upload"></span>  -->
             <label  class="btn btn-primary btn-file">
-              <span class="glyphicon glyphicon-cloud-upload"></span>
+              <span class="glyphicon glyphicon-cloud-upload"></span> Upload File
               <input type="file"  ng2FileSelect [uploader]="uploader" (change)="changeFile(uploader,number,0)" />
             </label>
-            <!-- </label> -->
         </div>
         <div class="col-sm-1" *ngIf = "arrPosInput[number-1]">
           {{number}}.in
@@ -37,7 +33,7 @@
         </div>
         <div class="col-sm-2" id = "{{number}}.out">
           <label  class="btn btn-primary btn-file">
-            <span class="glyphicon glyphicon-cloud-upload"></span>
+            <span class="glyphicon glyphicon-cloud-upload"></span> Upload File
             <input type="file"  ng2FileSelect [uploader]="uploader" (change)="changeFile(uploader,number,1)"/>
           </label>
         </div>
@@ -54,8 +50,8 @@
   </div>
   <br>
   <div class="text-center confirm-buttons">
-    <button type="button" class="btn btn-info" (click)="addTestCaseOnClick()">Add Test Case</button>
-    <button type="button" class="btn btn-danger" [routerLink]="['/admin','problems']"> Cancel</button>
-    <button type="button" class="btn btn-success" (click)="submitChangeOnClick()">Confirm</button>
+    <button type="button" class="btn btn-info" (click)="addTestCaseOnClick()"> <span class="glyphicon glyphicon-plus"></span> Add Test Case</button>
+    <button type="button" class="btn btn-danger" [routerLink]="['/admin','problems']"> <span class="glyphicon glyphicon-remove"></span> Cancel</button>
+    <button type="button" class="btn btn-success" (click)="submitChangeOnClick()"><span class="glyphicon glyphicon-ok"></span>  Confirm</button>
   </div>
 </div>

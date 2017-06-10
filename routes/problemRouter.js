@@ -55,10 +55,7 @@ problemRouter.route('/')
     if (err) {
       console.log(err);
       Logs.create({log: err}, function(err, log){
-        return res.status(200).json({
-          success : false,
-          status: 'Problem already exists'
-        });
+        return false;
       });
     };
     console.log('Get Request'); // TODO - delete debug log
@@ -70,7 +67,10 @@ problemRouter.route('/')
   Problem.create(req.body, function (err, problem) {
     if (err) {
       Logs.create({log: err}, function(err, log){});
-      return false;
+      return res.status(200).json({
+        success : false,
+        status: 'Problem already exists'
+      });
     };
     var id = problem._id;
     problem.description = problem.description || {};
