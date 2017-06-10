@@ -396,7 +396,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var EndPointService = (function () {
     function EndPointService() {
-        this.isDev = false; // change in real test
+        this.isDev = true; // change in real test
     }
     EndPointService.prototype.prepEndPoint = function (ep) {
         if (this.isDev) {

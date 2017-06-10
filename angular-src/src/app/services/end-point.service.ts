@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class EndPointService {
   isDev : boolean;
   constructor() {
-    this.isDev = false; // change in real test
+    this.isDev = true; // change in real test
   }
   prepEndPoint( ep ){
     if( this.isDev ) {
