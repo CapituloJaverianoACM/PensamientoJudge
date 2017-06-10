@@ -220,4 +220,18 @@ export class ProblemService {
       .map(res => res.json());
 
   }
+  isProblem( name )
+  {
+    var dataS ;
+    if ( this.getProblem( name ).subscribe( data =>{
+      dataS = data;
+    } ) )
+    {
+      if( dataS )
+      return true;
+      else
+      return false;
+
+    }
+  }
 }
