@@ -16,6 +16,7 @@ export class ProblemGuard implements CanActivate {
   canActivate( route: ActivatedRouteSnapshot ){
     var name;
     name = route.params['name'];
+    console.log(name);
     if (this.problemService.isProblem( name ) )
     {
       return true;

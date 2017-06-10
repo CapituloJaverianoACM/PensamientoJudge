@@ -222,16 +222,14 @@ export class ProblemService {
   }
   isProblem( name )
   {
-    var dataS ;
-    if ( this.getProblem( name ).subscribe( data =>{
-      dataS = data;
-    } ) )
-    {
-      if( dataS )
-      return true;
-      else
-      return false;
 
-    }
+    this.getProblem( name ).subscribe( data =>{
+     data;
+      return true;
+    } );
+    // return this.getProblem( name ).subscribe( data =>{
+    //   dataS = data;
+    //   console.log(dataS);
+    // } ) ? true : false;
   }
 }
