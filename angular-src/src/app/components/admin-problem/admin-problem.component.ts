@@ -34,12 +34,8 @@ export class AdminProblemComponent implements OnInit {
   addProblemOnClick(){
     var newProblem = {name: this.nameNewProblem};
     this.problemService.createProblem(newProblem).subscribe(data => {
-
-      console.log("Dummy 1");
       console.log(data);
       this.router.navigate(['/admin','problems',this.nameNewProblem]);
-      console.log("Dummy");
-      console.log(newProblem);
     });
   }
 }

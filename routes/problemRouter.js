@@ -55,7 +55,10 @@ problemRouter.route('/')
     if (err) {
       console.log(err);
       Logs.create({log: err}, function(err, log){
-        return false;
+        return res.status(200).json({
+          success : false,
+          status: 'Problem already exists'
+        });
       });
     };
     console.log('Get Request'); // TODO - delete debug log
