@@ -2,16 +2,76 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>AngularSrc</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Pensamiento Gym</title>
+  <!-- mathjax -->
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+  </script>
+  <!-- <script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+    <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <!-- mathjax -->
   <base href="/">
+
   <!-- mirar -->
-  <link rel="stylesheet"
-      href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+  <!-- CodeMirror -->
+  <script src="assets/CodeMirror/lib/codemirror.js"></script>
+  <link rel="stylesheet" href="assets/CodeMirror/lib/codemirror.css">
+  <script src="assets/CodeMirror/mode/javascript/javascript.js"></script>
+  <script src="assets/CodeMirror/mode/clike/clike.js"></script>
+  <script src="assets/CodeMirror/addon/hint/show-hint.js"></script>
+  <script src="assets/CodeMirror/addon/hint/anyword-hint.js"></script>
+  <script src="assets/CodeMirror/keymap/sublime.js"></script>
+  <script src="assets/CodeMirror/addon/edit/matchbrackets.js"></script>
+  <script src="assets/CodeMirror/addon/edit/closebrackets.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">  <link rel="stylesheet" href="assets/CodeMirror/addon/hint/show-hint.css">
+  <!-- themes -->
+  <link rel="stylesheet" href="assets/CodeMirror/theme/3024-day.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/eclipse.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/monokai.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/neat.css">
+  <link rel="stylesheet" href="assets/CodeMirror/theme/neo.css">
+    <!-- themes -->
+  <!-- CodeMirror -->
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+  <!-- Custom Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Poppins|Source+Sans+Pro" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <app-root>Loading...</app-root>
+  <!-- test -->
+  <app-root>
+    <div class="loader"></div>
+  </app-root>
 <script type="text/javascript" src="inline.bundle.js"></script><script type="text/javascript" src="polyfills.bundle.js"></script><script type="text/javascript" src="styles.bundle.js"></script><script type="text/javascript" src="vendor.bundle.js"></script><script type="text/javascript" src="main.bundle.js"></script></body>
 </html>
