@@ -403,7 +403,7 @@ var EndPointService = (function () {
             return ep;
         }
         else {
-            return 'http://localhost:3000/' + ep;
+            return 'http://localhost:8080/' + ep;
         }
     };
     EndPointService = __decorate([
@@ -1344,15 +1344,14 @@ var ProblemService = (function () {
             .map(function (res) { return res.json(); });
     };
     ProblemService.prototype.isProblem = function (name) {
-        var dataS;
-        if (this.getProblem(name).subscribe(function (data) {
-            dataS = data;
-        })) {
-            if (dataS)
-                return true;
-            else
-                return false;
-        }
+        this.getProblem(name).subscribe(function (data) {
+            data;
+            return true;
+        });
+        // return this.getProblem( name ).subscribe( data =>{
+        //   dataS = data;
+        //   console.log(dataS);
+        // } ) ? true : false;
     };
     ProblemService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
@@ -1557,7 +1556,7 @@ var appRoutes = [
     { path: 'submissions', component: __WEBPACK_IMPORTED_MODULE_26__components_submissions_submissions_component__["a" /* SubmissionsComponent */], data: { type: 1 } },
     { path: 'submissions/user/:username', component: __WEBPACK_IMPORTED_MODULE_26__components_submissions_submissions_component__["a" /* SubmissionsComponent */], data: { type: 2 } },
     { path: 'submissions/problem/:problemName', component: __WEBPACK_IMPORTED_MODULE_26__components_submissions_submissions_component__["a" /* SubmissionsComponent */], data: { type: 3 } },
-    { path: 'problems/:name', component: __WEBPACK_IMPORTED_MODULE_22__components_problem_problem_component__["a" /* ProblemComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_19__guards_auth_guard__["a" /* AuthGuard */], __WEBPACK_IMPORTED_MODULE_21__guards_problem_guard__["a" /* ProblemGuard */]],
+    { path: 'problems/:name', component: __WEBPACK_IMPORTED_MODULE_22__components_problem_problem_component__["a" /* ProblemComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_19__guards_auth_guard__["a" /* AuthGuard */]],
         children: [
             {
                 path: '', component: __WEBPACK_IMPORTED_MODULE_25__components_description_description_component__["a" /* DescriptionComponent */]
@@ -3482,6 +3481,7 @@ var ProblemGuard = (function () {
     ProblemGuard.prototype.canActivate = function (route) {
         var name;
         name = route.params['name'];
+        console.log(name);
         if (this.problemService.isProblem(name)) {
             return true;
         }
